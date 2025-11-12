@@ -1,26 +1,14 @@
 import { BrowserRouter, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
-import { useCallback, useEffect, useRef, useState, type CSSProperties, type MouseEvent, type ReactNode } from 'react'
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react'
 import './App.css'
 import BlurText from './components/BlurText'
 import TextType from './components/TextType'
 import GradualBlur from './components/GradualBlur'
-import TargetCursor from './components/TargetCursor'
 import ContactBubble from './components/ContactBubble'
 import projectIllustration from './assets/undraw_programming_j1zw.svg'
 import aboutIllustration from './assets/undraw_working-at-home_pxaa.svg'
 import AboutPage from './pages/AboutPage'
 
-type Project = {
-  name: string
-  role: string
-  url: string
-}
-
-const projects: Project[] = [
-  { name: 'Flux Layers', role: 'design system minimale', url: 'https://fluxlayers.dev' },
-  { name: 'Ivy Console', role: 'control room climatica', url: 'https://ivyconsole.app' },
-  { name: 'Linea Atelier', role: 'story e-commerce', url: 'https://lineaatelier.studio' }
-]
 
 const heroLines = ['Emanuele', 'Faraci']
 const heroRoles = ['software developer', 'Python Developer', 'Chatbot Developer', 'Frontend Developer', 'AI Enthusiast', 'AI Workflow Designer', 'Web App Engineer', 'Indie Builder', 'Computer Science Student']
@@ -56,30 +44,6 @@ const focusCards: FocusCard[] = [
   }
 ]
 
-function MagneticButton({ children, href, sublabel }: { children: ReactNode; href: string; sublabel: string }) {
-  const [coords, setCoords] = useState({ x: 0, y: 0 })
-
-  function handleMove(event: MouseEvent<HTMLAnchorElement>) {
-    const bounds = event.currentTarget.getBoundingClientRect()
-    setCoords({
-      x: event.clientX - bounds.left,
-      y: event.clientY - bounds.top
-    })
-  }
-
-  const style = {
-    '--orbit-x': `${coords.x}px`,
-    '--orbit-y': `${coords.y}px`
-  } as CSSProperties
-
-  return (
-    <a className="magnetic-button" href={href} onMouseMove={handleMove} style={style}>
-      <span className="magnetic-label">{children}</span>
-      <span className="magnetic-sub">{sublabel}</span>
-      <span className="magnetic-glow" aria-hidden="true" />
-    </a>
-  )
-}
 
 
 
@@ -165,6 +129,15 @@ function LandingPage() {
   }, [])
 
   useEffect(() => {
+    if (typeof window === 'undefined') {
+      return
+    }
+
+    const pointerQuery = window.matchMedia('(pointer: fine)')
+    if (!pointerQuery.matches) {
+      return
+    }
+
     const releaseLock = () => {
       window.setTimeout(() => {
         autoScrollLockRef.current = false
