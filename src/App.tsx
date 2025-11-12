@@ -3,7 +3,6 @@ import { useCallback, useEffect, useRef, useState, type CSSProperties } from 're
 import './App.css'
 import BlurText from './components/BlurText'
 import TextType from './components/TextType'
-import GradualBlur from './components/GradualBlur'
 import ContactBubble from './components/ContactBubble'
 import projectIllustration from './assets/undraw_programming_j1zw.svg'
 import aboutIllustration from './assets/undraw_working-at-home_pxaa.svg'
@@ -292,23 +291,6 @@ function LandingPage() {
 
           </div>
 
-          <GradualBlur
-            target="parent"
-            position="bottom"
-            height="12rem"
-            strength={3.5}
-            divCount={8}
-            curve="bezier"
-            exponential
-            opacity={1}
-            animated="scroll"
-            responsive
-            mobileHeight="6rem"
-            tabletHeight="9rem"
-            desktopHeight="12rem"
-            zIndex={1}
-            className="hero-blur"
-          />
         </section>
 
         <section className="split-section" id="spotlight" ref={spotlightRef}>

@@ -100,6 +100,10 @@ export default function AboutPage() {
             <h1>
               Emanuele <span>Faraci</span>
             </h1>
+            <figure className="about-cover__portrait about-cover__portrait--mobile">
+              <img src={portrait} alt="ema" loading="lazy" />
+              
+            </figure>
             <p className="about-cover__lead">
               CS student in the morning, product and automation builder by sunset. I move across React, agents, and motion design to give
               pace to small teams without drowning them in calls.
@@ -113,7 +117,7 @@ export default function AboutPage() {
               ))}
             </dl>
           </div>
-          <figure className="about-cover__portrait">
+          <figure className="about-cover__portrait about-cover__portrait--desktop">
             <img src={portrait} alt="ema" loading="lazy" />
             
           </figure>
