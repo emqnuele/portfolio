@@ -31,48 +31,48 @@ const terminalLines = [
 
 const projects: ProjectCard[] = [
   {
-    slug: 'promptdeck',
-    title: 'PromptDeck',
-    tagline: 'Prompt control room for Telegram bots',
+    slug: 'pedro',
+    title: 'Pedro',
+    tagline: 'Finetuned AI LLM for chatbot usecases',
     image: promptDeckShot,
     status: 'prod / 2024',
-    stack: ['React', 'FastAPI', 'Postgres', 'OpenAI'],
+    stack: ['Python', 'FastAPI', 'Postgres', 'Google Cloud'],
     links: [
-      { label: 'github', href: 'https://github.com/emqnuele/promptdeck' },
+      { label: 'github', href: 'https://github.com/emqnuele/pedrotetraedrobot' },
       { label: 'live', href: 'https://promptdeck.ema.dev' }
     ],
     accent: '115, 242, 255'
   },
   {
-    slug: 'linea-bots',
-    title: 'Linea Bots',
-    tagline: 'Telegram bots with cron jobs & bridges',
+    slug: 'pedrocli',
+    title: 'Pedro CLI',
+    tagline: 'CLI tool to interact with Pedro model on your terminal',
     image: lineaBotsShot,
-    status: 'live on telegram',
-    stack: ['TypeScript', 'Telegram API', 'Redis', 'Cloudflare'],
+    status: 'live on Pypi',
+    stack: ['Python', 'CLI', 'Google Cloud', 'LLM'],
     links: [
-      { label: 'github', href: 'https://github.com/emqnuele/linea-bots' },
-      { label: 'try bot', href: 'https://t.me/linea_ops_bot' }
+      { label: 'github', href: 'https://github.com/emqnuele/pedrocli' },
+      { label: 'try bot', href: 'https://pypi.org/project/pedroCLI/' }
     ],
     accent: '220, 174, 255'
   },
   {
-    slug: 'campus-ops',
-    title: 'Campus Ops',
-    tagline: 'CS planner with push alerts & markdown sync',
+    slug: 'sample-project',
+    title: 'Sample Project',
+    tagline: 'Lorem ipsum dolor sit amet consectetur adipiscing elit',
     image: campusOpsShot,
     status: 'beta / 2025',
     stack: ['Vite', 'Supabase', 'Tailwind', 'PWA'],
     links: [
-      { label: 'github', href: 'https://github.com/emqnuele/campus-ops' },
+      { label: 'github', href: 'https://github.com/emqnuele/' },
       { label: 'live', href: 'https://campus-ops.vercel.app' }
     ],
     accent: '125, 255, 199'
   },
   {
-    slug: 'pulseboard',
-    title: 'PulseBoard',
-    tagline: 'Metrics wall for agents & async jobs',
+    slug: 'sample-project2',
+    title: 'Sample Project 2',
+    tagline: 'Lorem ipsum dolor sit amet consectetur adipiscing elit',
     image: pulseBoardShot,
     status: 'lab / ai ops',
     stack: ['Python', 'WebSockets', 'Vercel KV', 'React'],

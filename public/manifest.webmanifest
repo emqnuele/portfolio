@@ -1,0 +1,22 @@
+{
+  "name": "Emanuele Faraci Portfolio",
+  "short_name": "emqnuele",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050507",
+  "theme_color": "#050507",
+  "description": "Portfolio and case studies from Emanuele Faraci on web products, Python automations, and AI workflows.",
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "/ic2on.ico?v=2",
+      "sizes": "64x64 128x128 256x256 512x512",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/icon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    }
+  ]
+}
