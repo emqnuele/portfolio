@@ -1,14 +1,16 @@
-import { useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import portrait from '../assets/ema.avif'
 import deepwork from '../assets/deepwork.svg'
+import CircularGallery, { type CircularGalleryItem } from '../components/CircularGallery'
+import SiteFooter from '../components/SiteFooter'
 import '../App.css'
 
 const quickStats = [
   { label: 'base', value: 'Modena · IT' },
-  { label: 'ping', value: '2 hours' },
-  { label: 'status', value: 'CS BSc · UNIMORE' },
-  { label: 'english', value: 'Cambridge C1 · 2025' }
+  { label: 'response time', value: '2 hours' },
+  { label: 'status', value: 'CS Student' },
+  { label: 'languages', value: 'English - Italian'}
 ]
 
 const journey = [
@@ -50,44 +52,78 @@ const skillSpotlights = [
     description: 'Automations that call, tune, and monitor models so output stays on-brief.',
     bullets: ['OpenAI-powered assistants with guardrails and context injection', 'Lightweight finetuning + eval loops for niche datasets and ML basics'],
     badges: ['AI automations', 'AI finetuning', 'Machine learning basics', 'OpenAI']
-  }
-]
-
-const skillStacks = [
+  },
   {
+    eyebrow: 'frontend ops',
     title: 'Frontend stack',
     description: 'React/Vite webapps with accessible HTML + CSS foundations, shipped through Vercel.',
-    tools: ['React', 'Vite', 'JavaScript', 'HTML', 'CSS', 'Tailwind', 'Vercel']
+    bullets: ['Component systems built with semantic HTML/CSS and token-driven patterns', 'Vite + Vercel pipeline that ships previews and CI-friendly deploys'],
+    badges: ['React', 'Vite', 'JavaScript', 'HTML', 'CSS', 'Tailwind', 'Vercel']
   },
   {
-    title: 'Automation layer',
+    eyebrow: 'automation layer',
+    title: 'Python automation core',
     description: 'Python services and bots that plug into Telegram, Discord, and lightweight webhooks.',
-    tools: ['Python', 'FastAPI', 'Telegram API', 'Discord.js', 'Cron jobs', 'REST APIs']
+    bullets: ['Bots wired with slash commands, cron jobs, and inline keyboards', 'FastAPI services that bridge REST hooks, spreadsheets, and chat surfaces'],
+    badges: ['Python', 'FastAPI', 'Telegram API', 'Discord.js', 'Cron jobs', 'REST APIs']
   },
   {
-    title: 'AI workflow',
+    eyebrow: 'ai workflow',
+    title: 'Model ops & eval',
     description: 'Model calls, finetuning runs, and eval dashboards that stay understandable.',
-    tools: ['OpenAI', 'LangChain', 'Hugging Face', 'Datasets', 'Notion', 'GitHub']
+    bullets: ['LangChain + OpenAI flows monitored with readable eval dashboards', 'Hugging Face datasets + GitHub automations to keep experiments organized'],
+    badges: ['OpenAI', 'LangChain', 'Hugging Face', 'Datasets', 'Notion', 'GitHub']
   }
 ]
 
 const ritualSignals = [
   { label: 'prototype latency', value: '< 48h' },
-  { label: 'preferred sync', value: '30s Loom + Notion hub' },
-  { label: 'quality gates', value: 'Visual + e2e suite on every deploy' }
+  { label: 'preferred sync', value: 'Telegram or email check-ins' },
+  { label: 'quality gates', value: 'Manual review + smoke tests before ship' }
 ]
 
-const contactLinks = [
-  { label: 'email', href: 'mailto:hey@emanuele.dev' },
-  { label: 'telegram', href: 'https://t.me/emqnuele' },
-  { label: 'github', href: 'https://github.com/emqnuele' }
-]
+
+
+const shuffleItems = <T,>(items: T[]): T[] => {
+  const list = [...items]
+  for (let i = list.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1))
+    const temp = list[i]
+    list[i] = list[j]
+    list[j] = temp
+  }
+  return list
+}
 
 export default function AboutPage() {
   const coverRef = useRef<HTMLElement | null>(null)
   const journeyRef = useRef<HTMLElement | null>(null)
   const skillsRef = useRef<HTMLElement | null>(null)
   const contactRef = useRef<HTMLElement | null>(null)
+  const galleryItems = useMemo<CircularGalleryItem[]>(() => {
+    const spotlightCards: CircularGalleryItem[] = skillSpotlights.map((spotlight) => ({
+      id: `spotlight-${spotlight.title.toLowerCase().replace(/\s+/g, '-')}`,
+      element: (
+        <article className="about-skill-story">
+          <p className="about-skill-story__eyebrow">{spotlight.eyebrow}</p>
+          <h3>{spotlight.title}</h3>
+          <p className="about-skill-story__description">{spotlight.description}</p>
+          <ul>
+            {spotlight.bullets.map((bullet) => (
+              <li key={bullet}>{bullet}</li>
+            ))}
+          </ul>
+          <div className="about-skill-story__badges">
+            {spotlight.badges.map((badge) => (
+              <span key={badge}>{badge}</span>
+            ))}
+          </div>
+        </article>
+      )
+    }))
+
+    return shuffleItems(spotlightCards)
+  }, [])
   return (
     <div className="page page-ready about-page about-page--aura">
       <main className="about-main about-main--flow">
@@ -105,7 +141,7 @@ export default function AboutPage() {
               
             </figure>
             <p className="about-cover__lead">
-              CS student in the morning, product and automation builder by sunset. I move across React, agents, and motion design to give
+              CS student in the morning, product and automation builder by sunset. I move across React, agents, and python to give
               pace to small teams without drowning them in calls.
             </p>
             <dl className="about-cover__stats">
@@ -150,46 +186,16 @@ export default function AboutPage() {
         </section>
 
         <section className="about-stripe about-stripe--skills" aria-label="Skills" ref={skillsRef}>
-          <div className="about-stripe__heading">
-            <p className="about-eyebrow">skills</p>
-            <h2>Stacks and rituals I lean on every week.</h2>
-            <p className="about-skill__lead">From expressive UI to shipping agents that sync backends, this is what I’m fastest at.</p>
-          </div>
           <div className="about-skill-shell">
-            <div className="about-skill-stories">
-              {skillSpotlights.map((spotlight) => (
-                <article key={spotlight.title} className="about-skill-story">
-                  <p className="about-skill-story__eyebrow">{spotlight.eyebrow}</p>
-                  <h3>{spotlight.title}</h3>
-                  <p className="about-skill-story__description">{spotlight.description}</p>
-                  <ul>
-                    {spotlight.bullets.map((bullet) => (
-                      <li key={bullet}>{bullet}</li>
-                    ))}
-                  </ul>
-                  <div className="about-skill-story__badges">
-                    {spotlight.badges.map((badge) => (
-                      <span key={badge}>{badge}</span>
-                    ))}
-                  </div>
-                </article>
-              ))}
-            </div>
-            <div className="about-stack-columns">
-              {skillStacks.map((stack) => (
-                <article key={stack.title} className="about-stack-card">
-                  <header>
-                    <p className="about-stack-card__label">stack</p>
-                    <h3>{stack.title}</h3>
-                  </header>
-                  <p className="about-stack-card__description">{stack.description}</p>
-                  <ul>
-                    {stack.tools.map((tool) => (
-                      <li key={tool}>{tool}</li>
-                    ))}
-                  </ul>
-                </article>
-              ))}
+            <div className="about-skill-gallery">
+              <div className="about-skill-gallery__inner">
+                <div className="about-skill-gallery__heading about-stripe__heading">
+                  <p className="about-eyebrow">WHAT I CAN DO</p>
+                  <h2>My skills</h2>
+                  <p className="about-skill__lead">From expressive UI to shipping agents that sync backends, this is what I’m fastest at.</p>
+                </div>
+                <CircularGallery items={galleryItems} />
+              </div>
             </div>
             <dl className="about-rituals">
               {ritualSignals.map((signal) => (
@@ -205,21 +211,13 @@ export default function AboutPage() {
         <section className="about-stripe about-stripe--contact" aria-label="Contact" ref={contactRef}>
           <div className="about-contact">
             <p className="about-eyebrow">contact</p>
-            <h2>Send me quick briefs, a 30s Loom, or a Notion voice note.</h2>
-            <p className="about-contact__lead">I reply within 24h and can ship a micro prototype right away if helpful.</p>
-            <div className="about-contact__links">
-              {contactLinks.map((link) => (
-                <a key={link.label} href={link.href} target={link.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
-                  {link.label}
-                </a>
-              ))}
-              <Link to="/" className="about-contact__links-ghost">
-                back to landing
-              </Link>
-            </div>
+            <h2>Drop me the essentials—brief, a snippet, or even a quick note.</h2>
+            <p className="about-contact__lead">I reply within a few hours and can spin up a small prototype immediately if that unblocks you.</p>
+            
           </div>
         </section>
       </main>
+      <SiteFooter />
     </div>
   )
 }

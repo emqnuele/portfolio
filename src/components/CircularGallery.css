@@ -1,0 +1,174 @@
+.skill-carousel {
+  width: 100%;
+  position: relative;
+  margin-top: clamp(0.75rem, 1.2vw, 1.4rem);
+  touch-action: pan-y;
+}
+
+.skill-carousel__viewport {
+  position: relative;
+  width: 100%;
+  min-height: clamp(320px, 38vw, 460px);
+  padding: 0 clamp(0.75rem, 3vw, 2rem);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.skill-carousel__item {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: clamp(280px, 31vw, 430px);
+  pointer-events: none;
+  transform-origin: center top;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+  will-change: transform, opacity;
+}
+
+.skill-carousel__item::after {
+  content: '';
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: -28px;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(96, 139, 255, 0.45), transparent 70%);
+  filter: blur(12px);
+  opacity: 0.35;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+  z-index: -1;
+}
+
+.skill-carousel__card {
+  position: relative;
+  background: rgba(5, 7, 18, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 26px;
+  padding: clamp(1.6rem, 3vw, 2.6rem);
+  box-shadow: 0 30px 80px rgba(2, 0, 14, 0.5);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  isolation: isolate;
+  overflow: hidden;
+  transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease,
+    filter 0.35s ease;
+}
+
+.skill-carousel__card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(117, 172, 255, 0.25), transparent 55%),
+    radial-gradient(circle at 80% 0%, rgba(194, 137, 255, 0.2), transparent 60%);
+  opacity: 0.45;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.skill-carousel__item--active {
+  pointer-events: auto;
+}
+
+.skill-carousel__item--active .skill-carousel__card {
+  background: rgba(8, 10, 28, 0.92);
+  border-color: rgba(255, 255, 255, 0.32);
+  box-shadow: 0 45px 120px rgba(7, 2, 22, 0.6);
+}
+
+.skill-carousel__item--active .skill-carousel__card::before {
+  opacity: 0.85;
+}
+
+.skill-carousel__item[data-depth='1'] .skill-carousel__card {
+  filter: blur(1.2px);
+  background: rgba(4, 5, 12, 0.72);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.skill-carousel__item[data-depth='2'] .skill-carousel__card {
+  filter: blur(2.4px);
+  background: rgba(2, 3, 8, 0.62);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.skill-carousel__card .about-skill-story {
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.skill-carousel__item--active::after {
+  opacity: 0.55;
+  filter: blur(8px);
+}
+
+.skill-carousel__controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: clamp(0.5rem, 1.5vw, 1.5rem);
+}
+
+.skill-carousel__button {
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(6, 7, 18, 0.85);
+  color: rgba(255, 255, 255, 0.9);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.skill-carousel__button svg {
+  width: 18px;
+  height: 18px;
+}
+
+.skill-carousel__button:hover {
+  border-color: rgba(255, 255, 255, 0.34);
+  transform: scale(1.05);
+}
+
+.skill-carousel__button:active {
+  transform: scale(0.94);
+}
+
+@media (max-width: 900px) {
+  .skill-carousel__viewport {
+    min-height: auto;
+    padding: 0;
+    display: block;
+  }
+
+  .skill-carousel__item {
+    position: static;
+    width: 100%;
+    transform: none !important;
+    margin: 0;
+    opacity: 0;
+    display: none;
+  }
+
+  .skill-carousel__item::after {
+    display: none;
+  }
+
+  .skill-carousel__item--active {
+    display: block;
+    opacity: 1 !important;
+  }
+
+  .skill-carousel__controls {
+    justify-content: center;
+    margin-top: 0.75rem;
+  }
+}

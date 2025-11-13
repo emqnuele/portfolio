@@ -7,6 +7,8 @@ import ContactBubble from './components/ContactBubble'
 import projectIllustration from './assets/undraw_programming_j1zw.svg'
 import aboutIllustration from './assets/undraw_working-at-home_pxaa.svg'
 import AboutPage from './pages/AboutPage'
+import ProjectsPage from './pages/ProjectsPage'
+import SiteFooter from './components/SiteFooter'
 
 
 const heroLines = ['Emanuele', 'Faraci']
@@ -86,6 +88,10 @@ function LandingPage() {
         navigate('/about')
         return
       }
+      if (targetId === 'projects') {
+        navigate('/projects')
+        return
+      }
 
       const target = document.getElementById(targetId)
       if (target) {
@@ -151,8 +157,10 @@ function LandingPage() {
 
     const shouldSnapFromSpotlight = () => {
       if (!spotlightRef.current) return false
-      const spotlightTop = spotlightRef.current.offsetTop
-      return window.scrollY > spotlightTop - 32
+      const { offsetTop, offsetHeight } = spotlightRef.current
+      const spotlightBottom = offsetTop + offsetHeight
+      const scrollY = window.scrollY
+      return scrollY > offsetTop - 32 && scrollY < spotlightBottom - 32
     }
 
     const triggerSnapDown = () => {
@@ -334,9 +342,7 @@ function LandingPage() {
 
       </main>
 
-      <footer>
-        <p>emanuelefaraci.dev · crafted with pedro</p>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }
@@ -359,6 +365,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/projects" element={<ProjectsPage />} />
       </Routes>
     </BrowserRouter>
   )
