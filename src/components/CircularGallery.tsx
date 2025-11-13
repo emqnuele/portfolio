@@ -1,4 +1,4 @@
-import { useMemo, useState, type ReactNode } from 'react'
+import { useMemo, useState, type CSSProperties, type ReactNode } from 'react'
 import clsx from 'clsx'
 import './CircularGallery.css'
 
@@ -62,17 +62,22 @@ export default function CircularGallery({ items, className }: CircularGalleryPro
           const opacity = 1 - distance * 0.28
           const zIndex = 5 - distance
           const isActive = relative === 0
+          const blurAmount = isActive ? 0 : distance * 1.2
+          const hazeIntensity = isActive ? 0 : 0.25 + distance * 0.12
+          const itemStyle = {
+            zIndex,
+            transform: `translateX(-50%) translate3d(${translateX}px, ${translateY}px, 0) scale(${scale})`,
+            opacity,
+            '--skill-card-blur': `${blurAmount}px`,
+            '--skill-card-haze': hazeIntensity
+          } as CSSProperties
 
           return (
             <div
               key={id}
               className={clsx('skill-carousel__item', isActive && 'skill-carousel__item--active')}
               data-depth={distance}
-              style={{
-                zIndex,
-                transform: `translateX(-50%) translate3d(${translateX}px, ${translateY}px, 0) scale(${scale})`,
-                opacity
-              }}
+              style={itemStyle}
             >
               <div className="skill-carousel__card">{element}</div>
             </div>

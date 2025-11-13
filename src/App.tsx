@@ -327,9 +327,14 @@ function LandingPage() {
                 <span className="split-card__illustration" aria-hidden="true">
                   <img src={card.illustration} alt="" loading="lazy" />
                 </span>
+                <span className="split-card__label">{card.label}</span>
                 <div className="split-card__content">
-                  <span className="split-card__label">{card.label}</span>
-                  <h2>{card.title}</h2>
+                  <div className="split-card__title-row">
+                    <h2>{card.title}</h2>
+                    <span className="split-card__arrow split-card__arrow--inline" aria-hidden="true">
+                      ›
+                    </span>
+                  </div>
                   {card.meta.length > 0 && (
                     <div className="split-card__meta">
                       {card.meta.map((tag) => (

@@ -200,6 +200,19 @@ main {
   opacity: 0.75;
 }
 
+@media (min-width: 641px) {
+  .contact-bubble {
+    padding: 0.75rem 1.6rem;
+    gap: 0.85rem;
+    font-size: 0.9rem;
+  }
+
+  .contact-bubble__icon {
+    width: 32px;
+    height: 32px;
+  }
+}
+
 @media (max-width: 640px) {
   .contact-bubble-fixed {
     top: auto;
@@ -363,10 +376,10 @@ main {
   top: clamp(0.75rem, 3vw, 1.75rem);
   right: clamp(0.75rem, 3vw, 1.75rem);
   width: clamp(190px, 24vw, 320px);
-  opacity: 0.8;
+  opacity: 0.95;
   z-index: 1;
   pointer-events: none;
-  filter: drop-shadow(0 35px 70px rgba(3, 2, 7, 0.55));
+  filter: drop-shadow(0 35px 70px rgba(3, 2, 7, 0.55)) brightness(1.08);
   transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
@@ -374,14 +387,14 @@ main {
   width: 100%;
   height: auto;
   display: block;
-  filter: saturate(1.2) brightness(1.15);
+  filter: saturate(1.2) brightness(1.22);
+  mix-blend-mode: luminosity;
 }
 
 .split-card__content {
   position: relative;
   z-index: 2;
-  padding: clamp(2rem, 4vw, 3rem);
-  padding-bottom: clamp(1rem, 2.5vw, 1.6rem);
+  padding: clamp(0.6rem, 2vw, 1.6rem) clamp(2rem, 4vw, 3rem) clamp(1rem, 2.5vw, 1.6rem);
   display: flex;
   flex-direction: column;
   gap: 1.35rem;
@@ -421,10 +434,32 @@ main {
 }
 
 .split-card__label {
+  display: block;
+  margin: clamp(2.4rem, 3.2vw, 3.3rem) clamp(2rem, 4vw, 3rem) 0;
+  position: relative;
+  z-index: 2;
   text-transform: uppercase;
   letter-spacing: 0.4em;
   font-size: 0.65rem;
   color: rgba(255, 255, 255, 0.55);
+}
+
+.split-card--about .split-card__label {
+  text-align: right;
+}
+
+.split-card__title-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.split-card__title-row h2 {
+  flex: 1;
+}
+
+.split-card__arrow--inline {
+  display: none;
 }
 
 .split-card h2 {
@@ -503,6 +538,11 @@ main {
   filter: drop-shadow(0 50px 140px rgba(12, 5, 35, 0.85));
 }
 
+.split-card:hover .split-card__illustration,
+.split-card:focus-visible .split-card__illustration {
+  opacity: 1;
+}
+
 .split-card:hover::after,
 .split-card:focus-visible::after {
   border-color: rgba(var(--card-accent, 255, 255, 255), 0.6);
@@ -566,6 +606,11 @@ main {
   .split-card {
     min-height: auto;
     border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.75rem;
+    padding-bottom: 1.4rem;
   }
 
   .split-card::after {
@@ -578,47 +623,97 @@ main {
   }
 
   .split-card__illustration {
+    order: 2;
     position: relative;
     top: auto;
     right: auto;
     left: auto;
-    width: min(65vw, 220px);
-    margin: 1.5rem auto 0;
-    opacity: 1;
+    width: min(75vw, 240px);
+    margin: 1.75rem auto 0;
+    opacity: 0.92;
     transform: none;
     display: flex;
     justify-content: center;
     align-items: center;
+    isolation: isolate;
+  }
+
+  .split-card__illustration::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    background:
+      linear-gradient(180deg, rgba(4, 4, 12, 0.65), rgba(4, 4, 12, 0.9)),
+      radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.08), transparent 55%);
+    mix-blend-mode: multiply;
+    opacity: 0.85;
+    z-index: 1;
+  }
+
+  .split-card__illustration img {
+    position: relative;
+    z-index: 0;
   }
 
   .split-card__content {
-    align-items: center;
+    order: 3;
+    align-items: stretch;
+    text-align: left;
+    padding: 1.25rem 1.5rem 2.3rem;
+    gap: 0.85rem;
+    min-height: auto;
+    flex: 0 0 auto;
+    margin-bottom: 0;
+  }
+
+  .split-card__label {
+    order: 1;
+    margin: 1.25rem auto 0;
+    padding: 0 1.25rem;
     text-align: center;
-    padding: 1.7rem 1.25rem 1.2rem;
-    gap: 1rem;
+    letter-spacing: 0.32em;
+    font-size: 0.6rem;
+    max-width: 100%;
   }
 
-  .split-card__meta {
-    justify-content: center;
+  .split-card--about .split-card__label {
+    text-align: center;
   }
 
+  .split-card__title-row {
+    margin-top: 0.2rem;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: space-between;
+    padding-right: 0.15rem;
+  }
+
+  .split-card__title-row h2 {
+    font-size: clamp(1.9rem, 10vw, 2.4rem);
+    line-height: 1.05;
+    flex: 1;
+  }
+
+  .split-card__meta,
   .split-card--about .split-card__meta {
-    justify-content: center;
+    display: none;
   }
 
   .split-card__footer {
-    padding: 0 1.25rem 1.5rem;
-    justify-content: center;
-    gap: 0.5rem;
-  }
-
-  .split-card__footer-line {
     display: none;
   }
 
   .split-card__arrow {
     width: 2.4rem;
     height: 2.4rem;
+    margin-left: 0;
+  }
+
+  .split-card__arrow--inline {
+    display: inline-flex;
+    width: 2rem;
+    height: 2rem;
   }
 
   .split-card--about .split-card__illustration {
@@ -626,13 +721,13 @@ main {
   }
 
   .split-card--about .split-card__content {
-    align-items: center;
-    text-align: center;
+    align-items: stretch;
+    text-align: left;
   }
 
   .split-card--about .split-card__footer {
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-end;
   }
 
   .split-card--about .split-card__arrow {
@@ -1526,8 +1621,10 @@ main {
 }
 
 .projects-lab__project-title {
-  font-size: 1rem;
-  letter-spacing: 0.3em;
+  font-family: 'Space Grotesk', 'Sora', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -1548,11 +1645,18 @@ main {
   box-shadow: 0 30px 70px rgba(0, 0, 0, 0.4);
 }
 
-.projects-lab__header {
+.projects-lab__top {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
+}
+
+.projects-lab__actions {
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .projects-lab__eyebrow {
@@ -1574,7 +1678,7 @@ main {
   line-height: 1.6;
 }
 
-.projects-lab__github {
+.projects-lab__action {
   min-width: 56px;
   height: 56px;
   border-radius: 18px;
@@ -1590,10 +1694,20 @@ main {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.projects-lab__github:hover,
-.projects-lab__github:focus-visible {
+.projects-lab__action:hover,
+.projects-lab__action:focus-visible {
   transform: translateY(-1px);
   box-shadow: 0 12px 30px rgba(var(--project-accent, 115, 242, 255), 0.18);
+}
+
+.projects-lab__primary {
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  font-size: 0.7rem;
+  border-color: transparent;
+  background: rgb(var(--project-accent, 115, 242, 255));
+  color: #05050b;
+  font-weight: 600;
 }
 
 .projects-lab__github-icon {
@@ -1707,22 +1821,6 @@ main {
 .projects-lab__links a:focus-visible {
   border-color: rgba(var(--project-accent, 115, 242, 255), 0.8);
   background: rgba(var(--project-accent, 115, 242, 255), 0.18);
-}
-
-.projects-lab__primary {
-  align-self: flex-start;
-  text-decoration: none;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  font-size: 0.7rem;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 999px;
-  padding: 0.55rem 1.4rem;
-  color: #05050b;
-  background: rgb(var(--project-accent, 115, 242, 255));
-  display: inline-flex;
-  gap: 0.4rem;
-  align-items: center;
 }
 
 .projects-stripe--cta {
@@ -1893,7 +1991,7 @@ main {
     justify-content: center;
   }
 
-  .projects-lab__header {
+  .projects-lab__top {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.6rem;
@@ -1905,9 +2003,9 @@ main {
     gap: 0.75rem;
   }
 
-  .projects-lab__primary {
+  .projects-lab__actions {
     width: 100%;
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .projects-footer__links {
@@ -1937,12 +2035,24 @@ main {
 }
 
 @media (max-width: 640px) {
-  .projects-lab__header {
+  .projects-lab__top {
     width: 100%;
     gap: 0.9rem;
+    display: contents;
   }
 
-  .projects-lab__github {
+  .projects-lab__top > header {
+    margin-bottom: 0.4rem;
+  }
+
+  .projects-lab__actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    order: 3;
+  }
+
+  .projects-lab__action {
     width: 100%;
     height: auto;
     min-height: 58px;
@@ -1953,6 +2063,18 @@ main {
     position: static;
     align-items: center;
     min-width: 0;
+  }
+
+  .projects-lab__figure {
+    order: 2;
+  }
+
+  .projects-lab__stack {
+    order: 4;
+  }
+
+  .projects-lab__stack-inline {
+    order: 5;
   }
 
   .projects-lab__github-icon {
@@ -1976,12 +2098,7 @@ main {
   }
 
   .projects-lab__stack-inline {
-    display: block;
-    margin: 0;
-    text-transform: uppercase;
-    letter-spacing: 0.3em;
-    font-size: 0.7rem;
-    color: rgba(255, 255, 255, 0.55);
+    display: none;
   }
 }
 

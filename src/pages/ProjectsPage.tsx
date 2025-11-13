@@ -188,29 +188,39 @@ export default function ProjectsPage() {
 
             {activeProject && (
               <article className="projects-lab__detail" style={{ '--project-accent': activeProject.accent } as CSSProperties} aria-live="polite">
-                <header className="projects-lab__header">
-                  <div>
+                <div className="projects-lab__top">
+                  <header>
                     <p className="projects-lab__eyebrow">active session</p>
                     <h3>{activeProject.title}</h3>
                     <p>{activeProject.tagline}</p>
-                  </div>
-                  {githubLink && (
-                    <a className="projects-lab__github" href={githubLink.href} target="_blank" rel="noreferrer">
-                      <span className="projects-lab__github-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-                          <path
-                            fill="currentColor"
-                            d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.8-1.4-3.8-1.4-.6-1.4-1.3-1.8-1.3-1.8-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 .1.7 2.1 2.9 1.5.1-.8.4-1.3.8-1.7-2.6-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.4 1.2-3.3-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.4 1.2a11.6 11.6 0 0 1 6.2 0C19 4 20 4.4 20 4.4c.6 1.6.2 2.8.1 3.2a5 5 0 0 1 1.2 3.3c0 4.6-2.8 5.6-5.4 5.9.4.3.8 1 .8 2v2.9c0 .3.1.7.8.6a11.5 11.5 0 0 0 7.9-10.9C23.5 5.6 18.4.5 12 .5Z"
-                          />
-                        </svg>
-                      </span>
-                      <span className="projects-lab__github-label">{githubLink.label}</span>
-                      <span className="projects-lab__github-arrow" aria-hidden="true">
-                        ↗
-                      </span>
-                    </a>
+                  </header>
+                  {(githubLink || liveLink) && (
+                    <div className="projects-lab__actions">
+                      {githubLink && (
+                        <a className="projects-lab__action projects-lab__github" href={githubLink.href} target="_blank" rel="noreferrer">
+                          <span className="projects-lab__github-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+                              <path
+                                fill="currentColor"
+                                d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.8-1.4-3.8-1.4-.6-1.4-1.3-1.8-1.3-1.8-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 .1.7 2.1 2.9 1.5.1-.8.4-1.3.8-1.7-2.6-.3-5.4-1.3-5.4-5.9 0-1.3.5-2.4 1.2-3.3-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.4 1.2a11.6 11.6 0 0 1 6.2 0C19 4 20 4.4 20 4.4c.6 1.6.2 2.8.1 3.2a5 5 0 0 1 1.2 3.3c0 4.6-2.8 5.6-5.4 5.9.4.3.8 1 .8 2v2.9c0 .3.1.7.8.6a11.5 11.5 0 0 0 7.9-10.9C23.5 5.6 18.4.5 12 .5Z"
+                              />
+                            </svg>
+                          </span>
+                          <span className="projects-lab__github-label">{githubLink.label}</span>
+                          <span className="projects-lab__github-arrow" aria-hidden="true">
+                            ↗
+                          </span>
+                        </a>
+                      )}
+                      {liveLink && (
+                        <a className="projects-lab__action projects-lab__primary" href={liveLink.href} target="_blank" rel="noreferrer">
+                          {liveLink.label}
+                          <span className="projects-lab__github-arrow" aria-hidden="true">↗</span>
+                        </a>
+                      )}
+                    </div>
                   )}
-                </header>
+                </div>
                 <figure className="projects-lab__figure">
                   <img src={activeProject.image} alt={`preview of ${activeProject.title}`} loading="lazy" />
                   <figcaption className="projects-lab__status">
@@ -224,12 +234,6 @@ export default function ProjectsPage() {
                   ))}
                 </div>
                 <p className="projects-lab__stack-inline">{activeProject.stack.join(' · ')}</p>
-                {liveLink && (
-                  <a className="projects-lab__primary" href={liveLink.href} target="_blank" rel="noreferrer">
-                    {liveLink.label}
-                    <span aria-hidden="true">↗</span>
-                  </a>
-                )}
               </article>
             )}
           </div>

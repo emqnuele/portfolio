@@ -97,15 +97,7 @@ export default function SiteFooter() {
               <span key={badge}>{badge}</span>
             ))}
           </div>
-          <div className="site-footer__cta">
-            <a className="site-footer__primary" href="mailto:hey@emanuele.dev">
-              email me
-              <span aria-hidden="true">↗</span>
-            </a>
-            <a className="site-footer__secondary" href="https://t.me/emqnuele" target="_blank" rel="noreferrer">
-              ping on telegram
-            </a>
-          </div>
+          
         </div>
 
         <div className="site-footer__panels">
