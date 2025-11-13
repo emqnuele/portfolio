@@ -159,6 +159,7 @@ main {
   color: #f7f8fc;
   text-decoration: none;
   backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   box-shadow: 0 20px 50px rgba(2, 2, 4, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   font-size: 0.95rem;
   font-weight: 600;
@@ -293,6 +294,15 @@ main {
   flex-direction: column;
   justify-content: space-between;
   transition: transform 0.45s ease, filter 0.45s ease;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+
+.split-card,
+.split-card::before,
+.split-card::after {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .split-card:focus {
@@ -868,6 +878,10 @@ main {
   align-items: stretch;
 }
 
+.about-journey-grid > * {
+  min-width: 0;
+}
+
 .about-journey-art {
   margin: 0;
   border-radius: 28px;
@@ -975,7 +989,7 @@ main {
   padding: clamp(1.5rem, 3vw, 2.2rem);
   border-radius: 26px;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  background: linear-gradient(165deg, rgba(7, 8, 18, 0.65), rgba(4, 4, 8, 0.9));
+  background: linear-gradient(165deg, #080a1c, #04040a);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 30px 70px rgba(3, 0, 14, 0.45);
   display: flex;
   flex-direction: column;
@@ -1214,6 +1228,7 @@ main {
   font-family: 'IBM Plex Mono', 'Space Mono', 'Fira Code', monospace;
   overflow: hidden;
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .projects-terminal__bar {
@@ -1389,6 +1404,10 @@ main {
   align-items: stretch;
 }
 
+.projects-lab__grid > * {
+  min-width: 0;
+}
+
 .projects-lab__queue {
   border-radius: 26px;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -1430,6 +1449,7 @@ main {
   font-family: inherit;
   letter-spacing: 0.08em;
   appearance: none;
+  -webkit-appearance: none;
   background-image: linear-gradient(45deg, transparent 50%, rgba(255, 255, 255, 0.6) 50%),
     linear-gradient(135deg, rgba(255, 255, 255, 0.6) 50%, transparent 50%);
   background-position: calc(100% - 18px) calc(50% - 3px), calc(100% - 13px) calc(50% - 3px);
@@ -2422,6 +2442,7 @@ footer {
   padding: 1.5rem;
   background: rgba(6, 6, 12, 0.65);
   backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
 
 .site-footer__panel--compact {
@@ -2716,6 +2737,51 @@ footer {
   --start: -16px;
 }
 
+.hero-name .blur-text__item {
+  transition: opacity 0.2s ease;
+}
+
+@supports (-webkit-touch-callout: none) {
+  .blur-text {
+    gap: 0;
+  }
+
+  .blur-text__item + .blur-text__item {
+    margin-left: 0.08em;
+  }
+}
+
+@supports (-webkit-overflow-scrolling: touch) {
+  .hero-blur {
+    mix-blend-mode: normal;
+    filter: drop-shadow(0 24px 60px rgba(18, 6, 34, 0.45));
+  }
+
+  .split-card,
+  .split-card--projects,
+  .split-card--about {
+    transform: none;
+  }
+
+  .split-card:hover,
+  .split-card:focus-visible {
+    transform: translateY(-4px);
+  }
+
+  .split-section {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .hero-name .blur-text__item {
+    animation: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+}
+
 .hero-note {
   font-size: 1.1rem;
   letter-spacing: 0.08em;
@@ -2813,6 +2879,7 @@ footer {
   align-items: flex-start;
   overflow: hidden;
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   background: rgba(6, 9, 18, 0.65);
 }
 

@@ -45,8 +45,18 @@ const focusCards: FocusCard[] = [
   }
 ]
 
-
-
+const scrollIntoViewSafely = (element: HTMLElement | null, block: ScrollLogicalPosition = 'start') => {
+  if (!element) {
+    return
+  }
+  const canUseSmoothBehavior =
+    typeof document !== 'undefined' && 'scrollBehavior' in document.documentElement.style
+  if (canUseSmoothBehavior) {
+    element.scrollIntoView({ behavior: 'smooth', block })
+    return
+  }
+  element.scrollIntoView(block === 'end' ? false : true)
+}
 
 function LandingPage() {
   const [typingReady, setTypingReady] = useState(false)
@@ -78,8 +88,7 @@ function LandingPage() {
   }, [typingReady])
 
   const scrollToSpotlight = useCallback(() => {
-    if (!spotlightRef.current) return
-    spotlightRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    scrollIntoViewSafely(spotlightRef.current)
   }, [])
 
   const handleCardNavigate = useCallback(
@@ -95,7 +104,7 @@ function LandingPage() {
 
       const target = document.getElementById(targetId)
       if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        scrollIntoViewSafely(target)
         return
       }
 
@@ -173,7 +182,7 @@ function LandingPage() {
     const triggerSnapUp = () => {
       if (autoScrollLockRef.current) return
       autoScrollLockRef.current = true
-      heroRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      scrollIntoViewSafely(heroRef.current)
       releaseLock()
     }
 
@@ -351,7 +360,7 @@ function ScrollToTop() {
   const { pathname } = useLocation()
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+    window.scrollTo(0, 0)
   }, [pathname])
 
   return null

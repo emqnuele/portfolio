@@ -28,6 +28,7 @@ const relativeDistance = (index: number, current: number, total: number) => {
 
 export default function CircularGallery({ items, className }: CircularGalleryProps) {
   const [activeIndex, setActiveIndex] = useState(0)
+  const [direction, setDirection] = useState<'forward' | 'backward' | null>(null)
   const total = items.length
 
   const orderedItems = useMemo(
@@ -39,9 +40,10 @@ export default function CircularGallery({ items, className }: CircularGalleryPro
     [items, activeIndex, total]
   )
 
-  const handleStep = (direction: -1 | 1) => {
+  const handleStep = (step: -1 | 1) => {
     if (!total) return
-    setActiveIndex((prev) => wrapIndex(prev + direction, total))
+    setDirection(step === 1 ? 'forward' : 'backward')
+    setActiveIndex((prev) => wrapIndex(prev + step, total))
   }
 
   if (!total) {
@@ -49,7 +51,7 @@ export default function CircularGallery({ items, className }: CircularGalleryPro
   }
 
   return (
-    <div className={clsx('skill-carousel', className)}>
+    <div className={clsx('skill-carousel', className)} data-direction={direction ?? undefined}>
       <div className="skill-carousel__viewport">
         {orderedItems.map(({ id, element, relative }) => {
           if (Math.abs(relative) > 2) return null

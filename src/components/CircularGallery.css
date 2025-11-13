@@ -43,7 +43,7 @@
 
 .skill-carousel__card {
   position: relative;
-  background: rgba(5, 7, 18, 0.82);
+  background: linear-gradient(165deg, #070a1b, #04030a);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 26px;
   padding: clamp(1.6rem, 3vw, 2.6rem);
@@ -74,7 +74,7 @@
 }
 
 .skill-carousel__item--active .skill-carousel__card {
-  background: rgba(8, 10, 28, 0.92);
+  background: linear-gradient(165deg, #0a0f2d, #05040d);
   border-color: rgba(255, 255, 255, 0.32);
   box-shadow: 0 45px 120px rgba(7, 2, 22, 0.6);
 }
@@ -85,13 +85,13 @@
 
 .skill-carousel__item[data-depth='1'] .skill-carousel__card {
   filter: blur(1.2px);
-  background: rgba(4, 5, 12, 0.72);
+  background: linear-gradient(165deg, #050713, #03020a);
   border-color: rgba(255, 255, 255, 0.08);
 }
 
 .skill-carousel__item[data-depth='2'] .skill-carousel__card {
   filter: blur(2.4px);
-  background: rgba(2, 3, 8, 0.62);
+  background: linear-gradient(165deg, #04040c, #020109);
   border-color: rgba(255, 255, 255, 0.05);
 }
 
@@ -126,6 +126,28 @@
   justify-content: center;
   cursor: pointer;
   transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+@keyframes skillCardSlideInForward {
+  from {
+    transform: translateX(60px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes skillCardSlideInBackward {
+  from {
+    transform: translateX(-60px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 .skill-carousel__button svg {
@@ -170,5 +192,13 @@
   .skill-carousel__controls {
     justify-content: center;
     margin-top: 0.75rem;
+  }
+
+  .skill-carousel[data-direction='forward'] .skill-carousel__item--active .skill-carousel__card {
+    animation: skillCardSlideInForward 0.42s cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+
+  .skill-carousel[data-direction='backward'] .skill-carousel__item--active .skill-carousel__card {
+    animation: skillCardSlideInBackward 0.42s cubic-bezier(0.4, 0, 0.2, 1) both;
   }
 }
