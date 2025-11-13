@@ -9,7 +9,7 @@ type ContactBubbleProps = {
 }
 
 export default function ContactBubble({
-  href = 'mailto:hey@emanuele.dev',
+  href = 'mailto:hey@emanuelefaraci.com',
   label = 'Contact me',
   className
 }: ContactBubbleProps) {

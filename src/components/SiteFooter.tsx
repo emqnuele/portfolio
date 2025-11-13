@@ -26,8 +26,8 @@ const contactChannels: Array<{
   {
     id: 'email',
     label: 'email',
-    handle: 'hey@emanuele.dev',
-    href: 'mailto:hey@emanuele.dev',
+    handle: 'hey@emanuelefaraci.com',
+    href: 'mailto:hey@emanuelefaraci.com',
     description: 'dossiers · briefs · attachments'
   }
 ]
@@ -154,7 +154,7 @@ export default function SiteFooter() {
       </div>
 
       <div className="site-footer__bottom">
-        <p>© {year} Emanuele Faraci · async-first builds</p>
+        <p>© {year} Emanuele Faraci · developer</p>
         <p>github · telegram · email always on</p>
       </div>
     </footer>

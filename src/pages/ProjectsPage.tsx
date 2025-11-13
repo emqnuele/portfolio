@@ -100,8 +100,8 @@ export default function ProjectsPage() {
               Projects<span> log</span>
             </h1>
             <p className="projects-lead">
-              Terminal-flavored list. I cd into the folder, list the repos, and drop instant links to read the code or try the tools. It's my CS
-              student lab built around automations and clean UI.
+              Here is a selection of my recent project work, showcased through a live interface. Each project card highlights the core of the project,
+              tech stack, status, and links to the code repository or live demo.
             </p>
             <dl className="projects-meta">
               <div>
@@ -146,8 +146,7 @@ export default function ProjectsPage() {
         <section className="projects-stripe projects-lab" aria-label="Project workbench">
           <div className="projects-lab__heading">
             <p className="projects-eyebrow">sessions</p>
-            <h2>lab console</h2>
-            <p>Instead of the terminal I show my lab console: repo queue on the left, live status with preview and links on the right.</p>
+            <h2>My work</h2>
           </div>
           <div className="projects-lab__grid">
             <div className="projects-lab__queue" role="listbox" aria-label="Project queue">

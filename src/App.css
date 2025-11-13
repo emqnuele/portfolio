@@ -628,9 +628,10 @@ main {
     top: auto;
     right: auto;
     left: auto;
-    width: min(75vw, 240px);
+    width: min(90vw, 320px);
+    max-width: 360px;
     margin: 1.75rem auto 0;
-    opacity: 0.92;
+    opacity: 1;
     transform: none;
     display: flex;
     justify-content: center;
@@ -644,16 +645,18 @@ main {
     inset: 0;
     border-radius: 20px;
     background:
-      linear-gradient(180deg, rgba(4, 4, 12, 0.65), rgba(4, 4, 12, 0.9)),
+      linear-gradient(180deg, rgba(4, 4, 12, 0.45), rgba(4, 4, 12, 0.75)),
       radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.08), transparent 55%);
     mix-blend-mode: multiply;
-    opacity: 0.85;
+    opacity: 0.22;
     z-index: 1;
   }
 
   .split-card__illustration img {
     position: relative;
     z-index: 0;
+    mix-blend-mode: normal;
+    filter: saturate(1.1) brightness(1.15);
   }
 
   .split-card__content {
@@ -1470,7 +1473,7 @@ main {
 }
 
 .projects-lab {
-  gap: clamp(1.8rem, 4vw, 3rem);
+  gap: clamp(1rem, 2.5vw, 2rem);
 }
 
 .projects-lab__heading {
