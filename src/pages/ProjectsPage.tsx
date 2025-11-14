@@ -39,7 +39,7 @@ const projects: ProjectCard[] = [
     stack: ['Python', 'FastAPI', 'Postgres', 'Google Cloud'],
     links: [
       { label: 'github', href: 'https://github.com/emqnuele/pedrotetraedrobot' },
-      { label: 'live', href: 'https://promptdeck.ema.dev' }
+      { label: 'live', href: 'https://emanuelefaraci.com' }
     ],
     accent: '115, 242, 255'
   },
@@ -65,7 +65,7 @@ const projects: ProjectCard[] = [
     stack: ['Vite', 'Supabase', 'Tailwind', 'PWA'],
     links: [
       { label: 'github', href: 'https://github.com/emqnuele/' },
-      { label: 'live', href: 'https://campus-ops.vercel.app' }
+      { label: 'live', href: 'https://emanuelefaraci.com' }
     ],
     accent: '125, 255, 199'
   },
@@ -76,7 +76,7 @@ const projects: ProjectCard[] = [
     image: pulseBoardShot,
     status: 'lab / ai ops',
     stack: ['Python', 'WebSockets', 'Vercel KV', 'React'],
-    links: [{ label: 'github', href: 'https://github.com/emqnuele/pulseboard' }],
+    links: [{ label: 'github', href: 'https://github.com/emqnuele/' }],
     accent: '255, 143, 178'
   }
 ]
