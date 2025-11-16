@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import '../App.css'
 import promptDeckShot from '../assets/undraw_programming_j1zw.svg'
 import lineaBotsShot from '../assets/undraw_deep-work_muov.svg'
-import campusOpsShot from '../assets/undraw_working-at-home_pxaa.svg'
+import scraper from '../assets/webscraper.png'
 import pulseBoardShot from '../assets/undraw_shy-guy-avatar_094a.svg'
 import SiteFooter from '../components/SiteFooter'
 
@@ -30,6 +30,18 @@ const terminalLines = [
 ]
 
 const projects: ProjectCard[] = [
+    {
+    slug: 'web-scraper',
+    title: 'Simple Web Scraper',
+    tagline: 'Modular Python web scraper for automatic content extraction. Supports batch scraping, extracts articles with full metadata, media and structure. Structured JSON output.',
+    image: scraper,
+    status: 'beta / 2025',
+    stack: ['Python','BeautifulSoup','Requests'],
+    links: [
+      { label: 'github', href: 'https://github.com/emqnuele/webscraper' },
+    ],
+    accent: '125, 255, 199'
+  },
   {
     slug: 'pedro',
     title: 'Pedro',
@@ -55,19 +67,6 @@ const projects: ProjectCard[] = [
       { label: 'try bot', href: 'https://pypi.org/project/pedroCLI/' }
     ],
     accent: '220, 174, 255'
-  },
-  {
-    slug: 'sample-project',
-    title: 'Sample Project',
-    tagline: 'Lorem ipsum dolor sit amet consectetur adipiscing elit',
-    image: campusOpsShot,
-    status: 'beta / 2025',
-    stack: ['Vite', 'Supabase', 'Tailwind', 'PWA'],
-    links: [
-      { label: 'github', href: 'https://github.com/emqnuele/' },
-      { label: 'live', href: 'https://emanuelefaraci.com' }
-    ],
-    accent: '125, 255, 199'
   },
   {
     slug: 'sample-project2',
