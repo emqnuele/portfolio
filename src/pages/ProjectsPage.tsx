@@ -25,7 +25,7 @@ type ProjectCard = {
 
 const terminalLines = [
   { prompt: 'ema@portfolio', command: 'cd ~/projects' },
-  { prompt: 'ema@projects', command: 'ls', output: 'promptdeck  linea-bots  campus-ops  pulseboard' },
+  { prompt: 'ema@projects', command: 'ls', output: 'webscraper  neutrum  pedro  bea-LLM' },
   { prompt: 'ema@projects', command: './show --minimal', output: '[rendering cards...]' }
 ]
 
@@ -241,7 +241,7 @@ export default function ProjectsPage() {
           <p className="projects-eyebrow">last command</p>
           <h2>open to collab & cs adventures</h2>
           <div className="projects-footer__links">
-            <a href="mailto:hey@emanuele.dev">email</a>
+            <a href="mailto:hey@emanuelefaraci.com">email</a>
             <a href="https://t.me/emqnuele" target="_blank" rel="noreferrer">
               telegram
             </a>
