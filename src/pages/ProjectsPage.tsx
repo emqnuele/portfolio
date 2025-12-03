@@ -57,7 +57,7 @@ const projects: ProjectCard[] = [
   {
     slug: 'minesweeper',
     title: 'Minesweeper',
-    tagline: 'Fa minesweeper game with cheats, because why not?',
+    tagline: 'A minesweeper game with cheats, because why not?',
     image: minesweeper,
     status: 'prod / 2025',
     stack: ['React', 'TypeScript', 'Vite'],
@@ -93,7 +93,7 @@ const projects: ProjectCard[] = [
   },
     {
     slug: 'quick-resource-pack',
-    title: 'quick resource pack mod',
+    title: 'Quick ResourcePack Mod',
     tagline: 'a simple fabric mod for minecraft 1.21.x that lets you set a keybind to switch on/off a specific texture pack you choose.',
     image: quickresourcepack,
     status: 'live on modrinth',
