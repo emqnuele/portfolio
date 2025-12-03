@@ -1,10 +1,12 @@
 import { useMemo, useState, type CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import '../App.css'
-import promptDeckShot from '../assets/undraw_programming_j1zw.svg'
-import lineaBotsShot from '../assets/undraw_deep-work_muov.svg'
-import scraper from '../assets/webscraper.png'
-import pulseBoardShot from '../assets/undraw_shy-guy-avatar_094a.svg'
+import quickresourcepack from '../assets/quick-resource-pack.png'
+import scraper from '../assets/scraper.png'
+import aibot from '../assets/aibot.png'
+import converter from '../assets/converter.png'
+import minesweeper from '../assets/minesweeper.png'
+import portfolio from '../assets/portfolio.png'
 import SiteFooter from '../components/SiteFooter'
 
 type ProjectLink = {
@@ -31,6 +33,16 @@ const terminalLines = [
 
 const projects: ProjectCard[] = [
     {
+    slug: 'humanlike-telegram-bot',
+    title: 'Humanlike telegram bot',
+    tagline: 'A highly realistic AI Telegram bot powered by Google GenAI api. It mimics human texting with natural message splitting, dynamic typing delays, and fully customizable behavior.',
+    image: aibot,
+    status: 'live / 2025',
+    stack: ['Python', 'Telegram API', 'Google GenAI'],
+    links: [{ label: 'github', href: 'https://github.com/emqnuele/humanlike-telegram-bot' }],
+    accent: '255, 143, 178'
+  },
+    {
     slug: 'web-scraper',
     title: 'Simple Web Scraper',
     tagline: 'Modular Python web scraper for automatic content extraction. Supports batch scraping, extracts articles with full metadata, media and structure. Structured JSON output.',
@@ -43,41 +55,56 @@ const projects: ProjectCard[] = [
     accent: '125, 255, 199'
   },
   {
-    slug: 'pedro',
-    title: 'Pedro',
-    tagline: 'Finetuned AI LLM for chatbot usecases',
-    image: promptDeckShot,
-    status: 'prod / 2024',
-    stack: ['Python', 'FastAPI', 'Postgres', 'Google Cloud'],
+    slug: 'minesweeper',
+    title: 'Minesweeper',
+    tagline: 'Fa minesweeper game with cheats, because why not?',
+    image: minesweeper,
+    status: 'prod / 2025',
+    stack: ['React', 'TypeScript', 'Vite'],
     links: [
-      { label: 'github', href: 'https://github.com/emqnuele/pedrotetraedrobot' },
-      { label: 'live', href: 'https://emanuelefaraci.com' }
+      { label: 'github', href: 'https://github.com/emqnuele/Minesweeper' },
+      { label: 'live', href: 'https://minesweeper.emanuelefaraci.com/' }
     ],
     accent: '115, 242, 255'
   },
-  {
-    slug: 'pedrocli',
-    title: 'Pedro CLI',
-    tagline: 'CLI tool to interact with Pedro model on your terminal',
-    image: lineaBotsShot,
-    status: 'live on Pypi',
-    stack: ['Python', 'CLI', 'Google Cloud', 'LLM'],
+    {
+    slug: 'all-converter',
+    title: 'AllConverter',
+    tagline: 'AllConverter is a web application for converting files between various formats—all locally on your PC. It supports image, audio, video, and document conversions with advanced options such as resizing, rotating, filtering, and quality adjustments.',
+    image: converter,
+    status: 'prod / 2024',
+    stack: ['Python', 'Flask', 'FFmpeg', 'Pillow', 'PyPDF2'],
     links: [
-      { label: 'github', href: 'https://github.com/emqnuele/pedrocli' },
-      { label: 'try bot', href: 'https://pypi.org/project/pedroCLI/' }
+      { label: 'github', href: 'https://github.com/emqnuele/AllConverter' },
+    ],
+    accent: '255, 196, 122'
+  },
+  {
+    slug: 'portfolio',
+    title: 'Portfolio Website',
+    tagline: 'This very portfolio website you are browsing! Built with React and Vite, it showcases my projects, skills, and contact information in a beautiful, modern design.',
+    image: portfolio,
+    status: 'live on google',
+    stack: ['React', 'Vite', 'CSS', 'TypeScript'],
+    links: [
+      { label: 'github', href: 'https://github.com/emqnuele/portfolio' },
     ],
     accent: '220, 174, 255'
   },
-  {
-    slug: 'sample-project2',
-    title: 'Sample Project 2',
-    tagline: 'Lorem ipsum dolor sit amet consectetur adipiscing elit',
-    image: pulseBoardShot,
-    status: 'lab / ai ops',
-    stack: ['Python', 'WebSockets', 'Vercel KV', 'React'],
-    links: [{ label: 'github', href: 'https://github.com/emqnuele/' }],
-    accent: '255, 143, 178'
-  }
+    {
+    slug: 'quick-resource-pack',
+    title: 'quick resource pack mod',
+    tagline: 'a simple fabric mod for minecraft 1.21.x that lets you set a keybind to switch on/off a specific texture pack you choose.',
+    image: quickresourcepack,
+    status: 'live on modrinth',
+    stack: ['Java', 'Minecraft', 'Fabric'],
+    links: [
+      { label: 'github', href: 'https://github.com/emqnuele/quick-resource-pack' },
+      { label: 'live', href: 'https://modrinth.com/mod/quick-resource-pack' }
+    ],
+    accent: '255, 122, 122'
+  },
+
 ]
 
 export default function ProjectsPage() {
