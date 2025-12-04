@@ -7,6 +7,7 @@ import aibot from '../assets/aibot.png'
 import converter from '../assets/converter.png'
 import minesweeper from '../assets/minesweeper.png'
 import portfolio from '../assets/portfolio.png'
+import projectbea from '../assets/projectbea.png'
 import SiteFooter from '../components/SiteFooter'
 
 type ProjectLink = {
@@ -46,7 +47,7 @@ const projects: ProjectCard[] = [
     slug: 'project-bea',
     title: 'Porject BEA',
     tagline: 'Turn your Instagram DMs into an autonomous AI persona. Mimics human behavior with realistic delays, typing simulation, and a custom deepfake persona.',
-    image: aibot,
+    image: projectbea,
     status: 'prod / 2025',
     stack: ['Python', 'instagrapi', 'Google GenAI'],
     links: [{ label: 'github', href: 'https://github.com/emqnuele/project-bea' }],
