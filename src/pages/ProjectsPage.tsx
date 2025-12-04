@@ -87,6 +87,7 @@ const projects: ProjectCard[] = [
     stack: ['Python', 'Flask', 'FFmpeg', 'Pillow', 'PyPDF2'],
     links: [
       { label: 'github', href: 'https://github.com/emqnuele/AllConverter' },
+      { label: 'live', href: 'https://allconverter.emanuelefaraci.com/' }
     ],
     accent: '255, 196, 122'
   },
