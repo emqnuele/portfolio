@@ -42,6 +42,16 @@ const projects: ProjectCard[] = [
     links: [{ label: 'github', href: 'https://github.com/emqnuele/humanlike-telegram-bot' }],
     accent: '255, 143, 178'
   },
+      {
+    slug: 'project-bea',
+    title: 'Porject BEA',
+    tagline: 'Turn your Instagram DMs into an autonomous AI persona. Mimics human behavior with realistic delays, typing simulation, and a custom deepfake persona.',
+    image: aibot,
+    status: 'prod / 2025',
+    stack: ['Python', 'instagrapi', 'Google GenAI'],
+    links: [{ label: 'github', href: 'https://github.com/emqnuele/project-bea' }],
+    accent: '255, 122, 214'
+  },
     {
     slug: 'web-scraper',
     title: 'Simple Web Scraper',
