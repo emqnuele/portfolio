@@ -45,7 +45,7 @@ const projects: ProjectCard[] = [
   },
       {
     slug: 'project-bea',
-    title: 'Porject BEA',
+    title: 'Project BEA',
     tagline: 'Turn your Instagram DMs into an autonomous AI persona. Mimics human behavior with realistic delays, typing simulation, and a custom deepfake persona.',
     image: projectbea,
     status: 'prod / 2025',
