@@ -9,6 +9,7 @@ import aboutIllustration from './assets/undraw_working-at-home_pxaa.svg'
 import AboutPage from './pages/AboutPage'
 import ProjectsPage from './pages/ProjectsPage'
 import SiteFooter from './components/SiteFooter'
+import { Analytics } from '@vercel/analytics/react'
 
 
 const heroLines = ['Emanuele', 'Faraci']
@@ -381,6 +382,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
       </Routes>
+      <Analytics />
     </BrowserRouter>
   )
 }
