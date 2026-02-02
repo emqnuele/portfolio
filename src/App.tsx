@@ -10,6 +10,7 @@ import AboutPage from './pages/AboutPage'
 import ProjectsPage from './pages/ProjectsPage'
 import SiteFooter from './components/SiteFooter'
 import { SpeedInsights } from '@vercel/speed-insights/react'
+import { Analytics } from '@vercel/analytics/react'
 
 
 const heroLines = ['Emanuele', 'Faraci']
@@ -383,6 +384,7 @@ function App() {
         <Route path="/projects" element={<ProjectsPage />} />
       </Routes>
       <SpeedInsights />
+      <Analytics />
     </BrowserRouter>
   )
 }
