@@ -48,6 +48,7 @@ export const projects: Project[] = [
         slug: 'minesweeper',
         title: 'Minesweeper',
         tagline: 'A minesweeper game with cheats.',
+        description: 'A minesweeper game with cheats, because why not?',
         image: '/projects/minesweeper.png',
         status: 'prod / 2025',
         stack: ['React', 'TypeScript', 'Vite'],
