@@ -34,14 +34,14 @@ export const projects: Project[] = [
         accent: '255, 143, 178'
     },
     {
-        slug: 'project-bea',
-        title: 'Project BEA',
+        slug: 'insta-bot',
+        title: 'Instagram AI Bot',
         tagline: 'Instagram DM automation with AI persona.',
         description: 'Turn your Instagram DMs into an autonomous AI persona. Mimics human behavior with realistic delays, typing simulation, and a custom deepfake persona.',
-        image: '/projects/projectbea.webp',
+        image: '/projects/instabot.webp',
         status: 'prod / 2025',
         stack: ['Python', 'instagrapi', 'Google GenAI'],
-        links: [{ label: 'github', href: 'https://github.com/emqnuele/project-bea' }],
+        links: [{ label: 'github', href: 'https://github.com/emqnuele/insta-bot' }],
         accent: '255, 122, 214'
     },
     {
