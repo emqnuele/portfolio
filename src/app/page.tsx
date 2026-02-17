@@ -1,3 +1,4 @@
+import Featured from "@/components/landing/Featured";
 import Hero from "@/components/landing/Hero";
 
 export default function Home() {
@@ -5,6 +6,7 @@ export default function Home() {
     <main className="relative min-h-screen w-full overflow-hidden">
 
       <Hero />
+      <Featured />
     </main>
   );
 }
