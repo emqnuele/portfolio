@@ -53,7 +53,7 @@ export const projects: Project[] = [
         stack: ['React', 'TypeScript', 'Vite'],
         links: [
             { label: 'github', href: 'https://github.com/emqnuele/Minesweeper' },
-            { label: 'live', href: 'https://minesweeper.emanuelefaraci.com/' }
+            { label: 'live', href: 'https://minesweeper.emqnuele.dev/' }
         ],
         accent: '115, 242, 255'
     },
@@ -67,9 +67,31 @@ export const projects: Project[] = [
         stack: ['Python', 'Flask', 'FFmpeg', 'Pillow', 'PyPDF2'],
         links: [
             { label: 'github', href: 'https://github.com/emqnuele/AllConverter' },
-            { label: 'live', href: 'https://allconverter.emanuelefaraci.com/' }
+            { label: 'live', href: 'https://allconverter.emqnuele.dev/' }
         ],
         accent: '255, 196, 122'
+    },
+    {
+        slug: 'clicker',
+        title: 'Clicker',
+        tagline: 'A clicker game.',
+        description: 'A fun clicker game made with React!',
+        image: '/projects/clicker.png',
+        status: 'beta / 2025',
+        stack: ['React', 'TypeScript', 'Vite'],
+        links: [{ label: 'live', href: 'https://click.gecowave.top/' }],
+        accent: '220, 174, 255'
+    },
+    {
+        slug: 'gecowave',
+        title: 'Gecowave Website',
+        tagline: 'A website for a music group.',
+        description: 'A custom website I designed and developed for a music group.',
+        image: '/projects/gecowave.png',
+        status: 'beta / 2025',
+        stack: ['Vite', 'TypeScript', 'Tailwind'],
+        links: [{ label: 'live', href: 'https://gecowave.top/' }],
+        accent: '220, 174, 255'
     },
     {
         slug: 'markolino-plugin',
