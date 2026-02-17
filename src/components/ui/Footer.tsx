@@ -19,7 +19,7 @@ const contactChannels = [
     {
         id: 'twitter',
         label: 'X (Twitter)',
-        handle: '@emqnuele',
+        handle: '@emqnuale',
         href: 'https://x.com/emqnuale',
         description: 'Thoughts & Updates',
         icon: Twitter

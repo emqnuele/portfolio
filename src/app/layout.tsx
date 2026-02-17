@@ -84,8 +84,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    site: "@emqnuele",
-    creator: "@emqnuele",
+    site: "@emqnuale",
+    creator: "@emqnuale",
     title: "Emanuele Faraci · Portfolio",
     description:
       "Portfolio of Emanuele Faraci — fullstack developer and automation builder across Next.js, Python, AI agents, and bot workflows.",
@@ -145,7 +145,7 @@ export default function RootLayout({
               sameAs: [
                 "https://github.com/emqnuele",
                 "https://t.me/emqnuele",
-                "https://x.com/emqnuele",
+                "https://x.com/emqnuale",
                 "mailto:hey@emanuelefaraci.com",
               ],
             }),
