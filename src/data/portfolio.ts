@@ -38,7 +38,7 @@ export const projects: Project[] = [
         title: 'Instagram AI Bot',
         tagline: 'Instagram DM automation with AI persona.',
         description: 'Turn your Instagram DMs into an autonomous AI persona. Mimics human behavior with realistic delays, typing simulation, and a custom deepfake persona.',
-        image: '/projects/instabot.webp',
+        image: '/projects/instabot1.webp',
         status: 'prod / 2025',
         stack: ['Python', 'instagrapi', 'Google GenAI'],
         links: [{ label: 'github', href: 'https://github.com/emqnuele/insta-bot' }],
