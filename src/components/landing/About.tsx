@@ -184,7 +184,7 @@ export default function About() {
 
                 <div className="relative">
                     {/* Continuous Line Background for Desktop */}
-                    <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[1px] bg-zinc-800 -translate-x-1/2" />
+                    <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[1px] bg-white/30 -translate-x-1/2" />
 
                     <div className="space-y-4">
                         {journey.map((item, idx) => (
@@ -197,8 +197,8 @@ export default function About() {
                                 transition={{ duration: 0.5, delay: idx * 0.1 }}
                             >
                                 {/* Mobile: Line & Dot */}
-                                <div className="md:hidden absolute left-[7px] top-[8px] bottom-0 w-[1px] bg-zinc-800" />
-                                <div className="md:hidden absolute left-0 top-[5px] w-4 h-4 rounded-full border-4 border-black bg-zinc-700 group-hover:bg-purple-500 transition-colors" />
+                                <div className="md:hidden absolute left-[7px] top-[8px] bottom-0 w-[1px] bg-white/30" />
+                                <div className="md:hidden absolute left-0 top-[5px] w-4 h-4 rounded-full border-4 border-black bg-zinc-600 transition-colors" />
 
                                 {/* Period (Left or Right based on index) - Desktop */}
                                 <div className={`hidden md:block md:pt-[0.35rem] md:row-start-1 ${idx % 2 !== 0 ? 'md:col-start-3 md:text-left' : 'md:col-start-1 md:text-right'}`}>
@@ -207,7 +207,7 @@ export default function About() {
 
                                 {/* Center Marker - Desktop */}
                                 <div className="hidden md:flex flex-col items-center justify-start h-full relative col-start-2 row-start-1 w-3">
-                                    <div className="w-3 h-3 rounded-full bg-zinc-900 border-2 border-zinc-500 group-hover:border-purple-500 group-hover:scale-125 transition-all z-10 mt-[0.55rem] shrink-0" />
+                                    <div className="w-3 h-3 rounded-full bg-black border-2 border-white/40 group-hover:scale-125 transition-all z-10 mt-[0.55rem] shrink-0" />
                                 </div>
 
                                 {/* Content */}
