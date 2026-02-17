@@ -1,0 +1,23 @@
+{
+  "name": "Emanuele Faraci Portfolio",
+  "short_name": "emqnuele",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050507",
+  "theme_color": "#050507",
+  "description": "Portfolio of Emanuele Faraci — fullstack developer and automation builder across Next.js, Python, AI agents, and bot workflows.",
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "/icon.ico",
+      "sizes": "32x32 64x64 128x128 256x256",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/me.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
