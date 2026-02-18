@@ -1,11 +1,12 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, Variants, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Github, ExternalLink, Zap, Code, Layout } from "lucide-react";
 import { projects } from "@/data/portfolio";
-import clsx from "clsx";
+import HLSVideo from "@/components/ui/HLSVideo";
 
 const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -42,10 +43,17 @@ const badgeVariants: Variants = {
     }
 };
 
-
-
 export default function Featured() {
     const featuredProject = projects[0];
+    const [shouldShowVideo, setShouldShowVideo] = useState(false);
+    const [videoReady, setVideoReady] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShouldShowVideo(true);
+        }, 2000); // 2 seconds delay
+        return () => clearTimeout(timer);
+    }, []);
 
     return (
         <section className="relative z-10 px-4 py-24 max-w-7xl mx-auto">
@@ -58,11 +66,14 @@ export default function Featured() {
             >
 
                 {/* Visual - Pinned Project */}
-                <motion.div variants={itemVariants} className="relative group">
+                <motion.div
+                    variants={itemVariants}
+                    className="relative group"
+                >
                     {/* Decorative Blur behind */}
                     <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-3xl blur-2xl opacity-50 group-hover:opacity-75 transition-opacity duration-500" />
 
-                    {/* Featured Badge - Moved outside overflow-hidden */}
+                    {/* Featured Badge */}
                     <motion.div
                         className="absolute top-[-5px] left-[-5px] z-50 pointer-events-none"
                         variants={badgeVariants}
@@ -74,13 +85,56 @@ export default function Featured() {
                     </motion.div>
 
                     <div className="relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md overflow-hidden hover:bg-white/10 transition-colors duration-500 p-2">
-                        <div className="relative aspect-video rounded-2xl overflow-hidden">
+                        <div className="relative aspect-video rounded-2xl overflow-hidden bg-zinc-900/50">
+                            {/* Base Image (Always visible as fallback) */}
                             <Image
                                 src={featuredProject.image}
                                 alt={featuredProject.title}
                                 fill
+                                priority
                                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                             />
+
+                            {/* Video Preview (Fades in over image ONLY when ready) */}
+                            <AnimatePresence>
+                                {shouldShowVideo && featuredProject.videos && featuredProject.videos.length > 0 && (
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 1.05, filter: "blur(15px)" }}
+                                        animate={{
+                                            opacity: videoReady ? 1 : 0,
+                                            scale: videoReady ? 1 : 1.05,
+                                            filter: videoReady ? "blur(0px)" : "blur(15px)"
+                                        }}
+                                        exit={{ opacity: 0, scale: 1.05, filter: "blur(15px)" }}
+                                        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                                        className="absolute inset-0 z-10 bg-zinc-900"
+                                    >
+                                        {featuredProject.videos[0].endsWith('.m3u8') ? (
+                                            <HLSVideo
+                                                src={featuredProject.videos[0]}
+                                                className="w-full h-full object-cover"
+                                                autoPlay
+                                                muted
+                                                controls={false}
+                                                onReady={() => setVideoReady(true)}
+                                            />
+                                        ) : (
+                                            <video
+                                                src={featuredProject.videos[0]}
+                                                autoPlay
+                                                muted
+                                                loop
+                                                playsInline
+                                                className="w-full h-full object-cover"
+                                                onCanPlay={() => setVideoReady(true)}
+                                            />
+                                        )}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+
+                            {/* Subtle Overlay */}
+                            <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors z-[5]" />
                         </div>
 
                         <div className="p-4 sm:p-6">
@@ -89,7 +143,7 @@ export default function Featured() {
                                     {featuredProject.title}
                                 </h3>
 
-                                <div className="flex gap-3">
+                                <div className="flex gap-3 relative z-20">
                                     {featuredProject.links.map(link => (
                                         <Link
                                             key={link.label}
@@ -143,7 +197,7 @@ export default function Featured() {
                                 <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-400">
                                     <stat.icon size={24} />
                                 </div>
-                                <div>
+                                <div className="">
                                     <div className="text-2xl font-bold text-white">{stat.value}</div>
                                     <div className="text-xs font-mono text-zinc-500 uppercase tracking-wide">{stat.label}</div>
                                 </div>
@@ -161,7 +215,7 @@ export default function Featured() {
                         </Link>
                         <Link
                             href="/projects"
-                            className="flex items-center justify-center gap-2 px-8 py-4 px-8 py-4 rounded-full border border-white/10 hover:bg-white/5 text-white transition-colors"
+                            className="flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-white/10 hover:bg-white/5 text-white transition-colors"
                         >
                             View All Projects
                         </Link>

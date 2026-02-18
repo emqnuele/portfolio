@@ -8,9 +8,28 @@ export interface Project {
     stack: string[];
     links: { label: string; href: string }[];
     accent: string;
+    // Extra media for modal
+    images?: string[];
+    videos?: string[];
 }
 
 export const projects: Project[] = [
+    {
+        slug: 'projectbea',
+        title: 'ProjectBEA',
+        tagline: 'A modular, autonomous AI VTuber engine.',
+        description: 'Features RAG memory, OBS ws, Discord, and an autonomous Minecraft agent. It supports swappable LLMs/TTS and a plugin-based skill system for easy extension.',
+        image: '/projects/projectBEA.png',
+        status: 'live',
+        stack: ['Python', 'JavaScript', 'AI', 'Java', 'React'],
+        links: [{ label: 'github', href: 'https://github.com/emqnuele/projectBEA' }, { label: 'live', href: 'https://projectbea.emqnuele.dev' }],
+        accent: '220, 174, 255',
+        videos: [
+            "https://projectbea.emqnuele.dev/videos/hls/minecraft/playlist.m3u8",
+            "https://projectbea.emqnuele.dev/videos/hls/discord/playlist.m3u8",
+            "https://projectbea.emqnuele.dev/videos/hls/webui/playlist.m3u8"
+        ]
+    },
     {
         slug: 'portfolio',
         title: 'Portfolio Website',
