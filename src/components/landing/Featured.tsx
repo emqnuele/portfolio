@@ -70,9 +70,6 @@ export default function Featured() {
                     variants={itemVariants}
                     className="relative group"
                 >
-                    {/* Decorative Blur behind */}
-                    <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-3xl blur-2xl opacity-50 group-hover:opacity-75 transition-opacity duration-500" />
-
                     {/* Featured Badge */}
                     <motion.div
                         className="absolute top-[-5px] left-[-5px] z-50 pointer-events-none"
@@ -192,7 +189,7 @@ export default function Featured() {
                             <motion.div
                                 key={i}
                                 variants={itemVariants}
-                                className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors"
+                                className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 transition-colors"
                             >
                                 <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-400">
                                     <stat.icon size={24} />

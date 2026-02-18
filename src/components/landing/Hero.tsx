@@ -43,7 +43,7 @@ export default function Hero() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 1 }}
-                className="text-[15px] sm:text-lg md:text-3xl text-zinc-300 font-mono flex flex-col md:flex-row items-center gap-2 md:gap-3"
+                className="text-[15px] sm:text-lg md:text-xl text-zinc-300 font-mono flex flex-col md:flex-row items-center gap-2 md:gap-3"
             >
                 <span className="opacity-75">I&apos;m a</span>
                 <TypewriterText

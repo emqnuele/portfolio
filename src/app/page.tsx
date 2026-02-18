@@ -1,5 +1,6 @@
 import Featured from "@/components/landing/Featured";
 import Hero from "@/components/landing/Hero";
+import SkillsPreview from "@/components/landing/SkillsPreview";
 
 export default function Home() {
   return (
@@ -7,6 +8,7 @@ export default function Home() {
 
       <Hero />
       <Featured />
+      <SkillsPreview />
     </main>
   );
 }

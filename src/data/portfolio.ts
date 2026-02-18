@@ -203,7 +203,7 @@ export const skills: SkillCategory[] = [
         icon: 'Brain',
         title: 'AI & ML',
         description: 'From fine-tuning models to deploying agents and image generation pipelines.',
-        tags: ['OpenAI', 'Google GenAI', 'LangChain', 'Hugging Face', 'Model fine-tuning', 'RAG', 'AI agents', 'Image generation'],
+        tags: ['OpenAI', 'Model fine-tuning', 'RAG', 'Google GenAI', 'LangChain', 'Hugging Face', 'AI agents', 'Image generation'],
         accent: '236, 72, 153'
     },
     {
