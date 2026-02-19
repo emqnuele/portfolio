@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { Github, Send, Mail, ArrowUpRight, Twitter, Instagram } from "lucide-react";
+import { Github, Send, Mail, ArrowUpRight, Twitter, Instagram, BriefcaseBusiness } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
-const stackBadges = ['react', 'next.js', 'python', 'fastapi', 'ai agents'];
+// const stackBadges = ['react', 'next.js', 'python', 'fastapi', 'ai agents'];
 
 const contactChannels = [
     {
@@ -94,7 +94,14 @@ export default function Footer() {
                     {/* BRAND SECTION (LEFT) */}
                     <div className="space-y-12">
                         <div className="inline-block">
-                            <span className="px-3 py-1 rounded-full border border-zinc-700 bg-zinc-800/50 text-[10px] font-mono text-zinc-300 uppercase tracking-widest font-medium">
+                            <span className="px-3 py-1 rounded-full border border-zinc-700 bg-zinc-800/50 text-[10px] font-mono text-zinc-300 uppercase tracking-widest font-medium flex items-center gap-2">
+                                <motion.span
+                                    animate={{ rotate: [0, -15, 15, -10, 10, -5, 5, 0] }}
+                                    transition={{ duration: 0.8, repeat: Infinity, repeatDelay: 2.5, ease: "easeInOut" }}
+                                    className="inline-flex"
+                                >
+                                    <BriefcaseBusiness size={11} strokeWidth={2} />
+                                </motion.span>
                                 Available for work
                             </span>
                         </div>
@@ -110,13 +117,13 @@ export default function Footer() {
                             </p>
                         </div>
 
-                        <div className="flex flex-wrap gap-2">
+                        {/* <div className="flex flex-wrap gap-2">
                             {stackBadges.map(badge => (
                                 <span key={badge} className="px-3 py-1.5 rounded-full text-xs font-mono text-zinc-300 bg-white/10 border border-white/10 font-medium">
                                     {badge}
                                 </span>
                             ))}
-                        </div>
+                        </div> */}
                     </div>
 
                     {/* PANELS SECTION (RIGHT) */}
@@ -186,11 +193,7 @@ export default function Footer() {
                         <p className="text-zinc-500 text-xs">Developer & Designer</p>
                     </div>
 
-                    <div className="flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 border border-white/5 hover:bg-white/10 transition-colors cursor-default max-w-full">
-                        <span className="relative flex h-2 w-2 shrink-0">
-                            <span className="animate-pulse absolute inline-flex h-full w-full rounded-full bg-zinc-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-zinc-300"></span>
-                        </span>
+                    <div className="flex items-center gap-3 px-4 py-2 cursor-default max-w-full">
                         <p className="text-zinc-300 text-[10px] sm:text-xs font-mono uppercase tracking-widest font-medium whitespace-nowrap overflow-hidden text-ellipsis">
                             Designed & Engineered in <span className="text-white ml-1">Italy</span>
                         </p>

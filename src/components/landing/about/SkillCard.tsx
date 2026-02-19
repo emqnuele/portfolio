@@ -24,7 +24,6 @@ export default function SkillCard({ skill }: { skill: SkillCategory }) {
                        backdrop-blur-md
                        hover:border-white/[0.12] transition-all duration-500"
             variants={fadeInUp}
-            whileHover={{ y: -4, transition: { duration: 0.3 } }}
         >
             {/* Accent glow on hover */}
             <div

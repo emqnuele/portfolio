@@ -189,14 +189,14 @@ export const skills: SkillCategory[] = [
         icon: 'Monitor',
         title: 'Frontend',
         description: 'Building polished, responsive UIs with modern frameworks and pixel-perfect attention.',
-        tags: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'HTML · CSS', 'Vite', 'Vercel'],
+        tags: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Vite', 'Vercel'],
         accent: '139, 92, 246'
     },
     {
         icon: 'Server',
         title: 'Backend',
         description: 'REST APIs, server logic, databases, and everything that powers the frontend.',
-        tags: ['Python', 'FastAPI', 'Node.js', 'Express', 'PostgreSQL', 'MongoDB', 'REST APIs', 'Webhooks'],
+        tags: ['Python', 'FastAPI', 'PostgreSQL', 'REST APIs', 'Webhooks'],
         accent: '59, 130, 246'
     },
     {
@@ -216,7 +216,7 @@ export const skills: SkillCategory[] = [
     {
         icon: 'Cloud',
         title: 'DevOps & Infra',
-        description: 'VPS setup, reverse proxies, firewalls, DNS, and deployment pipelines.',
+        description: 'VPS setup, reverse proxies, firewalls, DNS.',
         tags: ['Nginx', 'UFW', 'Cloudflare', 'VPS setup', 'Linux', 'Docker', 'CI/CD', 'SEO'],
         accent: '245, 158, 11'
     }

@@ -36,7 +36,7 @@ export default function SkillsGrid() {
             <div className="text-center mb-16">
                 <motion.p variants={fadeInUp} className="font-mono text-xs text-green-400 tracking-widest uppercase mb-2">WHAT I CAN DO</motion.p>
                 <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-bold text-white mb-4">My Skills</motion.h2>
-                <motion.p variants={fadeInUp} className="text-zinc-400 max-w-xl mx-auto">From expressive UI to shipping agents that sync backends.</motion.p>
+                <motion.p variants={fadeInUp} className="text-zinc-400 max-w-xl mx-auto">From expressive UIs to complex backend systems and AI agents.</motion.p>
             </div>
 
             {/* Top row: 3 cards */}
