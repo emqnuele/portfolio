@@ -217,7 +217,7 @@ export const skills: SkillCategory[] = [
         icon: 'Cloud',
         title: 'DevOps & Infra',
         description: 'VPS setup, reverse proxies, firewalls, DNS.',
-        tags: ['Nginx', 'UFW', 'Cloudflare', 'VPS setup', 'Linux', 'Docker', 'CI/CD', 'SEO'],
+        tags: ['Nginx', 'UFW', 'Cloudflare', 'VPS setup', 'Linux', 'Docker', 'SEO'],
         accent: '245, 158, 11'
     }
 ];
