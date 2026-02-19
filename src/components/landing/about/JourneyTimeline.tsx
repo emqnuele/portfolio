@@ -34,7 +34,7 @@ export default function JourneyTimeline() {
                     {journey.map((item, idx) => (
                         <motion.div
                             key={idx}
-                            className="group relative md:grid md:grid-cols-[1fr_auto_1fr] md:gap-16 items-start pb-24 md:pb-36 last:pb-0"
+                            className="relative md:grid md:grid-cols-[1fr_auto_1fr] md:gap-16 items-start pb-24 md:pb-36 last:pb-0"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
@@ -42,7 +42,7 @@ export default function JourneyTimeline() {
                         >
                             {/* Mobile: Line & Dot */}
                             <div className="md:hidden absolute left-[7px] top-[8px] bottom-0 w-[1px] bg-white/30" />
-                            <div className="md:hidden absolute left-0 top-[5px] w-4 h-4 rounded-full border-4 border-black bg-zinc-600 transition-colors" />
+                            <div className="md:hidden absolute left-0 top-[5px] w-4 h-4 rounded-full border-4 border-black bg-zinc-600" />
 
                             {/* Period (Left or Right based on index) - Desktop */}
                             <div className={`hidden md:block md:pt-[0.35rem] md:row-start-1 ${idx % 2 !== 0 ? 'md:col-start-3 md:text-left' : 'md:col-start-1 md:text-right'}`}>
@@ -51,7 +51,7 @@ export default function JourneyTimeline() {
 
                             {/* Center Marker - Desktop */}
                             <div className="hidden md:flex flex-col items-center justify-start h-full relative col-start-2 row-start-1 w-3">
-                                <div className="w-3 h-3 rounded-full bg-black border-2 border-white/40 group-hover:scale-125 transition-all z-10 mt-[0.55rem] shrink-0" />
+                                <div className="w-3 h-3 rounded-full bg-black border-2 border-white/40 z-10 mt-[0.55rem] shrink-0" />
                             </div>
 
                             {/* Content */}

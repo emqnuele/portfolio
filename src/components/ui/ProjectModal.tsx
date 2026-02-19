@@ -63,19 +63,22 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
     return (
         <AnimatePresence>
             {isOpen && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
+                <motion.div
+                    className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                >
+                    <div
                         onClick={onClose}
-                        className="fixed inset-0 bg-black/90 backdrop-blur-xl"
+                        className="fixed inset-0 bg-black/50 backdrop-blur-sm"
                     />
 
                     <motion.div
-                        initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                        initial={{ scale: 0.95, opacity: 0, y: 16 }}
                         animate={{ scale: 1, opacity: 1, y: 0 }}
-                        exit={{ scale: 0.9, opacity: 0, y: 20 }}
+                        exit={{ scale: 0.95, opacity: 0, y: 16 }}
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
                         className="w-full max-w-4xl bg-[#0A0A0B]/80 border border-white/10 rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh] z-[101] backdrop-blur-md"
                         onClick={(e) => e.stopPropagation()}
@@ -192,7 +195,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                             </div>
                         </div>
                     </motion.div>
-                </div>
+                </motion.div>
             )}
         </AnimatePresence>
     );

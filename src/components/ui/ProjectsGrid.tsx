@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,9 +27,33 @@ const itemVariants: Variants = {
 
 export default function ProjectsGrid({ projects }: { projects: Project[] }) {
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [hoveredProject, setHoveredProject] = useState<string | null>(null);
     const [activeVideo, setActiveVideo] = useState<string | null>(null);
     const [videoReady, setVideoReady] = useState<Record<string, boolean>>({});
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
+    const openModal = (project: Project) => {
+        setSelectedProject(project);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        // keep selectedProject alive during exit animation, then clear
+        setTimeout(() => setSelectedProject(null), 400);
+    };
+
+    useEffect(() => {
+        const slug = searchParams.get("open");
+        if (!slug) return;
+        const project = projects.find((p) => p.slug === slug);
+        if (project) {
+            openModal(project);
+            router.replace("/projects", { scroll: false });
+        }
+    }, [searchParams, projects]); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         if (hoveredProject) {
@@ -57,10 +82,10 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
                     <motion.article
                         key={project.slug}
                         variants={itemVariants}
-                        onClick={() => setSelectedProject(project)}
+                        onClick={() => openModal(project)}
                         onMouseEnter={() => setHoveredProject(project.slug)}
                         onMouseLeave={() => setHoveredProject(null)}
-                        className="group relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm overflow-hidden hover:bg-white/10 transition-colors duration-500 cursor-pointer"
+                        className="group relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm overflow-hidden hover:bg-white/[0.07] transition-colors duration-500 cursor-pointer"
                     >
                         <div className="aspect-video relative overflow-hidden bg-zinc-900/50">
                             {/* Base Image (Always visible) */}
@@ -69,7 +94,7 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
                                     src={project.image}
                                     alt={project.title}
                                     fill
-                                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                    className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                                 />
                             ) : (
                                 <div className="absolute inset-0 flex items-center justify-center text-zinc-700 font-mono text-xs uppercase tracking-widest">
@@ -122,7 +147,7 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
                         <div className="p-6 md:p-8">
                             <div className="flex justify-between items-start mb-4">
                                 <div>
-                                    <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">
+                                    <h3 className="text-2xl font-bold text-white mb-1 transition-colors">
                                         {project.title}
                                     </h3>
                                     <p className="text-sm font-mono text-zinc-500">{project.tagline}</p>
@@ -163,8 +188,8 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
             {selectedProject && (
                 <ProjectModal
                     project={selectedProject}
-                    isOpen={!!selectedProject}
-                    onClose={() => setSelectedProject(null)}
+                    isOpen={isModalOpen}
+                    onClose={closeModal}
                 />
             )}
         </>

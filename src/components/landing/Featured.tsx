@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { motion, Variants, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -45,6 +46,7 @@ const badgeVariants: Variants = {
 
 export default function Featured() {
     const featuredProject = projects[0];
+    const router = useRouter();
     const [shouldShowVideo, setShouldShowVideo] = useState(false);
     const [videoReady, setVideoReady] = useState(false);
 
@@ -68,7 +70,8 @@ export default function Featured() {
                 {/* Visual - Pinned Project */}
                 <motion.div
                     variants={itemVariants}
-                    className="relative group"
+                    className="relative group cursor-pointer"
+                    onClick={() => router.push(`/projects?open=${featuredProject.slug}`)}
                 >
                     {/* Featured Badge */}
                     <motion.div
@@ -81,7 +84,7 @@ export default function Featured() {
                         </span>
                     </motion.div>
 
-                    <div className="relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md overflow-hidden hover:bg-white/10 transition-colors duration-500 p-2">
+                    <div className="relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md overflow-hidden hover:bg-white/[0.07] transition-colors duration-500 p-2">
                         <div className="relative aspect-video rounded-2xl overflow-hidden bg-zinc-900/50">
                             {/* Base Image (Always visible as fallback) */}
                             <Image
@@ -89,7 +92,7 @@ export default function Featured() {
                                 alt={featuredProject.title}
                                 fill
                                 priority
-                                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                             />
 
                             {/* Video Preview (Fades in over image ONLY when ready) */}
@@ -136,7 +139,7 @@ export default function Featured() {
 
                         <div className="p-4 sm:p-6">
                             <div className="flex justify-between items-start mb-4">
-                                <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">
+                                <h3 className="text-xl sm:text-2xl font-bold text-white transition-colors">
                                     {featuredProject.title}
                                 </h3>
 
@@ -147,6 +150,7 @@ export default function Featured() {
                                             href={link.href}
                                             target="_blank"
                                             rel="noopener noreferrer"
+                                            onClick={(e) => e.stopPropagation()}
                                             className="p-2.5 rounded-full bg-white/5 hover:bg-white/10 text-white border border-white/10 transition-all hover:scale-110 hover:border-white/20"
                                             aria-label={link.label}
                                         >

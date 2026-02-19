@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { projects } from "@/data/portfolio";
 import ProjectsGrid from "@/components/ui/ProjectsGrid";
 
@@ -14,7 +15,9 @@ export default function ProjectsPage() {
                     </p>
                 </div>
 
-                <ProjectsGrid projects={projects} />
+                <Suspense fallback={null}>
+                    <ProjectsGrid projects={projects} />
+                </Suspense>
             </div>
         </main>
     );
