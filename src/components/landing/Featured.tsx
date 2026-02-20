@@ -58,9 +58,9 @@ export default function Featured() {
     }, []);
 
     return (
-        <section className="relative z-10 px-4 py-24 max-w-7xl mx-auto">
+        <section className="relative z-10 px-4 py-16 md:py-24 max-w-7xl mx-auto">
             <motion.div
-                className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+                className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 lg:gap-20 items-center"
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-100px" }}
@@ -175,16 +175,16 @@ export default function Featured() {
 
                 {/* Content - Summary & Stats */}
                 <motion.div variants={itemVariants}>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                    <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-4 md:mb-6 leading-tight">
                         Not just <span className="text-zinc-400">Code.</span>
                     </h2>
 
-                    <p className="text-lg text-zinc-400 mb-8 leading-relaxed max-w-lg">
+                    <p className="text-base md:text-lg text-zinc-400 mb-6 md:mb-8 leading-relaxed max-w-lg">
                         I build digital products that feel alive. From interactive frontend experiences to complex AI automation systems, every project is crafted with precision and purpose.
                     </p>
 
                     {/* Trust Labels / Stats */}
-                    <div className="grid grid-cols-2 gap-4 mb-10">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mb-10">
                         {[
                             { label: "Projects Completed", value: "+15", icon: Layout },
                             { label: "Years Experience", value: "2+", icon: Code },
@@ -193,7 +193,7 @@ export default function Featured() {
                             <motion.div
                                 key={i}
                                 variants={itemVariants}
-                                className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 transition-colors"
+                                className="flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-2xl bg-white/5 border border-white/5 transition-colors"
                             >
                                 <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-400">
                                     <stat.icon size={24} />
@@ -207,16 +207,16 @@ export default function Featured() {
                     </div>
 
                     {/* CTA Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
                         <Link
                             href="mailto:hey@emanuelefaraci.com"
-                            className="flex items-center justify-center gap-2 px-8 py-4 bg-white text-black rounded-full font-bold hover:bg-zinc-200 transition-colors"
+                            className="flex items-center justify-center gap-2 px-6 py-3.5 md:px-8 md:py-4 bg-white text-black rounded-full font-bold hover:bg-zinc-200 transition-colors"
                         >
                             Start Chatting <ArrowRight size={18} />
                         </Link>
                         <Link
                             href="/projects"
-                            className="flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-white/10 hover:bg-white/5 text-white transition-colors"
+                            className="flex items-center justify-center gap-2 px-6 py-3.5 md:px-8 md:py-4 rounded-full border border-white/10 hover:bg-white/5 text-white transition-colors"
                         >
                             View All Projects
                         </Link>

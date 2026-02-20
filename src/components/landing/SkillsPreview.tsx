@@ -29,16 +29,16 @@ const itemVariants: Variants = {
 
 export default function SkillsPreview() {
     return (
-        <section className="relative z-10 px-4 pt-40 pb-24 max-w-7xl mx-auto border-t border-white/5">
+        <section className="relative z-10 px-4 pt-24 md:pt-40 pb-16 md:pb-24 max-w-7xl mx-auto border-t border-white/5">
             {/* Header section - kept because you liked the idea */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-8">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 md:mb-20 gap-4 md:gap-8">
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    className="max-w-2xl"
+                    className="max-w-2xl text-center md:text-left w-full md:w-auto"
                 >
-                    <h2 className="text-4xl md:text-6xl font-bold text-white leading-none tracking-tight">
+                    <h2 className="text-3xl md:text-6xl font-bold text-white leading-none tracking-tight">
                         Technical <span className="text-zinc-500">Expertise.</span>
                     </h2>
                 </motion.div>
@@ -47,7 +47,7 @@ export default function SkillsPreview() {
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    className="pb-2 md:pb-4"
+                    className="pb-2 md:pb-4 w-full md:w-auto flex justify-center md:justify-end"
                 >
                     <Link
                         href="/about"
@@ -60,7 +60,7 @@ export default function SkillsPreview() {
 
             {/* Quick summary grid - 5 columns for 5 domains */}
             <motion.div
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8"
+                className="grid grid-cols-2 lg:grid-cols-5 gap-x-6 gap-y-12 md:gap-12 lg:gap-8"
                 variants={containerVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -74,7 +74,7 @@ export default function SkillsPreview() {
                             variants={itemVariants}
                             className="group relative"
                         >
-                            <div className="flex flex-col gap-5">
+                            <div className="flex flex-col items-center md:items-start text-center md:text-left gap-3 md:gap-5">
                                 {/* icon with dynamic accent color */}
                                 <div className="relative w-fit">
                                     <div
@@ -86,12 +86,12 @@ export default function SkillsPreview() {
                                     </div>
                                 </div>
 
-                                <div className="space-y-3">
+                                <div className="space-y-1 md:space-y-3">
                                     <h3 className="text-lg font-bold text-white tracking-tight group-hover:text-blue-400 transition-colors">
                                         {skill.title}
                                     </h3>
 
-                                    <div className="flex flex-col gap-1.5">
+                                    <div className="flex flex-col md:flex-col gap-1.5 items-center md:items-start">
                                         {skill.tags.slice(0, 3).map(tag => (
                                             <span
                                                 key={tag}
@@ -105,7 +105,7 @@ export default function SkillsPreview() {
                             </div>
 
                             {/* subtle decorative underline that grows on hover */}
-                            <div className="mt-8 h-[1px] w-full bg-white/5 relative overflow-hidden">
+                            <div className="mt-5 md:mt-8 h-[1px] w-full bg-white/5 relative overflow-hidden">
                                 <motion.div
                                     className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
                                     initial={{ x: "-100%" }}
