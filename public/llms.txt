@@ -1,29 +1,38 @@
 # Emanuele Faraci — Portfolio
 
-> Fullstack developer and automation builder based in Modena, Italy.
+> Software Developer, FullStack Engineer, AI Engineer, and Automation Builder based in Modena, Italy.
 
 ## About
 
 Emanuele Faraci is a Computer Science student at UNIMORE and an independent developer specializing in fullstack web development, AI integrations, and bot automations. He builds polished, responsive web experiences with Next.js and React, backend services with Python and FastAPI, and intelligent bots for Telegram and Discord.
+
+## Journey
+
+- **2020 → 2025** · High School · Human Science — Psychology, pedagogy, sociology and anthropology. Learning how people think and interact.
+- **2022 → 2026** · Indie builder · Freelance — Landing pages & design systems, Telegram bots, chatbots, automations, AI finetuning & agents.
+- **2025 → now** · UNIMORE · Computer Science — Software engineering & distributed systems, AI & machine learning.
 
 ## Skills
 
 - **Frontend**: React, Next.js, TypeScript, Tailwind CSS, Framer Motion, HTML/CSS, Vite, Vercel
 - **Backend**: Python, FastAPI, Node.js, Express, PostgreSQL, MongoDB, REST APIs, Webhooks
 - **AI & ML**: OpenAI, Google GenAI, LangChain, Hugging Face, Model fine-tuning, RAG, AI agents, Image generation
-- **Bots & Automation**: Telegram API, Discord.js, Python Discord, Cron jobs, Chatbots, Automation pipelines
-- **DevOps & Infra**: Nginx, UFW, Cloudflare, VPS setup, Linux, Docker, CI/CD
+- **Bots & Automation**: Telegram API, Discord.js, Python Discord, Cron jobs, Chatbots, Inline keyboards, Automation pipelines
+- **DevOps & Infra**: Nginx, UFW, Cloudflare, VPS setup, Linux, Docker, SEO
 
 ## Projects
 
-- **Portfolio Website** — Built with Next.js, showcasing projects and skills in a modern design. [Live](https://emanuelefaraci.com/)
-- **Humanlike Telegram Bot** — Highly realistic AI Telegram bot powered by Google GenAI API with natural message splitting and dynamic typing delays.
-- **Project BEA** — Instagram DM automation with AI persona, mimicking human behavior with realistic delays and typing simulation.
-- **Minesweeper** — A minesweeper game with cheats, built with React and TypeScript. [Live](https://minesweeper.emanuelefaraci.com/)
-- **AllConverter** — Local file converter web app supporting image, audio, video, and document conversions. [Live](https://allconverter.emanuelefaraci.com/)
-- **Markolino-Chaos** — A Paper plugin that spawns a bot in Minecraft.
-- **Simple Web Scraper** — Modular Python web scraper with automatic content extraction and structured JSON output.
-- **Quick ResourcePack Mod** — Fabric mod for Minecraft with keybind to switch texture packs. [Modrinth](https://modrinth.com/mod/quick-resource-pack)
+- **ProjectBEA** — A modular, autonomous AI VTuber engine. Features RAG memory, OBS ws, Discord, and an autonomous Minecraft agent. Supports swappable LLMs/TTS and a plugin-based skill system. [GitHub](https://github.com/emqnuele/projectBEA) · [Live](https://projectbea.emqnuele.dev)
+- **Portfolio Website** — Built with Next.js, showcasing projects and skills in a modern design. [GitHub](https://github.com/emqnuele/portfolio) · [Live](https://emanuelefaraci.com/)
+- **Humanlike Telegram Bot** — Highly realistic AI Telegram bot powered by Google GenAI API with natural message splitting, dynamic typing delays, and fully customizable behavior. [GitHub](https://github.com/emqnuele/humanlike-telegram-bot)
+- **Instagram AI Bot** — Instagram DM automation with AI persona. Mimics human behavior with realistic delays, typing simulation, and a custom deepfake persona. [GitHub](https://github.com/emqnuele/insta-bot)
+- **Minesweeper** — A minesweeper game with cheats, built with React and TypeScript. [GitHub](https://github.com/emqnuele/Minesweeper) · [Live](https://minesweeper.emqnuele.dev/)
+- **AllConverter** — Local file converter web app supporting image, audio, video, and document conversions with advanced options. [GitHub](https://github.com/emqnuele/AllConverter) · [Live](https://allconverter.emqnuele.dev/)
+- **Clicker** — A fun clicker game made with React. [Live](https://click.gecowave.top/)
+- **Gecowave Website** — A custom website designed and developed for a music group. [Live](https://gecowave.top/)
+- **Markolino-Chaos** — A Paper plugin that spawns "Markolino", a bot in Minecraft that wants to kill you! [Modrinth](https://modrinth.com/plugin/markolino-chaos)
+- **Simple Web Scraper** — Modular Python web scraper with automatic content extraction, batch scraping, and structured JSON output. [GitHub](https://github.com/emqnuele/webscraper)
+- **Quick ResourcePack Mod** — Fabric mod for Minecraft with keybind to switch texture packs on/off ingame. [GitHub](https://github.com/emqnuele/quick-resource-pack) · [Modrinth](https://modrinth.com/mod/quick-resource-pack)
 
 ## Contact
 

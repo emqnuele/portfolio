@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://emanuelefaraci.com/sitemap.xml
+LLMs: https://emanuelefaraci.com/llms.txt
