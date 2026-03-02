@@ -82,7 +82,7 @@ export const projects: Project[] = [
         title: 'AllConverter',
         tagline: 'Local file converter web app.',
         description: 'Supports image, audio, video, and document conversions with advanced options such as resizing, rotating, filtering, and quality adjustments.',
-        image: '/projects/converter.webp',
+        image: '/projects/converter.png',
         status: 'prod / 2024',
         stack: ['Python', 'Flask', 'FFmpeg', 'Pillow', 'PyPDF2'],
         links: [
