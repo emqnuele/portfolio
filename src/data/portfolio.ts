@@ -42,28 +42,6 @@ export const projects: Project[] = [
         accent: '220, 174, 255'
     },
     {
-        slug: 'humanlike-telegram-bot',
-        title: 'Humanlike Telegram Bot',
-        tagline: 'A highly realistic AI Telegram bot.',
-        description: 'Powered by Google GenAI API. It mimics human texting with natural message splitting, dynamic typing delays, and fully customizable behavior.',
-        image: '/projects/aibot.webp',
-        status: 'live / 2025',
-        stack: ['Python', 'Telegram API', 'Google GenAI'],
-        links: [{ label: 'github', href: 'https://github.com/emqnuele/humanlike-telegram-bot' }],
-        accent: '255, 143, 178'
-    },
-    {
-        slug: 'insta-bot',
-        title: 'Instagram AI Bot',
-        tagline: 'Instagram DM automation with AI persona.',
-        description: 'Turn your Instagram DMs into an autonomous AI persona. Mimics human behavior with realistic delays, typing simulation, and a custom deepfake persona.',
-        image: '/projects/instabot1.webp',
-        status: 'prod / 2025',
-        stack: ['Python', 'instagrapi', 'Google GenAI'],
-        links: [{ label: 'github', href: 'https://github.com/emqnuele/insta-bot' }],
-        accent: '255, 122, 214'
-    },
-    {
         slug: 'minesweeper',
         title: 'Minesweeper',
         tagline: 'A minesweeper game with cheats.',
@@ -83,8 +61,8 @@ export const projects: Project[] = [
         tagline: 'Local file converter web app.',
         description: 'Supports image, audio, video, and document conversions with advanced options such as resizing, rotating, filtering, and quality adjustments.',
         image: '/projects/converter.png',
-        status: 'prod / 2024',
-        stack: ['Python', 'Flask', 'FFmpeg', 'Pillow', 'PyPDF2'],
+        status: 'prod / 2026',
+        stack: ['Python', 'FastAPI', 'FFmpeg', 'Pillow', 'Vite', 'Uvicorn'],
         links: [
             { label: 'github', href: 'https://github.com/emqnuele/AllConverter' },
             { label: 'live', href: 'https://allconverter.emqnuele.dev/' }
@@ -101,6 +79,17 @@ export const projects: Project[] = [
         stack: ['React', 'TypeScript', 'Vite'],
         links: [{ label: 'live', href: 'https://click.gecowave.top/' }],
         accent: '220, 174, 255'
+    },
+    {
+        slug: 'web-scraper',
+        title: 'Simple Web Scraper',
+        tagline: 'Modular Python web scraper.',
+        description: 'Automatic content extraction. Supports batch scraping, extracts articles with full metadata, media and structure. Structured JSON output.',
+        image: '/projects/scraper.webp',
+        status: 'beta / 2025',
+        stack: ['Python', 'BeautifulSoup', 'Requests'],
+        links: [{ label: 'github', href: 'https://github.com/emqnuele/webscraper' }],
+        accent: '125, 255, 199'
     },
     {
         slug: 'gecowave',
@@ -125,15 +114,26 @@ export const projects: Project[] = [
         accent: '255, 122, 122'
     },
     {
-        slug: 'web-scraper',
-        title: 'Simple Web Scraper',
-        tagline: 'Modular Python web scraper.',
-        description: 'Automatic content extraction. Supports batch scraping, extracts articles with full metadata, media and structure. Structured JSON output.',
-        image: '/projects/scraper.webp',
-        status: 'beta / 2025',
-        stack: ['Python', 'BeautifulSoup', 'Requests'],
-        links: [{ label: 'github', href: 'https://github.com/emqnuele/webscraper' }],
-        accent: '125, 255, 199'
+        slug: 'humanlike-telegram-bot',
+        title: 'Humanlike Telegram Bot',
+        tagline: 'A highly realistic AI Telegram bot.',
+        description: 'Powered by Google GenAI API. It mimics human texting with natural message splitting, dynamic typing delays, and fully customizable behavior.',
+        image: '/projects/aibot.webp',
+        status: 'live / 2025',
+        stack: ['Python', 'Telegram API', 'Google GenAI'],
+        links: [{ label: 'github', href: 'https://github.com/emqnuele/humanlike-telegram-bot' }],
+        accent: '255, 143, 178'
+    },
+    {
+        slug: 'insta-bot',
+        title: 'Instagram AI Bot',
+        tagline: 'Instagram DM automation with AI persona.',
+        description: 'Turn your Instagram DMs into an autonomous AI persona. Mimics human behavior with realistic delays, typing simulation, and a custom deepfake persona.',
+        image: '/projects/instabot1.webp',
+        status: 'prod / 2025',
+        stack: ['Python', 'instagrapi', 'Google GenAI'],
+        links: [{ label: 'github', href: 'https://github.com/emqnuele/insta-bot' }],
+        accent: '255, 122, 214'
     },
     {
         slug: 'quick-resource-pack',
