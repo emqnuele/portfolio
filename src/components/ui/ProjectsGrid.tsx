@@ -76,7 +76,7 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
                 variants={containerVariants}
                 initial="hidden"
                 animate="show"
-                className="grid grid-cols-1 md:grid-cols-2 gap-8"
+                className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8"
             >
                 {projects.map((project) => (
                     <motion.article

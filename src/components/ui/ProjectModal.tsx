@@ -64,7 +64,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
         <AnimatePresence>
             {isOpen && (
                 <motion.div
-                    className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6"
+                    className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-6"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
@@ -80,7 +80,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                         animate={{ scale: 1, opacity: 1, y: 0 }}
                         exit={{ scale: 0.95, opacity: 0, y: 16 }}
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        className="w-full max-w-4xl bg-[#0A0A0B]/80 border border-white/10 rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh] z-[101] backdrop-blur-md"
+                        className="w-full sm:max-w-4xl bg-[#0A0A0B]/80 border border-white/10 rounded-t-[1.75rem] sm:rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col max-h-[92vh] sm:max-h-[90vh] z-[101] backdrop-blur-md"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Media Section (Top) */}
@@ -130,16 +130,27 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                                 <>
                                     <button
                                         onClick={prevMedia}
-                                        className="absolute left-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-black/40 text-white/70 hover:text-white hover:bg-white/10 transition-all backdrop-blur-md border border-white/5 opacity-0 group-hover:opacity-100"
+                                        className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 p-2.5 sm:p-3 rounded-full bg-black/40 text-white/70 hover:text-white hover:bg-white/10 transition-all backdrop-blur-md border border-white/5 opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
                                     >
-                                        <ChevronLeft size={24} />
+                                        <ChevronLeft size={20} />
                                     </button>
                                     <button
                                         onClick={nextMedia}
-                                        className="absolute right-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-black/40 text-white/70 hover:text-white hover:bg-white/10 transition-all backdrop-blur-md border border-white/5 opacity-0 group-hover:opacity-100"
+                                        className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 p-2.5 sm:p-3 rounded-full bg-black/40 text-white/70 hover:text-white hover:bg-white/10 transition-all backdrop-blur-md border border-white/5 opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
                                     >
-                                        <ChevronRight size={24} />
+                                        <ChevronRight size={20} />
                                     </button>
+
+                                    {/* Dot pagination (mobile only) */}
+                                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 sm:hidden z-10">
+                                        {media.map((_, i) => (
+                                            <button
+                                                key={i}
+                                                onClick={(e) => { e.stopPropagation(); setCurrentMediaIndex(i); }}
+                                                className={`h-1.5 rounded-full transition-all duration-300 ${i === currentMediaIndex ? 'w-4 bg-white' : 'w-1.5 bg-white/40'}`}
+                                            />
+                                        ))}
+                                    </div>
                                 </>
                             )}
 
@@ -153,10 +164,10 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                         </div>
 
                         {/* Content Section (Bottom) */}
-                        <div className="flex-1 overflow-y-auto custom-scrollbar p-8 md:p-10 space-y-8 bg-gradient-to-b from-white/[0.02] to-transparent">
+                        <div className="flex-1 overflow-y-auto custom-scrollbar p-5 sm:p-8 md:p-10 space-y-5 sm:space-y-8 bg-gradient-to-b from-white/[0.02] to-transparent">
                             <div className="flex flex-col md:flex-row justify-between items-start gap-6">
                                 <div className="space-y-2">
-                                    <h2 className="text-4xl font-bold text-white tracking-tight">{project.title}</h2>
+                                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">{project.title}</h2>
                                     <p className="text-zinc-500 font-mono text-sm uppercase tracking-widest">{project.tagline}</p>
                                 </div>
 
@@ -167,7 +178,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                                             href={link.href}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className={`flex items-center gap-2 px-5 py-2.5 rounded-xl transition-all font-medium text-sm group ${link.label.toLowerCase() === 'live'
+                                            className={`flex items-center gap-2 px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-xl transition-all font-medium text-sm group ${link.label.toLowerCase() === 'live'
                                                     ? 'bg-white text-black hover:bg-zinc-200'
                                                     : 'bg-white/5 text-white hover:bg-white/10 border border-white/5'
                                                 }`}
@@ -179,7 +190,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                                 </div>
                             </div>
 
-                            <div className="prose prose-invert max-w-none text-zinc-400 font-normal leading-relaxed text-lg">
+                            <div className="prose prose-invert max-w-none text-zinc-400 font-normal leading-relaxed text-sm sm:text-base md:text-lg">
                                 <p>{project.description}</p>
                             </div>
 
