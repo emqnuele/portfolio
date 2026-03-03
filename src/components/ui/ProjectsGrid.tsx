@@ -144,13 +144,13 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
                             <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-[5]" />
                         </div>
 
-                        <div className="p-6 md:p-8">
-                            <div className="flex justify-between items-start mb-4">
-                                <div>
-                                    <h3 className="text-2xl font-bold text-white mb-1 transition-colors">
+                        <div className="p-4 sm:p-6 md:p-8">
+                            <div className="flex justify-between items-start mb-3 sm:mb-4">
+                                <div className="min-w-0 pr-2">
+                                    <h3 className="text-lg sm:text-2xl font-bold text-white mb-1 transition-colors leading-snug">
                                         {project.title}
                                     </h3>
-                                    <p className="text-sm font-mono text-zinc-500">{project.tagline}</p>
+                                    <p className="text-xs sm:text-sm font-mono text-zinc-500">{project.tagline}</p>
                                 </div>
                                 <div className="flex gap-2 relative z-20">
                                     {project.links.map(link => (
@@ -169,7 +169,7 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
                                 </div>
                             </div>
 
-                            <p className="text-zinc-400 text-sm leading-relaxed mb-6">
+                            <p className="text-zinc-400 text-sm leading-relaxed mb-4 sm:mb-6 line-clamp-2 sm:line-clamp-none">
                                 {project.description || "Building things that matter."}
                             </p>
 
