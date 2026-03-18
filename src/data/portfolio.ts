@@ -17,7 +17,7 @@ export const projects: Project[] = [
     {
         slug: 'projectbea',
         title: 'ProjectBEA',
-        tagline: 'A modular, autonomous AI VTuber engine.',
+        tagline: 'A modular, autonomous AI Persona engine. That can play minecraft!',
         description: 'Features RAG memory, OBS ws, Discord, and an autonomous Minecraft agent. It supports swappable LLMs/TTS and a plugin-based skill system for easy extension.',
         image: '/projects/projectBEA.png',
         status: 'live',
