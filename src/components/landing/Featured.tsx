@@ -176,11 +176,11 @@ export default function Featured() {
                 {/* Content - Summary & Stats */}
                 <motion.div variants={itemVariants}>
                     <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-4 md:mb-6 leading-tight">
-                        Not just <span className="text-zinc-400">Code.</span>
+                        Design that <span className="text-zinc-400">Works.</span>
                     </h2>
 
                     <p className="text-base md:text-lg text-zinc-400 mb-6 md:mb-8 leading-relaxed max-w-lg">
-                        I build digital products that feel alive. From interactive frontend experiences to complex AI automation systems, every project is crafted with precision and purpose.
+                        I design and build websites that work in the real world, not just in mockups. For Patty, I translated their Instagram visual identity into a complete, functional web concept crafted from scratch.
                     </p>
 
                     {/* Trust Labels / Stats */}
