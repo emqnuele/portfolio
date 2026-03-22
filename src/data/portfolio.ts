@@ -15,6 +15,17 @@ export interface Project {
 
 export const projects: Project[] = [
     {
+        slug: 'patty',
+        title: 'Patty Concept Website',
+        tagline: 'Concept website for a burger place in Modena.',
+        description: 'A full concept website for Patty, a burger place in Modena. I studied their visual language from Instagram and built both the design system and codebase from scratch.',
+        image: '/projects/patty.webp',
+        status: 'concept / 2026',
+        stack: ['Next.js', 'TypeScript', 'UI Design', 'Frontend'],
+        links: [],
+        accent: '30, 78, 215'
+    },
+    {
         slug: 'projectbea',
         title: 'ProjectBEA',
         tagline: 'A modular, autonomous AI Persona engine. That can play minecraft!',
