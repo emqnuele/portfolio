@@ -84,7 +84,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Media Section (Top) */}
-                        <div className="relative w-full h-48 sm:h-auto sm:aspect-video bg-black/20 flex-shrink-0 group">
+                        <div className="relative w-full h-48 sm:h-auto sm:aspect-video sm:max-h-[42vh] lg:max-h-[48vh] xl:max-h-[54vh] bg-black/20 flex-shrink-0 group">
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={`${project.slug}-${currentMediaIndex}`}
