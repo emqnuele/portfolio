@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Github, Send, Mail, ArrowUpRight, Twitter, Instagram, BriefcaseBusiness } from "lucide-react";
+import { Github, Send, Mail, ArrowUpRight, Twitter, Instagram, BriefcaseBusiness, Linkedin } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
@@ -17,12 +17,12 @@ const contactChannels = [
         icon: Github
     },
     {
-        id: 'twitter',
-        label: 'X (Twitter)',
-        handle: '@emqnuale',
-        href: 'https://x.com/emqnuale',
-        description: 'Thoughts & Updates',
-        icon: Twitter
+        id: 'linkedin',
+        label: 'linkedIn',
+        handle: 'emanuelee-faraci',
+        href: 'https://www.linkedin.com/in/emanuelee-faraci/',
+        description: 'Professional profile',
+        icon: Linkedin
     },
     {
         id: 'telegram',
