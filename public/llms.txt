@@ -22,6 +22,8 @@ Emanuele Faraci is a Computer Science student at UNIMORE and an independent deve
 
 ## Projects
 
+- **Patty Concept Website** — Concept website for a burger place in Modena. Full design system and codebase from scratch. [Live](https://patty.emqnuele.dev)
+- **Pulsar · Hackathon Winner** — University social web app built at JeMore with team HyperLabs, won 1st place. Connects students through smart onboarding, matching, events, and gamification. [Live](https://pulsar.emqnuele.dev)
 - **ProjectBEA** — A modular, autonomous AI VTuber engine. Features RAG memory, OBS ws, Discord, and an autonomous Minecraft agent. Supports swappable LLMs/TTS and a plugin-based skill system. [GitHub](https://github.com/emqnuele/projectBEA) · [Live](https://projectbea.emqnuele.dev)
 - **Portfolio Website** — Built with Next.js, showcasing projects and skills in a modern design. [GitHub](https://github.com/emqnuele/portfolio) · [Live](https://emanuelefaraci.com/)
 - **Humanlike Telegram Bot** — Highly realistic AI Telegram bot powered by Google GenAI API with natural message splitting, dynamic typing delays, and fully customizable behavior. [GitHub](https://github.com/emqnuele/humanlike-telegram-bot)
