@@ -30,12 +30,12 @@ export const projects: Project[] = [
         title: 'Pulsar · Hackathon Winner',
         tagline: 'University social web app built at JeMore with team HyperLabs.',
         description: 'Built by team HyperLabs at the JeMore hackathon, where we took 1st place. Pulsar is a web app that helps university students connect for friendship and career opportunities through smart onboarding, matching, events, and gamification-driven retention.',
-        image: '/projects/pulsar-linkedin2.png',
+        image: '/projects/pulsar-linkedin2_compressed.png',
         status: 'winner / 2026',
         stack: ['Next.js', 'TypeScript', 'Product Design', 'UX', 'Hackathon'],
         links: [{ label: 'live', href: 'https://pulsar.emqnuele.dev' }],
         accent: '82, 128, 255',
-        images: ['/projects/pulsar-linkedin2.png', '/projects/pulsar-match.webp', '/projects/pulsar-home.webp']
+        images: ['/projects/pulsar-linkedin2_compressed.png', '/projects/pulsar-match.webp', '/projects/pulsar-home.webp']
     },
     {
         slug: 'projectbea',
