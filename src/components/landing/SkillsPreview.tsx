@@ -103,12 +103,14 @@ export default function SkillsPreview() {
 
                                     <div className="flex flex-col md:flex-col gap-1.5 items-center md:items-start">
                                         {skill.tags.slice(0, 3).map(tag => (
-                                            <span
+                                            <motion.span
                                                 key={tag}
-                                                className="text-[10px] font-mono text-zinc-600 uppercase tracking-widest"
+                                                className="text-[10px] font-mono uppercase tracking-widest"
+                                                animate={{ color: ["#52525b", "#a1a1aa", "#52525b"] }}
+                                                transition={{ duration: STEP, repeat: Infinity, ease: "easeInOut", delay, repeatDelay }}
                                             >
                                                 {tag}
-                                            </span>
+                                            </motion.span>
                                         ))}
                                     </div>
                                 </div>
