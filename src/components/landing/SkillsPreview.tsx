@@ -27,7 +27,7 @@ const itemVariants: Variants = {
     }
 };
 
-const STEP = 1.2;
+const STEP = 1.7;
 const N = 5;
 
 export default function SkillsPreview() {
@@ -70,8 +70,8 @@ export default function SkillsPreview() {
                 {skills.map((skill, index) => {
                     const Icon = iconMap[skill.icon];
                     const accent = `rgb(${skill.accent})`;
-                    const delay = index * STEP;
-                    const repeatDelay = (N - 1) * STEP;
+                    const delay = index * STEP * 0.5;
+                    const repeatDelay = (N - 2) * STEP * 0.5;
 
                     return (
                         <motion.div
