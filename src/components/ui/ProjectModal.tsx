@@ -267,14 +267,14 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                             </div>
 
                             {/* scrollable body */}
-                            <div className="overflow-y-auto flex-1 flex flex-col gap-6 p-6" style={{ scrollbarWidth: "none" }}>
+                            <div className="overflow-y-auto flex-1 flex flex-col gap-4 p-5 sm:p-6" style={{ scrollbarWidth: "none" }}>
                                 {/* status */}
                                 <span className="self-start font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 border border-white/8 rounded-full px-3 py-1">
                                     {project.status}
                                 </span>
 
                                 {/* title + tagline */}
-                                <div className="space-y-1.5">
+                                <div className="space-y-1">
                                     <h2 className="text-2xl font-bold text-white leading-[1.1] tracking-tight">
                                         {project.title}
                                     </h2>
@@ -287,8 +287,8 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                                 <div className="h-px bg-gradient-to-r from-white/10 via-white/5 to-transparent" />
 
                                 {/* description — paginated */}
-                                <div className="flex flex-col gap-4">
-                                    <div className="relative overflow-hidden" style={{ minHeight: "7.5rem" }}>
+                                <div className="flex flex-col gap-2.5">
+                                    <div className="relative overflow-hidden" style={{ minHeight: "6rem" }}>
                                         <AnimatePresence mode="wait" custom={descDir}>
                                             <motion.p
                                                 key={`mob-desc-${descPage}`}
@@ -304,7 +304,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                                         </AnimatePresence>
                                     </div>
                                     {totalDescPages > 1 && (
-                                        <div className="flex items-center gap-3">
+                                        <div className="flex items-center gap-2.5">
                                             <button
                                                 onClick={prevDesc}
                                                 disabled={descPage === 0}
@@ -333,7 +333,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                                             >
                                                 <ChevronRight size={13} />
                                             </button>
-                                            <span className="font-mono text-[10px] text-zinc-600 ml-1">
+                                            <span className="font-mono text-[10px] text-zinc-600 ml-0.5">
                                                 {descPage + 1} / {totalDescPages}
                                             </span>
                                         </div>
