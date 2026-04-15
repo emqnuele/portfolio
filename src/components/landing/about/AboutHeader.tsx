@@ -57,7 +57,7 @@ export default function AboutHeader() {
                             src={ABOUT_IMAGE_SRC}
                             alt="Emanuele Faraci"
                             fill
-                            className="object-cover saturate-0 brightness-[0.8] contrast-[0.9]"
+                            className="object-cover saturate-0 brightness-[0.75] contrast-[1.2]"
                             priority
                         />
                     </div>
@@ -91,7 +91,7 @@ export default function AboutHeader() {
                         src={ABOUT_IMAGE_SRC}
                         alt="Emanuele Faraci"
                         fill
-                        className="object-cover saturate-0 brightness-[0.8] contrast-[0.9]"
+                        className="object-cover saturate-0 brightness-[0.75] contrast-[1.2]"
                         priority
                     />
                 </div>
