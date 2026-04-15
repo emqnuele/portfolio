@@ -68,7 +68,7 @@ export default function ContactSection() {
             : "border-white/8 hover:border-white/12";
 
     return (
-        <section className="relative z-10 px-4 pt-16 md:pt-32 pb-16 md:pb-24 max-w-7xl mx-auto border-t border-white/5">
+        <section id="contact" className="relative z-10 px-4 pt-16 md:pt-32 pb-16 md:pb-24 max-w-7xl mx-auto border-t border-white/5">
 
             <motion.div
                 className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-start"

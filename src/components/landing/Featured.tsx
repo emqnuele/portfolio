@@ -158,12 +158,12 @@ export default function Featured() {
 
                     {/* CTA Buttons */}
                     <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
-                        <Link
-                            href="mailto:hey@emanuelefaraci.com"
-                            className="flex items-center justify-center gap-2 px-6 py-3.5 md:px-8 md:py-4 bg-white text-black rounded-full font-bold hover:bg-zinc-200 transition-colors"
+                        <button
+                            onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                            className="flex items-center justify-center gap-2 px-6 py-3.5 md:px-8 md:py-4 bg-white text-black rounded-full font-bold hover:bg-zinc-200 transition-colors cursor-pointer"
                         >
                             Start Chatting <ArrowRight size={18} />
-                        </Link>
+                        </button>
                         <Link
                             href="/projects"
                             className="flex items-center justify-center gap-2 px-6 py-3.5 md:px-8 md:py-4 rounded-full border border-white/10 hover:bg-white/5 text-white transition-colors"
