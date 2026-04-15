@@ -5,6 +5,7 @@ import "./globals.css";
 import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
 import Background from "@/components/ui/Background";
+import SmoothScroll from "@/components/ui/SmoothScroll";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -180,10 +181,12 @@ export default function RootLayout({
       <body
         className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased`}
       >
-        <Background />
-        <Navbar />
-        {children}
-        <Footer />
+        <SmoothScroll>
+          <Background />
+          <Navbar />
+          {children}
+          <Footer />
+        </SmoothScroll>
         <Analytics />
         <SpeedInsights />
       </body>
