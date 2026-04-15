@@ -2,12 +2,12 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import Script from "next/script";
 import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
 import Background from "@/components/ui/Background";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import IubendaScript from "@/components/ui/IubendaScript";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -187,7 +187,7 @@ export default function RootLayout({
         <Footer />
         <Analytics />
         <SpeedInsights />
-        <Script src="https://embeds.iubenda.com/widgets/59f67d90-853d-4b23-97ed-2b6fcc3694ee.js" strategy="afterInteractive" />
+        <IubendaScript />
       </body>
     </html>
   );
