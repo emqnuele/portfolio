@@ -39,13 +39,13 @@ const overlayVariants = {
 };
 
 const panelVariants = {
-    hidden: { opacity: 0, scale: 0.96, y: 24 },
+    hidden: { opacity: 0, scale: 0.91, y: 32 },
     visible: {
         opacity: 1, scale: 1, y: 0,
-        transition: { type: "spring" as const, stiffness: 280, damping: 32, mass: 0.8 }
+        transition: { type: "spring" as const, stiffness: 260, damping: 28, mass: 0.9 }
     },
     exit: {
-        opacity: 0, scale: 0.96, y: 16,
+        opacity: 0, scale: 0.94, y: 20,
         transition: { duration: 0.22, ease: [0.4, 0, 1, 1] as [number, number, number, number] }
     },
 };
@@ -558,7 +558,12 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                             </div>
 
                             {/* ─── RIGHT: Media Panel ─── */}
-                            <div className="relative flex-1 flex flex-col min-h-[55vw] sm:min-h-[320px] lg:min-h-0 bg-black/30">
+                            <motion.div
+                                className="relative flex-1 flex flex-col min-h-[55vw] sm:min-h-[320px] lg:min-h-0 bg-black/30"
+                                initial={{ opacity: 0, scale: 1.04, filter: "blur(8px)" }}
+                                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                                transition={{ duration: 0.55, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                            >
                                 {/* Desktop close */}
                                 <button
                                     ref={closeBtnRef}
@@ -673,7 +678,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                                         ))}
                                     </div>
                                 )}
-                            </div>
+                            </motion.div>
                         </div>
 
                     </motion.div>
