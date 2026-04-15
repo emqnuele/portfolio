@@ -28,26 +28,36 @@ export default function About() {
 
             {/* 4. Projects CTA */}
             <motion.div
-                className="relative z-10 text-center py-12"
+                className="relative z-10"
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             >
-                <p className="font-mono text-xs text-zinc-500 tracking-[0.4em] uppercase mb-4">see it in action</p>
-                <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-                    Now check what I&apos;ve built.
-                </h2>
-                <p className="text-zinc-400 max-w-md mx-auto mb-10">
-                    Skills are one thing. Projects are where it gets real.
-                </p>
-                <Link
-                    href="/projects"
-                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-black font-semibold text-sm hover:bg-zinc-200 transition-colors duration-200 group"
-                >
-                    View Projects
-                    <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform duration-200" />
-                </Link>
+                <div className="relative rounded-3xl border border-white/10 bg-white/[0.03] p-8 sm:p-10 md:p-14 overflow-hidden">
+                    {/* glow */}
+                    <div className="absolute -top-24 -right-24 w-72 h-72 bg-purple-600/20 blur-[90px] rounded-full pointer-events-none" />
+                    <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-blue-600/10 blur-[70px] rounded-full pointer-events-none" />
+
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
+                        <div>
+                            <p className="font-mono text-xs text-zinc-500 tracking-[0.4em] uppercase mb-3">see it in action</p>
+                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight">
+                                Now check what I&apos;ve built.
+                            </h2>
+                            <p className="text-zinc-400 mt-3 max-w-sm text-sm sm:text-base">
+                                Skills are one thing. Projects are where it gets real.
+                            </p>
+                        </div>
+                        <Link
+                            href="/projects"
+                            className="group flex-shrink-0 flex items-center gap-3 px-6 py-4 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
+                        >
+                            <span className="text-white font-semibold whitespace-nowrap">View Projects</span>
+                            <ArrowRight size={16} className="text-zinc-400 group-hover:translate-x-1 group-hover:text-white transition-all duration-200" />
+                        </Link>
+                    </div>
+                </div>
             </motion.div>
 
         </section>
