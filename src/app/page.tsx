@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Featured from "@/components/landing/Featured";
 import Hero from "@/components/landing/Hero";
 import SkillsPreview from "@/components/landing/SkillsPreview";
+import ContactSection from "@/components/landing/ContactSection";
 
 export const metadata: Metadata = {
   alternates: {
@@ -16,6 +17,7 @@ export default function Home() {
       <Hero />
       <Featured />
       <SkillsPreview />
+      <ContactSection />
     </main>
   );
 }
