@@ -63,7 +63,7 @@ export default function AboutHeader() {
                 </div>
 
                 <motion.p variants={fadeInUp} className="text-base sm:text-lg md:text-xl text-zinc-300 leading-relaxed max-w-lg text-center lg:text-left">
-                    CS student in the morning, web and application builder by sunset. I move across Next.js, Node.js, AI, and Python.
+                    I pick up whatever a project needs and figure it out. CS student, freelancer, hackathon winner — I build things that go live.
                 </motion.p>
 
                 <motion.dl variants={staggerContainer} className="grid grid-cols-2 gap-x-6 sm:gap-x-8 md:gap-x-12 gap-y-6 md:gap-y-8 pt-6 mt-2 w-full text-left">
