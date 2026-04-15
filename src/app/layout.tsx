@@ -75,8 +75,8 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.webmanifest",
   icons: {
-    icon: "/icon.ico",
-    apple: "/icon.ico",
+    icon: "/favicon.ico",
+    apple: "/icon.png",
   },
   openGraph: {
     type: "website",
