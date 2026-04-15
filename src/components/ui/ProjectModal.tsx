@@ -145,7 +145,6 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
         }),
     };
 
-    const firstImage = media.find(m => m.type === "image")?.src ?? project.image;
 
     return (
         <AnimatePresence>
@@ -179,26 +178,92 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                             image top (200px) → scrollable content
                         ════════════════════════════════════════════ */}
                         <div className="lg:hidden flex flex-col" style={{ maxHeight: "90vh" }}>
-                            {/* hero image */}
-                            <div className="relative h-[200px] flex-shrink-0 bg-black/40">
-                                <Image
-                                    src={firstImage}
-                                    alt={project.title}
-                                    fill
-                                    priority
-                                    className="object-cover"
-                                />
-                                {/* gradient fade to content below */}
+                            {/* hero media carousel */}
+                            <div className="relative h-[200px] flex-shrink-0 bg-black/40 overflow-hidden">
+                                <AnimatePresence mode="wait">
+                                    <motion.div
+                                        key={`mob-${project.slug}-${currentMediaIndex}`}
+                                        variants={mediaVariants}
+                                        initial="enter"
+                                        animate="center"
+                                        exit="exit"
+                                        className="absolute inset-0"
+                                    >
+                                        {media[currentMediaIndex]?.type === "video" ? (
+                                            media[currentMediaIndex].src.endsWith(".m3u8") ? (
+                                                <HLSVideo
+                                                    src={media[currentMediaIndex].src}
+                                                    poster={media[currentMediaIndex].poster}
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            ) : (
+                                                <video
+                                                    src={media[currentMediaIndex].src}
+                                                    poster={media[currentMediaIndex].poster}
+                                                    autoPlay muted loop playsInline
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            )
+                                        ) : (
+                                            <Image
+                                                src={media[currentMediaIndex]?.src ?? project.image}
+                                                alt={project.title}
+                                                fill priority
+                                                className="object-cover"
+                                            />
+                                        )}
+                                    </motion.div>
+                                </AnimatePresence>
+
+                                {/* gradient fade bottom */}
                                 <div
                                     className="absolute inset-x-0 bottom-0 h-12 pointer-events-none"
                                     style={{ background: "linear-gradient(to bottom, transparent, rgba(0,0,0,0.5))" }}
                                 />
+
+                                {/* close button */}
                                 <button
                                     onClick={onClose}
                                     className="absolute top-3 right-3 z-10 p-2 rounded-full bg-black/50 border border-white/10 text-zinc-400 hover:text-white transition-all backdrop-blur-sm"
                                 >
                                     <X size={16} />
                                 </button>
+
+                                {/* prev/next arrows */}
+                                {hasMultiple && (
+                                    <>
+                                        <button
+                                            onClick={prevMedia}
+                                            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 border border-white/10 text-white/70 hover:text-white transition-all backdrop-blur-sm"
+                                        >
+                                            <ChevronLeft size={16} />
+                                        </button>
+                                        <button
+                                            onClick={nextMedia}
+                                            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 border border-white/10 text-white/70 hover:text-white transition-all backdrop-blur-sm"
+                                        >
+                                            <ChevronRight size={16} />
+                                        </button>
+                                    </>
+                                )}
+
+                                {/* dot indicators */}
+                                {hasMultiple && (
+                                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5">
+                                        {media.map((_, i) => (
+                                            <button
+                                                key={i}
+                                                onClick={() => setCurrentMediaIndex(i)}
+                                                className="transition-all duration-200 rounded-full"
+                                                style={{
+                                                    width: i === currentMediaIndex ? "16px" : "5px",
+                                                    height: "5px",
+                                                    background: i === currentMediaIndex ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.3)",
+                                                }}
+                                            />
+                                        ))}
+                                    </div>
+                                )}
                             </div>
 
                             {/* scrollable body */}
@@ -221,10 +286,59 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                                 {/* divider */}
                                 <div className="h-px bg-gradient-to-r from-white/10 via-white/5 to-transparent" />
 
-                                {/* description — full text, no pagination */}
-                                <p className="text-zinc-400 text-sm leading-[1.75]">
-                                    {project.description || "A project built with care and craft."}
-                                </p>
+                                {/* description — paginated */}
+                                <div className="flex flex-col gap-4">
+                                    <div className="relative overflow-hidden" style={{ minHeight: "7.5rem" }}>
+                                        <AnimatePresence mode="wait" custom={descDir}>
+                                            <motion.p
+                                                key={`mob-desc-${descPage}`}
+                                                custom={descDir}
+                                                variants={descSlideVariants}
+                                                initial="enter"
+                                                animate="center"
+                                                exit="exit"
+                                                className="text-zinc-400 text-sm leading-[1.75]"
+                                            >
+                                                {descPages[descPage]}
+                                            </motion.p>
+                                        </AnimatePresence>
+                                    </div>
+                                    {totalDescPages > 1 && (
+                                        <div className="flex items-center gap-3">
+                                            <button
+                                                onClick={prevDesc}
+                                                disabled={descPage === 0}
+                                                className="w-7 h-7 flex items-center justify-center rounded-full border border-white/8 text-zinc-500 hover:text-white hover:border-white/20 disabled:opacity-20 disabled:cursor-not-allowed transition-all"
+                                            >
+                                                <ChevronLeft size={13} />
+                                            </button>
+                                            <div className="flex items-center gap-1.5">
+                                                {descPages.map((_, i) => (
+                                                    <button
+                                                        key={i}
+                                                        onClick={() => { setDescDir(i > descPage ? 1 : -1); setDescPage(i); }}
+                                                        className="transition-all duration-200 rounded-full"
+                                                        style={{
+                                                            width: i === descPage ? "16px" : "5px",
+                                                            height: "5px",
+                                                            background: i === descPage ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.2)",
+                                                        }}
+                                                    />
+                                                ))}
+                                            </div>
+                                            <button
+                                                onClick={nextDesc}
+                                                disabled={descPage === totalDescPages - 1}
+                                                className="w-7 h-7 flex items-center justify-center rounded-full border border-white/8 text-zinc-500 hover:text-white hover:border-white/20 disabled:opacity-20 disabled:cursor-not-allowed transition-all"
+                                            >
+                                                <ChevronRight size={13} />
+                                            </button>
+                                            <span className="font-mono text-[10px] text-zinc-600 ml-1">
+                                                {descPage + 1} / {totalDescPages}
+                                            </span>
+                                        </div>
+                                    )}
+                                </div>
 
                                 {/* stack */}
                                 <div className="space-y-3">
