@@ -200,7 +200,7 @@ export const projects: Project[] = [
         title: 'Simple Web Scraper',
         tagline: 'Modular Python web scraper.',
         description: 'Automatic content extraction. Supports batch scraping, extracts articles with full metadata, media and structure. Structured JSON output.',
-        image: '/projects/scraper.webp',
+        image: '/projects/scraper.png',
         status: 'beta / 2025',
         stack: ['Python', 'BeautifulSoup', 'Requests'],
         links: [{ label: 'github', href: 'https://github.com/emqnuele/webscraper' }],
