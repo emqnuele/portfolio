@@ -51,12 +51,13 @@ export default function AboutHeader() {
                 {/* Mobile Image */}
                 <div className="lg:hidden flex justify-center">
                     <div className="relative w-[min(320px,85vw)] aspect-[3/4] rounded-[clamp(24px,5vw,40px)] overflow-hidden bg-zinc-900 border border-zinc-800 shadow-[0_40px_100px_rgba(4,0,15,0.55)]">
-                        <div className="absolute inset-0 bg-gradient-to-br from-[rgba(4,3,10,0.15)] to-[rgba(58,18,108,0.4)] mix-blend-screen pointer-events-none z-10" />
+                        <div className="absolute inset-0 bg-gradient-to-br from-[rgba(4,3,10,0.25)] to-[rgba(58,18,108,0.65)] mix-blend-screen pointer-events-none z-10" />
+                        <div className="absolute bottom-0 left-0 right-0 h-2/5 bg-gradient-to-t from-black/60 to-transparent pointer-events-none z-20" />
                         <Image
                             src={ABOUT_IMAGE_SRC}
                             alt="Emanuele Faraci"
                             fill
-                            className="object-cover saturate-0"
+                            className="object-cover saturate-0 contrast-[0.75] brightness-[0.85]"
                             priority
                         />
                     </div>
@@ -84,12 +85,13 @@ export default function AboutHeader() {
                 transition={{ duration: 0.9, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
                 <div className="relative w-full max-w-[240px] md:max-w-[340px] aspect-[3/4.5] rounded-[32px] md:rounded-[48px] overflow-hidden bg-zinc-900 border border-zinc-800 shadow-[0_50px_120px_rgba(4,0,15,0.55)]">
-                    <div className="absolute inset-0 bg-gradient-to-br from-[rgba(4,3,10,0.15)] to-[rgba(58,18,108,0.4)] mix-blend-screen pointer-events-none z-10" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-[rgba(4,3,10,0.25)] to-[rgba(58,18,108,0.65)] mix-blend-screen pointer-events-none z-10" />
+                    <div className="absolute bottom-0 left-0 right-0 h-2/5 bg-gradient-to-t from-black/60 to-transparent pointer-events-none z-20" />
                     <Image
                         src={ABOUT_IMAGE_SRC}
                         alt="Emanuele Faraci"
                         fill
-                        className="object-cover saturate-0"
+                        className="object-cover saturate-0 contrast-[0.75] brightness-[0.85]"
                         priority
                     />
                 </div>
