@@ -107,9 +107,13 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
         setDescPage(p => p + 1);
     };
 
+    const closeBtnRef = useRef<HTMLButtonElement>(null);
+
     useEffect(() => {
         if (!isOpen) return;
         document.body.style.overflow = "hidden";
+        // move focus into modal on open
+        closeBtnRef.current?.focus();
         const onKey = (e: KeyboardEvent) => {
             if (e.key === "Escape") onClose();
             if (e.key === "ArrowRight") nextMedia();
@@ -156,6 +160,9 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
 
                     {/* Panel */}
                     <motion.div
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="modal-title"
                         variants={panelVariants}
                         initial="hidden"
                         animate="visible"
@@ -265,7 +272,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
 
                                 {/* title + tagline */}
                                 <div className="space-y-1">
-                                    <h2 className="text-2xl font-bold text-white leading-[1.1] tracking-tight">
+                                    <h2 id="modal-title" className="text-2xl font-bold text-white leading-[1.1] tracking-tight">
                                         {project.title}
                                     </h2>
                                     <p className="font-mono text-xs text-zinc-500 uppercase tracking-widest leading-relaxed">
@@ -554,7 +561,9 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                             <div className="relative flex-1 flex flex-col min-h-[55vw] sm:min-h-[320px] lg:min-h-0 bg-black/30">
                                 {/* Desktop close */}
                                 <button
+                                    ref={closeBtnRef}
                                     onClick={onClose}
+                                    aria-label="Close modal"
                                     className="hidden lg:flex absolute top-5 right-5 z-20 items-center justify-center w-9 h-9 rounded-full bg-black/40 hover:bg-white/10 border border-white/8 text-zinc-400 hover:text-white transition-all backdrop-blur-sm"
                                 >
                                     <X size={16} />

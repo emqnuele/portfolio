@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion, useInView, type Variants } from "framer-motion";
+import { useRef } from "react";
 import Link from "next/link";
 import { ArrowRight, Monitor, Server, Brain, Bot, Cloud } from "lucide-react";
 import { skills } from "@/data/portfolio";
@@ -31,8 +32,11 @@ const STEP = 1.7;
 const N = 5;
 
 export default function SkillsPreview() {
+    const sectionRef = useRef<HTMLElement>(null);
+    const inView = useInView(sectionRef, { margin: "0px 0px -10% 0px" });
+
     return (
-        <section className="relative z-10 px-4 pt-24 md:pt-40 pb-16 md:pb-24 max-w-7xl mx-auto border-t border-white/5">
+        <section ref={sectionRef} className="relative z-10 px-4 pt-24 md:pt-40 pb-16 md:pb-24 max-w-7xl mx-auto border-t border-white/5">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 md:mb-20 gap-4 md:gap-8">
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
@@ -84,7 +88,7 @@ export default function SkillsPreview() {
                                     <motion.div
                                         className="absolute inset-0 blur-lg rounded-full"
                                         style={{ background: accent }}
-                                        animate={{ opacity: [0, 0.45, 0] }}
+                                        animate={inView ? { opacity: [0, 0.45, 0] } : { opacity: 0 }}
                                         transition={{ duration: STEP, repeat: Infinity, ease: "easeInOut", delay, repeatDelay }}
                                     />
                                     <div className="relative p-3 rounded-xl bg-white/5 border border-white/5">
@@ -95,7 +99,7 @@ export default function SkillsPreview() {
                                 <div className="space-y-1 md:space-y-3">
                                     <motion.h3
                                         className="text-lg font-bold tracking-tight"
-                                        animate={{ color: ["#ffffff", accent, "#ffffff"] }}
+                                        animate={inView ? { color: ["#ffffff", accent, "#ffffff"] } : { color: "#ffffff" }}
                                         transition={{ duration: STEP, repeat: Infinity, ease: "easeInOut", delay, repeatDelay }}
                                     >
                                         {skill.title}
@@ -106,7 +110,7 @@ export default function SkillsPreview() {
                                             <motion.span
                                                 key={tag}
                                                 className="text-[10px] font-mono uppercase tracking-widest"
-                                                animate={{ color: ["#52525b", "#a1a1aa", "#52525b"] }}
+                                                animate={inView ? { color: ["#52525b", "#a1a1aa", "#52525b"] } : { color: "#52525b" }}
                                                 transition={{ duration: STEP, repeat: Infinity, ease: "easeInOut", delay, repeatDelay }}
                                             >
                                                 {tag}
@@ -121,7 +125,7 @@ export default function SkillsPreview() {
                                 <motion.div
                                     className="absolute inset-0"
                                     style={{ background: `linear-gradient(to right, transparent, ${accent}, transparent)` }}
-                                    animate={{ x: ["-100%", "100%"] }}
+                                    animate={inView ? { x: ["-100%", "100%"] } : { x: "-100%" }}
                                     transition={{ duration: STEP, repeat: Infinity, ease: "linear", delay, repeatDelay }}
                                 />
                             </div>

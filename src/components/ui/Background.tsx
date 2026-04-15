@@ -10,7 +10,7 @@ export default function Background() {
         alt="Background"
         fill
         className="object-cover object-center"
-        quality={100}
+        quality={75}
         priority
       />
       {/* Dark overlay for text readability */}
