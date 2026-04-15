@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { X, ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ExternalLink, Github, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import type { Project } from "@/data/portfolio";
 import HLSVideo from "./HLSVideo";
 
@@ -84,13 +84,13 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
     const totalDescPages = descPages.length;
 
     const media: { type: "video" | "image"; src: string; poster?: string }[] = [];
-    if (project.videos && project.videos.length > 0) {
-        project.videos.forEach(v => media.push({ type: "video", src: v, poster: project.image }));
-    }
     if (project.images && project.images.length > 0) {
         project.images.forEach(img => media.push({ type: "image", src: img }));
-    } else if (project.image && media.length === 0) {
+    } else {
         media.push({ type: "image", src: project.image });
+    }
+    if (project.videos && project.videos.length > 0) {
+        project.videos.forEach(v => media.push({ type: "video", src: v, poster: project.image }));
     }
 
     const hasMultiple = media.length > 1;
@@ -652,8 +652,8 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                                                 }}
                                             >
                                                 {item.type === "video" ? (
-                                                    <div className="w-full h-full bg-zinc-800 flex items-center justify-center">
-                                                        <span className="font-mono text-[9px] text-zinc-400 uppercase tracking-wider">vid</span>
+                                                    <div className="w-full h-full bg-gradient-to-br from-zinc-700 to-zinc-900 flex items-center justify-center">
+                                                        <Play size={14} className="text-zinc-300 fill-zinc-300" />
                                                     </div>
                                                 ) : (
                                                     <Image src={item.src} alt="" fill className="object-cover" />
