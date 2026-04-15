@@ -54,17 +54,17 @@ export const projects: Project[] = [
         ]
     },
     {
-        slug: 'portfolio',
-        title: 'Portfolio Website',
-        tagline: 'This very website.',
-        description: 'Built with Next.js, showcasing projects and my skills in a modern design.',
-        image: '/projects/new_portfolio.png',
-        status: 'live',
-        stack: ['Next.js', 'Tailwind', 'Framer Motion'],
-        links: [{ label: 'github', href: 'https://github.com/emqnuele/portfolio' }, { label: 'live', href: 'https://emanuelefaraci.com/' }],
-        accent: '220, 174, 255'
-    },
-        {
+        slug: 'quicklanding',
+        title: 'QuickLanding',
+        tagline: 'A full-stack Production SaaS. Multi-agent backend. Built for a client.',
+        description: 'A client project I architected and shipped from scratch. Includes a multi-agent AI backend, full dashboard, database layer, sandboxed workflows, automated email system, and a production-grade VPS infrastructure with Nginx, UFW, and security hardening. The kind of project that covers everything.',
+        image: '/projects/quicklanding.png',
+        status: 'client / 2026',
+        stack: ['Python', 'FastAPI', 'AI Agents', 'Linux', 'Nginx', 'Next.js'],
+        links: [],
+        accent: '255, 143, 178'
+    }, 
+    {
         slug: 'humanlike-telegram-bot',
         title: 'Humanlike Telegram Bot',
         tagline: 'A highly realistic AI Telegram bot.',
@@ -146,6 +146,17 @@ export const projects: Project[] = [
         stack: ['Python', 'Telegram API', 'Linux', 'Docker'],
         links: [],
         accent: '255, 122, 214'
+    },
+    {
+        slug: 'portfolio',
+        title: 'Portfolio Website',
+        tagline: 'This very website.',
+        description: 'Built with Next.js, showcasing projects and my skills in a modern design.',
+        image: '/projects/new_portfolio.png',
+        status: 'live',
+        stack: ['Next.js', 'Tailwind', 'Framer Motion'],
+        links: [{ label: 'github', href: 'https://github.com/emqnuele/portfolio' }, { label: 'live', href: 'https://emanuelefaraci.com/' }],
+        accent: '220, 174, 255'
     },
     {
         slug: 'web-scraper',
