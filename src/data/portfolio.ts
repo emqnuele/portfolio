@@ -65,6 +65,28 @@ export const projects: Project[] = [
         accent: '255, 143, 178'
     }, 
     {
+        slug: 'omni',
+        title: 'Omni',
+        tagline: 'A full-featured streaming platform, built from scratch as a personal learning project.',
+        description: `Omni is a full-featured streaming platform I built from scratch. It has a complete user system with invite-only access, progress tracking across everything you watch, a favorites library, and a recommendation engine that learns from your habits and suggests new content based on what you actually like. There's also a native watch-together feature: share a code with someone, and you're watching in perfect sync directly inside the app, no external tools, no hacks. But the real story of Omni is what it cost me to build it. Before this project I had never touched a VPS, never configured Nginx, never thought about firewalls or rate limiting or what it actually means to expose something to the internet. Omni forced me to learn all of it. I set up the entire infrastructure from scratch: Cloudflare, Nginx as reverse proxy, UFW as the firewall, Docker for the backend services, a separate PostgreSQL instance for the database. It also taught me real-world HLS video streaming and how to manage caching properly for a true end-to-end product. I learnt a lot. It's one of the projects I'm most proud of.`,
+        image: '/projects/omni.png',
+        status: '2026',
+        stack: ['Next.js','HLS Streaming', 'Deno Deploy', 'PostgreSQL', 'Docker', 'Nginx', 'Cloudflare', 'Caching'],
+        links: [],
+        accent: '255, 143, 178'
+    }, 
+    {
+        slug: 'helper-bot',
+        title: 'VPS Helper Bot',
+        tagline: 'Telegram bot for VPS and Docker monitoring on the go.',
+        description: 'Tracks VPS metrics and container status from Telegram, with alerts for crashes, stops, and threshold spikes plus quick mute controls for noisy periods.',
+        image: '/projects/danilo.png',
+        status: 'prod / 2025',
+        stack: ['Python', 'Telegram API', 'Linux', 'Docker'],
+        links: [],
+        accent: '255, 122, 214'
+    },
+    {
         slug: 'humanlike-telegram-bot',
         title: 'Humanlike Telegram Bot',
         tagline: 'A highly realistic AI Telegram bot.',
@@ -134,17 +156,6 @@ export const projects: Project[] = [
         status: 'prod / 2025',
         stack: ['Python', 'instagrapi', 'Google GenAI'],
         links: [{ label: 'github', href: 'https://github.com/emqnuele/insta-bot' }],
-        accent: '255, 122, 214'
-    },
-    {
-        slug: 'helper-bot',
-        title: 'VPS Helper Bot',
-        tagline: 'Telegram bot for VPS and Docker monitoring on the go.',
-        description: 'Tracks VPS metrics and container status from Telegram, with alerts for crashes, stops, and threshold spikes plus quick mute controls for noisy periods.',
-        image: '/projects/danilo.png',
-        status: 'prod / 2025',
-        stack: ['Python', 'Telegram API', 'Linux', 'Docker'],
-        links: [],
         accent: '255, 122, 214'
     },
     {
