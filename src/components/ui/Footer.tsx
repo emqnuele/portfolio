@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Script from "next/script";
 import { Github, Send, Mail, ArrowUpRight, Twitter, Instagram, BriefcaseBusiness, Linkedin } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -207,7 +206,6 @@ export default function Footer() {
 
             </div>
 
-            <Script src="https://cdn.iubenda.com/iubenda.js" strategy="lazyOnload" />
         </footer>
     );
 }
