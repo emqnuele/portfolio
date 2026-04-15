@@ -14,6 +14,25 @@ interface ProjectModalProps {
     onClose: () => void;
 }
 
+// splits text into pages by greedily packing sentences under maxChars
+function paginateText(text: string, maxChars = 300): string[] {
+    // split at sentence boundaries: ". ", "! ", "? "
+    const sentences = text.match(/[^.!?]+[.!?]+[\s]*/g) ?? [text];
+    const pages: string[] = [];
+    let current = "";
+
+    for (const sentence of sentences) {
+        if (current.length + sentence.length > maxChars && current.length > 0) {
+            pages.push(current.trimEnd());
+            current = sentence;
+        } else {
+            current += sentence;
+        }
+    }
+    if (current.trimEnd()) pages.push(current.trimEnd());
+    return pages.length > 0 ? pages : [text];
+}
+
 const overlayVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { duration: 0.3 } },
@@ -50,10 +69,14 @@ const mediaVariants = {
 
 export default function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
     const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
+    const [descPage, setDescPage] = useState(0);
+    const [descDir, setDescDir] = useState(1); // 1 = forward, -1 = backward
     const scrollRef = useRef<HTMLDivElement>(null);
 
-    const media: { type: "video" | "image"; src: string; poster?: string }[] = [];
+    const descPages = paginateText(project.description || "A project built with care and craft.");
+    const totalDescPages = descPages.length;
 
+    const media: { type: "video" | "image"; src: string; poster?: string }[] = [];
     if (project.videos && project.videos.length > 0) {
         project.videos.forEach(v => media.push({ type: "video", src: v, poster: project.image }));
     }
@@ -65,13 +88,24 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
 
     const hasMultiple = media.length > 1;
 
-    const prev = (e?: React.MouseEvent) => {
+    const prevMedia = (e?: React.MouseEvent) => {
         e?.stopPropagation();
         setCurrentMediaIndex(i => (i - 1 + media.length) % media.length);
     };
-    const next = (e?: React.MouseEvent) => {
+    const nextMedia = (e?: React.MouseEvent) => {
         e?.stopPropagation();
         setCurrentMediaIndex(i => (i + 1) % media.length);
+    };
+
+    const prevDesc = () => {
+        if (descPage === 0) return;
+        setDescDir(-1);
+        setDescPage(p => p - 1);
+    };
+    const nextDesc = () => {
+        if (descPage === totalDescPages - 1) return;
+        setDescDir(1);
+        setDescPage(p => p + 1);
     };
 
     useEffect(() => {
@@ -79,8 +113,8 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
         document.body.style.overflow = "hidden";
         const onKey = (e: KeyboardEvent) => {
             if (e.key === "Escape") onClose();
-            if (e.key === "ArrowRight") next();
-            if (e.key === "ArrowLeft") prev();
+            if (e.key === "ArrowRight") nextMedia();
+            if (e.key === "ArrowLeft") prevMedia();
         };
         window.addEventListener("keydown", onKey);
         return () => {
@@ -91,8 +125,18 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
 
     useEffect(() => {
         setCurrentMediaIndex(0);
+        setDescPage(0);
         if (scrollRef.current) scrollRef.current.scrollTop = 0;
     }, [project.slug]);
+
+    const descSlideVariants = {
+        enter: (dir: number) => ({ opacity: 0, x: dir * 24 }),
+        center: { opacity: 1, x: 0, transition: { type: "spring" as const, stiffness: 260, damping: 28 } },
+        exit: (dir: number) => ({
+            opacity: 0, x: dir * -20,
+            transition: { duration: 0.18, ease: [0.4, 0, 1, 1] as [number, number, number, number] }
+        }),
+    };
 
     return (
         <AnimatePresence>
@@ -136,7 +180,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                                 borderRight: "1px solid rgba(255,255,255,0.06)",
                             }}
                         >
-                            {/* top noise layer */}
+                            {/* noise texture */}
                             <div
                                 className="absolute inset-0 pointer-events-none opacity-[0.03]"
                                 style={{
@@ -151,7 +195,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                                 animate={isOpen ? "visible" : "hidden"}
                                 className="relative flex flex-col gap-7 p-6 sm:p-8 lg:p-10 flex-1"
                             >
-                                {/* Status + close (mobile) */}
+                                {/* Status + mobile close */}
                                 <motion.div variants={lineVariant} className="flex items-center justify-between">
                                     <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 border border-white/8 rounded-full px-3 py-1">
                                         {project.status}
@@ -180,11 +224,65 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                                     className="h-px bg-gradient-to-r from-white/10 via-white/5 to-transparent"
                                 />
 
-                                {/* Description */}
-                                <motion.div variants={lineVariant}>
-                                    <p className="text-zinc-400 text-sm sm:text-[15px] leading-[1.75] font-normal">
-                                        {project.description || "A project built with care and craft."}
-                                    </p>
+                                {/* Description — paginated */}
+                                <motion.div variants={lineVariant} className="flex flex-col gap-4">
+                                    {/* fixed-height text area so the rest of the panel never shifts */}
+                                    <div className="relative overflow-hidden" style={{ minHeight: "7.5rem" }}>
+                                        <AnimatePresence mode="wait" custom={descDir}>
+                                            <motion.p
+                                                key={descPage}
+                                                custom={descDir}
+                                                variants={descSlideVariants}
+                                                initial="enter"
+                                                animate="center"
+                                                exit="exit"
+                                                className="text-zinc-400 text-sm sm:text-[15px] leading-[1.75] font-normal"
+                                            >
+                                                {descPages[descPage]}
+                                            </motion.p>
+                                        </AnimatePresence>
+                                    </div>
+
+                                    {/* pagination controls — only if more than 1 page */}
+                                    {totalDescPages > 1 && (
+                                        <div className="flex items-center gap-3">
+                                            <button
+                                                onClick={prevDesc}
+                                                disabled={descPage === 0}
+                                                className="w-7 h-7 flex items-center justify-center rounded-full border border-white/8 text-zinc-500 hover:text-white hover:border-white/20 disabled:opacity-20 disabled:cursor-not-allowed transition-all"
+                                            >
+                                                <ChevronLeft size={13} />
+                                            </button>
+
+                                            {/* dot indicators */}
+                                            <div className="flex items-center gap-1.5">
+                                                {descPages.map((_, i) => (
+                                                    <button
+                                                        key={i}
+                                                        onClick={() => { setDescDir(i > descPage ? 1 : -1); setDescPage(i); }}
+                                                        className="transition-all duration-200 rounded-full"
+                                                        style={{
+                                                            width: i === descPage ? "16px" : "5px",
+                                                            height: "5px",
+                                                            background: i === descPage ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.2)",
+                                                        }}
+                                                    />
+                                                ))}
+                                            </div>
+
+                                            <button
+                                                onClick={nextDesc}
+                                                disabled={descPage === totalDescPages - 1}
+                                                className="w-7 h-7 flex items-center justify-center rounded-full border border-white/8 text-zinc-500 hover:text-white hover:border-white/20 disabled:opacity-20 disabled:cursor-not-allowed transition-all"
+                                            >
+                                                <ChevronRight size={13} />
+                                            </button>
+
+                                            <span className="font-mono text-[10px] text-zinc-600 ml-1">
+                                                {descPage + 1} / {totalDescPages}
+                                            </span>
+                                        </div>
+                                    )}
                                 </motion.div>
 
                                 {/* Stack */}
@@ -241,7 +339,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
 
                         {/* ─── RIGHT: Media Panel ─── */}
                         <div className="relative flex-1 flex flex-col min-h-[55vw] sm:min-h-[320px] lg:min-h-0 bg-black/30">
-                            {/* Close button desktop */}
+                            {/* Desktop close */}
                             <button
                                 onClick={onClose}
                                 className="hidden lg:flex absolute top-5 right-5 z-20 items-center justify-center w-9 h-9 rounded-full bg-black/40 hover:bg-white/10 border border-white/8 text-zinc-400 hover:text-white transition-all backdrop-blur-sm"
@@ -249,7 +347,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                                 <X size={16} />
                             </button>
 
-                            {/* Main media display */}
+                            {/* Main media */}
                             <div className="relative flex-1 overflow-hidden">
                                 <AnimatePresence mode="wait">
                                     <motion.div
@@ -286,24 +384,22 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                                     </motion.div>
                                 </AnimatePresence>
 
-                                {/* subtle bottom vignette for thumbnail strip */}
                                 {hasMultiple && (
                                     <div className="absolute bottom-0 left-0 right-0 h-28 pointer-events-none"
                                         style={{ background: "linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%)" }}
                                     />
                                 )}
 
-                                {/* Arrow nav */}
                                 {hasMultiple && (
                                     <>
                                         <button
-                                            onClick={prev}
+                                            onClick={prevMedia}
                                             className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-black/50 hover:bg-black/70 border border-white/10 text-white/70 hover:text-white transition-all backdrop-blur-sm"
                                         >
                                             <ChevronLeft size={18} />
                                         </button>
                                         <button
-                                            onClick={next}
+                                            onClick={nextMedia}
                                             className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-black/50 hover:bg-black/70 border border-white/10 text-white/70 hover:text-white transition-all backdrop-blur-sm"
                                         >
                                             <ChevronRight size={18} />
