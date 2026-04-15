@@ -8,11 +8,12 @@ import { stats } from "@/data/portfolio";
 const ABOUT_IMAGE_SRC = "/about/main.png";
 
 const fadeInUp: Variants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, scale: 0.92, y: 20 },
     visible: {
         opacity: 1,
+        scale: 1,
         y: 0,
-        transition: { duration: 0.6 }
+        transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
     }
 };
 
@@ -78,9 +79,9 @@ export default function AboutHeader() {
             {/* Image Column (Desktop) */}
             <motion.div
                 className="hidden lg:flex order-1 lg:order-2 justify-center lg:justify-end"
-                initial={{ opacity: 0, x: 40, filter: "blur(10px)" }}
-                animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+                initial={{ opacity: 0, scale: 0.93, x: 40, filter: "blur(12px)" }}
+                animate={{ opacity: 1, scale: 1, x: 0, filter: "blur(0px)" }}
+                transition={{ duration: 0.9, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
             >
                 <div className="relative w-full max-w-[240px] md:max-w-[340px] aspect-[3/4.5] rounded-[32px] md:rounded-[48px] overflow-hidden bg-zinc-900 border border-zinc-800 shadow-[0_50px_120px_rgba(4,0,15,0.55)]">
                     <div className="absolute inset-0 bg-gradient-to-br from-[rgba(4,3,10,0.15)] to-[rgba(58,18,108,0.4)] mix-blend-screen pointer-events-none z-10" />

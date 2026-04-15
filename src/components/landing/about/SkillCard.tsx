@@ -7,11 +7,12 @@ import { Monitor, Server, Brain, Bot, Cloud, type LucideIcon } from "lucide-reac
 const iconMap: Record<string, LucideIcon> = { Monitor, Server, Brain, Bot, Cloud };
 
 const fadeInUp: Variants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, scale: 0.88, y: 20 },
     visible: {
         opacity: 1,
+        scale: 1,
         y: 0,
-        transition: { duration: 0.6 }
+        transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] }
     }
 };
 

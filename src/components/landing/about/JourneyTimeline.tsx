@@ -4,11 +4,12 @@ import { motion, type Variants } from "framer-motion";
 import { journey } from "@/data/portfolio";
 
 const fadeInUp: Variants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, scale: 1.08, y: 0 },
     visible: {
         opacity: 1,
+        scale: 1,
         y: 0,
-        transition: { duration: 0.6 }
+        transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] }
     }
 };
 
@@ -35,10 +36,10 @@ export default function JourneyTimeline() {
                         <motion.div
                             key={idx}
                             className="relative md:grid md:grid-cols-[1fr_auto_1fr] md:gap-16 items-start pb-24 md:pb-36 last:pb-0"
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: "-50px" }}
-                            transition={{ duration: 0.5, delay: idx * 0.1 }}
+                            initial={{ opacity: 0, scale: 0.9, x: idx % 2 === 0 ? -32 : 32 }}
+                            whileInView={{ opacity: 1, scale: 1, x: 0 }}
+                            viewport={{ once: true, margin: "-60px" }}
+                            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
                         >
                             {/* Mobile: Line & Dot */}
                             <div className="md:hidden absolute left-[7px] top-[8px] bottom-0 w-[1px] bg-white/30" />

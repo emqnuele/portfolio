@@ -5,11 +5,12 @@ import { skills } from "@/data/portfolio";
 import SkillCard from "./SkillCard";
 
 const fadeInUp: Variants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, scale: 1.1, y: 0 },
     visible: {
         opacity: 1,
+        scale: 1,
         y: 0,
-        transition: { duration: 0.6 }
+        transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] }
     }
 };
 
