@@ -5,6 +5,8 @@ import { motion, type Variants } from "framer-motion";
 import BlurReveal from "@/components/ui/BlurReveal";
 import { stats } from "@/data/portfolio";
 
+const ABOUT_IMAGE_SRC = "/about/main.png";
+
 const fadeInUp: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -50,10 +52,10 @@ export default function AboutHeader() {
                     <div className="relative w-[min(320px,85vw)] aspect-[3/4] rounded-[clamp(24px,5vw,40px)] overflow-hidden bg-zinc-900 border border-zinc-800 shadow-[0_40px_100px_rgba(4,0,15,0.55)]">
                         <div className="absolute inset-0 bg-gradient-to-br from-[rgba(4,3,10,0.15)] to-[rgba(58,18,108,0.4)] mix-blend-screen pointer-events-none z-10" />
                         <Image
-                            src="/about/ema.webp"
+                            src={ABOUT_IMAGE_SRC}
                             alt="Emanuele Faraci"
                             fill
-                            className="object-cover saturate-0 hover:saturate-100 transition-all duration-700"
+                            className="object-cover saturate-0"
                             priority
                         />
                     </div>
@@ -83,10 +85,10 @@ export default function AboutHeader() {
                 <div className="relative w-full max-w-[240px] md:max-w-[340px] aspect-[3/4.5] rounded-[32px] md:rounded-[48px] overflow-hidden bg-zinc-900 border border-zinc-800 shadow-[0_50px_120px_rgba(4,0,15,0.55)]">
                     <div className="absolute inset-0 bg-gradient-to-br from-[rgba(4,3,10,0.15)] to-[rgba(58,18,108,0.4)] mix-blend-screen pointer-events-none z-10" />
                     <Image
-                        src="/about/ema.webp"
+                        src={ABOUT_IMAGE_SRC}
                         alt="Emanuele Faraci"
                         fill
-                        className="object-cover saturate-0 hover:saturate-100 transition-all duration-700"
+                        className="object-cover saturate-0"
                         priority
                     />
                 </div>

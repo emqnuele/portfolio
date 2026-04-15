@@ -217,7 +217,7 @@ export const journey = [
     {
         period: '2022 → 2026',
         title: 'Indie builder · freelance',
-        details: ['Landing pages & design systems', 'Telegram bots, chatbots, automations', 'AI finetuning & agents']
+        details: ['From landing pages to full-stack apps', 'Frontend, backend, databases and devops', 'Bots, automations, AI agents, RAG systems']
     },
     {
         period: '2025 → now',

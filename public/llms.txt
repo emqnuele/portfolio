@@ -20,15 +20,6 @@ Emanuele Faraci is a Computer Science student at UNIMORE and an indie/freelance 
 - **Bots & Automation**: Telegram API, Discord.js, Python Discord, Cron jobs, Chatbots, Inline keyboards, Automation pipelines
 - **DevOps & Infra**: Nginx, UFW, Cloudflare, VPS setup, Linux, Docker, SEO
 
-## Hero Roles
-
-- Software Developer
-- FullStack Engineer
-- AI Engineer
-- Bot Developer
-- Python Developer
-- Automation Builder
-- Creative Coder
 
 ## Projects
 
