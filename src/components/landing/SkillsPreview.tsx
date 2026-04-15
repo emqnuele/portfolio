@@ -20,11 +20,12 @@ const containerVariants: Variants = {
 };
 
 const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 15 },
+    hidden: { opacity: 0, scale: 0.85, y: 24 },
     visible: {
         opacity: 1,
+        scale: 1,
         y: 0,
-        transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
+        transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
     }
 };
 
@@ -39,9 +40,10 @@ export default function SkillsPreview() {
         <section ref={sectionRef} className="relative z-10 px-4 pt-24 md:pt-40 pb-16 md:pb-24 max-w-7xl mx-auto border-t border-white/5">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 md:mb-20 gap-4 md:gap-8">
                 <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, scale: 1.1, x: -20 }}
+                    whileInView={{ opacity: 1, scale: 1, x: 0 }}
                     viewport={{ once: true }}
+                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                     className="max-w-2xl text-center md:text-left w-full md:w-auto"
                 >
                     <h2 className="text-3xl md:text-6xl font-bold text-white leading-none tracking-tight">
@@ -53,6 +55,7 @@ export default function SkillsPreview() {
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
+                    transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                     className="pb-2 md:pb-4 w-full md:w-auto flex justify-center md:justify-end"
                 >
                     <Link

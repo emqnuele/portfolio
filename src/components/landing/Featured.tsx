@@ -19,9 +19,10 @@ const containerVariants: Variants = {
 };
 
 const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, scale: 0.88, y: 20 },
     visible: {
         opacity: 1,
+        scale: 1,
         y: 0,
         transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }
     }
@@ -124,7 +125,7 @@ export default function Featured() {
                 </motion.div>
 
                 {/* Content - Summary & Stats */}
-                <motion.div variants={itemVariants}>
+                <motion.div variants={itemVariants} style={{ originX: 1 }}>
                     <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-4 md:mb-6 leading-tight">
                         Design that <span className="text-zinc-400">Works.</span>
                     </h2>
