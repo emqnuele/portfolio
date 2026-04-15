@@ -1,13 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { motion, Variants, AnimatePresence } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Github, ExternalLink, Zap, Code, Layout } from "lucide-react";
-import { projects } from "@/data/portfolio";
-import HLSVideo from "@/components/ui/HLSVideo";
+import { getProjectCoverImage, projects } from "@/data/portfolio";
 
 const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -47,15 +45,6 @@ const badgeVariants: Variants = {
 export default function Featured() {
     const featuredProject = projects[0];
     const router = useRouter();
-    const [shouldShowVideo, setShouldShowVideo] = useState(false);
-    const [videoReady, setVideoReady] = useState(false);
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setShouldShowVideo(true);
-        }, 2000); // 2 seconds delay
-        return () => clearTimeout(timer);
-    }, []);
 
     return (
         <section className="relative z-10 px-4 py-16 md:py-24 max-w-7xl mx-auto">
@@ -86,52 +75,13 @@ export default function Featured() {
 
                     <div className="relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md overflow-hidden hover:bg-white/[0.07] transition-colors duration-500 p-2">
                         <div className="relative aspect-video rounded-2xl overflow-hidden bg-zinc-900/50">
-                            {/* Base Image (Always visible as fallback) */}
                             <Image
-                                src={featuredProject.image}
+                                src={getProjectCoverImage(featuredProject)}
                                 alt={featuredProject.title}
                                 fill
                                 priority
                                 className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                             />
-
-                            {/* Video Preview (Fades in over image ONLY when ready) */}
-                            <AnimatePresence>
-                                {shouldShowVideo && featuredProject.videos && featuredProject.videos.length > 0 && (
-                                    <motion.div
-                                        initial={{ opacity: 0, scale: 1.05, filter: "blur(15px)" }}
-                                        animate={{
-                                            opacity: videoReady ? 1 : 0,
-                                            scale: videoReady ? 1 : 1.05,
-                                            filter: videoReady ? "blur(0px)" : "blur(15px)"
-                                        }}
-                                        exit={{ opacity: 0, scale: 1.05, filter: "blur(15px)" }}
-                                        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-                                        className="absolute inset-0 z-10 bg-zinc-900"
-                                    >
-                                        {featuredProject.videos[0].endsWith('.m3u8') ? (
-                                            <HLSVideo
-                                                src={featuredProject.videos[0]}
-                                                className="w-full h-full object-cover"
-                                                autoPlay
-                                                muted
-                                                controls={false}
-                                                onReady={() => setVideoReady(true)}
-                                            />
-                                        ) : (
-                                            <video
-                                                src={featuredProject.videos[0]}
-                                                autoPlay
-                                                muted
-                                                loop
-                                                playsInline
-                                                className="w-full h-full object-cover"
-                                                onCanPlay={() => setVideoReady(true)}
-                                            />
-                                        )}
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
 
                             {/* Subtle Overlay */}
                             <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors z-[5]" />

@@ -2,13 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink, Github } from "lucide-react";
-import type { Project } from "@/data/portfolio";
+import { getProjectCoverImage, type Project } from "@/data/portfolio";
 import ProjectModal from "./ProjectModal";
-import HLSVideo from "./HLSVideo";
 
 const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -28,9 +27,6 @@ const itemVariants: Variants = {
 export default function ProjectsGrid({ projects }: { projects: Project[] }) {
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [hoveredProject, setHoveredProject] = useState<string | null>(null);
-    const [activeVideo, setActiveVideo] = useState<string | null>(null);
-    const [videoReady, setVideoReady] = useState<Record<string, boolean>>({});
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -55,21 +51,6 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
         }
     }, [searchParams, projects]); // eslint-disable-line react-hooks/exhaustive-deps
 
-    useEffect(() => {
-        if (hoveredProject) {
-            const timer = setTimeout(() => {
-                const project = projects.find(p => p.slug === hoveredProject);
-                if (project?.videos && project.videos.length > 0) {
-                    setActiveVideo(hoveredProject);
-                }
-            }, 800);
-            return () => clearTimeout(timer);
-        } else {
-            setActiveVideo(null);
-            setVideoReady({});
-        }
-    }, [hoveredProject, projects]);
-
     return (
         <>
             <motion.div
@@ -83,15 +64,12 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
                         key={project.slug}
                         variants={itemVariants}
                         onClick={() => openModal(project)}
-                        onMouseEnter={() => setHoveredProject(project.slug)}
-                        onMouseLeave={() => setHoveredProject(null)}
                         className="group relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm overflow-hidden hover:bg-white/[0.07] transition-colors duration-500 cursor-pointer"
                     >
                         <div className="aspect-video relative overflow-hidden bg-zinc-900/50">
-                            {/* Base Image (Always visible) */}
-                            {project.image ? (
+                            {getProjectCoverImage(project) ? (
                                 <Image
-                                    src={project.image}
+                                    src={getProjectCoverImage(project)}
                                     alt={project.title}
                                     fill
                                     className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
@@ -101,44 +79,6 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
                                     No Image Preview
                                 </div>
                             )}
-
-                            {/* Video Preview (Fades in over the image ONLY when ready) */}
-                            <AnimatePresence>
-                                {activeVideo === project.slug && project.videos && project.videos.length > 0 && (
-                                    <motion.div
-                                        initial={{ opacity: 0, scale: 1.05, filter: "blur(12px)" }}
-                                        animate={{
-                                            opacity: videoReady[project.slug] ? 1 : 0,
-                                            scale: videoReady[project.slug] ? 1 : 1.05,
-                                            filter: videoReady[project.slug] ? "blur(0px)" : "blur(12px)"
-                                        }}
-                                        exit={{ opacity: 0, scale: 1.05, filter: "blur(12px)" }}
-                                        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                                        className="absolute inset-0 z-10 bg-zinc-900"
-                                    >
-                                        {project.videos[0].endsWith('.m3u8') ? (
-                                            <HLSVideo
-                                                src={project.videos[0]}
-                                                className="w-full h-full object-cover"
-                                                autoPlay
-                                                muted
-                                                controls={false}
-                                                onReady={() => setVideoReady(prev => ({ ...prev, [project.slug]: true }))}
-                                            />
-                                        ) : (
-                                            <video
-                                                src={project.videos[0]}
-                                                autoPlay
-                                                muted
-                                                loop
-                                                playsInline
-                                                className="w-full h-full object-cover"
-                                                onCanPlay={() => setVideoReady(prev => ({ ...prev, [project.slug]: true }))}
-                                            />
-                                        )}
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
 
                             {/* Overlay */}
                             <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-[5]" />

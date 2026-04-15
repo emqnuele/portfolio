@@ -13,6 +13,32 @@ export interface Project {
     videos?: string[];
 }
 
+export interface ProjectMediaItem {
+    type: 'image' | 'video';
+    src: string;
+}
+
+export function getProjectMedia(project: Project): ProjectMediaItem[] {
+    const media: ProjectMediaItem[] = [];
+
+    if (project.images && project.images.length > 0) {
+        project.images.forEach((img) => media.push({ type: 'image', src: img }));
+    } else {
+        media.push({ type: 'image', src: project.image });
+    }
+
+    if (project.videos && project.videos.length > 0) {
+        project.videos.forEach((video) => media.push({ type: 'video', src: video }));
+    }
+
+    return media;
+}
+
+export function getProjectCoverImage(project: Project): string {
+    const imageMedia = getProjectMedia(project).find((item) => item.type === 'image');
+    return imageMedia?.src ?? project.image;
+}
+
 export const projects: Project[] = [
     {
         slug: 'patty',

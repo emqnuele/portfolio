@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { X, ExternalLink, Github, ChevronLeft, ChevronRight, Play } from "lucide-react";
-import type { Project } from "@/data/portfolio";
+import { getProjectMedia, type Project } from "@/data/portfolio";
 import HLSVideo from "./HLSVideo";
 
 interface ProjectModalProps {
@@ -83,15 +83,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
     const descPages = paginateText(project.description || "A project built with care and craft.");
     const totalDescPages = descPages.length;
 
-    const media: { type: "video" | "image"; src: string; poster?: string }[] = [];
-    if (project.images && project.images.length > 0) {
-        project.images.forEach(img => media.push({ type: "image", src: img }));
-    } else {
-        media.push({ type: "image", src: project.image });
-    }
-    if (project.videos && project.videos.length > 0) {
-        project.videos.forEach(v => media.push({ type: "video", src: v, poster: project.image }));
-    }
+    const media = getProjectMedia(project);
 
     const hasMultiple = media.length > 1;
 
@@ -193,13 +185,11 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                                             media[currentMediaIndex].src.endsWith(".m3u8") ? (
                                                 <HLSVideo
                                                     src={media[currentMediaIndex].src}
-                                                    poster={media[currentMediaIndex].poster}
                                                     className="w-full h-full object-cover"
                                                 />
                                             ) : (
                                                 <video
                                                     src={media[currentMediaIndex].src}
-                                                    poster={media[currentMediaIndex].poster}
                                                     autoPlay muted loop playsInline
                                                     className="w-full h-full object-cover"
                                                 />
@@ -585,13 +575,11 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                                                 media[currentMediaIndex].src.endsWith(".m3u8") ? (
                                                     <HLSVideo
                                                         src={media[currentMediaIndex].src}
-                                                        poster={media[currentMediaIndex].poster}
                                                         className="w-full h-full object-cover"
                                                     />
                                                 ) : (
                                                     <video
                                                         src={media[currentMediaIndex].src}
-                                                        poster={media[currentMediaIndex].poster}
                                                         autoPlay muted loop playsInline
                                                         className="w-full h-full object-cover"
                                                     />
