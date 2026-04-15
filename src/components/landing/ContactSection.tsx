@@ -272,7 +272,7 @@ export default function ContactSection() {
                                     </motion.button>
 
                                     <p className="text-center text-[11px] text-zinc-500 pb-0.5">
-                                        By clicking &apos;Send&apos;, you confirm that you have read our{" "}
+                                        By clicking &apos;Send Message&apos;, you confirm that you have read our{" "}
                                         <a href="https://www.iubenda.com/privacy-policy/38634822" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-zinc-300 transition-colors">
                                             Privacy Policy
                                         </a>.
