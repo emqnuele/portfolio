@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { X, ExternalLink, Github, ChevronLeft, ChevronRight, Play } from "lucide-react";
+import { X, ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react";
 import { getProjectMedia, type Project } from "@/data/portfolio";
 import HLSVideo from "./HLSVideo";
 
@@ -640,9 +640,23 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                                                 }}
                                             >
                                                 {item.type === "video" ? (
-                                                    <div className="w-full h-full bg-gradient-to-br from-zinc-700 to-zinc-900 flex items-center justify-center">
-                                                        <Play size={14} className="text-zinc-300 fill-zinc-300" />
-                                                    </div>
+                                                    item.src.endsWith(".m3u8") ? (
+                                                        <HLSVideo
+                                                            src={item.src}
+                                                            className="w-full h-full object-cover"
+                                                            autoPlay={false}
+                                                            muted
+                                                            controls={false}
+                                                        />
+                                                    ) : (
+                                                        <video
+                                                            src={item.src}
+                                                            muted
+                                                            playsInline
+                                                            preload="metadata"
+                                                            className="w-full h-full object-cover"
+                                                        />
+                                                    )
                                                 ) : (
                                                     <Image src={item.src} alt="" fill className="object-cover" />
                                                 )}

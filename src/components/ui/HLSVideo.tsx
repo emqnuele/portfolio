@@ -30,8 +30,22 @@ export default function HLSVideo({
 
         let hls: Hls | null = null;
 
+        const tryPlay = () => {
+            if (!autoPlay) return;
+            const playPromise = video.play();
+            if (playPromise && typeof playPromise.catch === 'function') {
+                playPromise.catch(() => {});
+            }
+        };
+
+        video.muted = muted;
+        video.playsInline = true;
+
         if (video.canPlayType('application/vnd.apple.mpegurl')) {
             video.src = src;
+            video.load();
+            video.addEventListener('loadedmetadata', tryPlay);
+            video.addEventListener('canplay', tryPlay);
         } else if (Hls.isSupported()) {
             hls = new Hls({
                 capLevelToPlayerSize: true,
@@ -40,16 +54,20 @@ export default function HLSVideo({
             hls.loadSource(src);
             hls.attachMedia(video);
             hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                if (autoPlay) video.play().catch(() => { });
+                tryPlay();
             });
+            video.addEventListener('canplay', tryPlay);
         }
 
         return () => {
+            video.pause();
+            video.removeEventListener('loadedmetadata', tryPlay);
+            video.removeEventListener('canplay', tryPlay);
             if (hls) {
                 hls.destroy();
             }
         };
-    }, [src, autoPlay]);
+    }, [src, autoPlay, muted]);
 
     return (
         <video
