@@ -123,6 +123,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <script type="text/javascript" src="https://embeds.iubenda.com/widgets/59f67d90-853d-4b23-97ed-2b6fcc3694ee.js"></script>
         <meta name="theme-color" content="#050507" />
         <script
           type="application/ld+json"
