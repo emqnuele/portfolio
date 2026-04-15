@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import Featured from "@/components/landing/Featured";
 import Hero from "@/components/landing/Hero";
 import SkillsPreview from "@/components/landing/SkillsPreview";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default function Home() {
   return (

@@ -70,9 +70,6 @@ export const metadata: Metadata = {
     "max-image-preview": "large",
     "max-video-preview": -1,
   },
-  alternates: {
-    canonical: siteUrl,
-  },
   manifest: "/manifest.webmanifest",
   icons: {
     icon: "/favicon.ico",

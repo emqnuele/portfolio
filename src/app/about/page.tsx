@@ -5,6 +5,9 @@ export const metadata: Metadata = {
     title: "About",
     description:
         "About Emanuele Faraci — CS student, fullstack developer, and automation builder based in Modena, Italy. Skills in Next.js, Python, AI agents, and bot development.",
+    alternates: {
+        canonical: "/about",
+    },
 };
 
 export default function AboutPage() {
