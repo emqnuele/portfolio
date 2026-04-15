@@ -169,7 +169,7 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
                                 </div>
                             </div>
 
-                            <p className="text-zinc-400 text-sm leading-relaxed mb-4 sm:mb-6 line-clamp-2 sm:line-clamp-none">
+                            <p className="text-zinc-400 text-sm leading-relaxed mb-4 sm:mb-6 line-clamp-2">
                                 {project.description || "Building things that matter."}
                             </p>
 
