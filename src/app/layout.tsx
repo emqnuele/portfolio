@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import Script from "next/script";
 import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
 import Background from "@/components/ui/Background";
@@ -123,7 +124,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <script type="text/javascript" src="https://embeds.iubenda.com/widgets/59f67d90-853d-4b23-97ed-2b6fcc3694ee.js"></script>
         <meta name="theme-color" content="#050507" />
         <script
           type="application/ld+json"
@@ -187,6 +187,7 @@ export default function RootLayout({
         <Footer />
         <Analytics />
         <SpeedInsights />
+        <Script src="https://embeds.iubenda.com/widgets/59f67d90-853d-4b23-97ed-2b6fcc3694ee.js" strategy="afterInteractive" />
       </body>
     </html>
   );
