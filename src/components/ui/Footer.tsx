@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Script from "next/script";
 import { Github, Send, Mail, ArrowUpRight, Twitter, Instagram, BriefcaseBusiness, Linkedin } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -198,9 +199,16 @@ export default function Footer() {
                             Designed & Engineered in <span className="text-white ml-1">Italy</span>
                         </p>
                     </div>
+
+                    <div className="flex items-center gap-4">
+                        <a href="https://www.iubenda.com/privacy-policy/38634822" className="iubenda-black iubenda-noiframe iubenda-embed text-zinc-500 hover:text-zinc-300 text-xs transition-colors" title="Privacy Policy">Privacy Policy</a>
+                        <a href="https://www.iubenda.com/privacy-policy/38634822/cookie-policy" className="iubenda-black iubenda-noiframe iubenda-embed text-zinc-500 hover:text-zinc-300 text-xs transition-colors" title="Cookie Policy">Cookie Policy</a>
+                    </div>
                 </div>
 
             </div>
+
+            <Script src="https://cdn.iubenda.com/iubenda.js" strategy="lazyOnload" />
         </footer>
     );
 }
