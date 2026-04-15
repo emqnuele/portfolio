@@ -1,51 +1,63 @@
 # Emanuele Faraci — Portfolio
 
-> Software Developer, FullStack Engineer, AI Engineer, and Automation Builder based in Modena, Italy.
+> Software Developer, FullStack Engineer, AI Engineer, Bot Developer, and Automation Builder based in Modena, Italy.
 
 ## About
 
-Emanuele Faraci is a Computer Science student at UNIMORE and an independent developer specializing in fullstack web development, AI integrations, and bot automations. He builds polished, responsive web experiences with Next.js and React, backend services with Python and FastAPI, and intelligent bots for Telegram and Discord.
+Emanuele Faraci is a Computer Science student at UNIMORE and an indie/freelance developer focused on fullstack products, AI systems, bots, and automation. Main stack includes Next.js + TypeScript on frontend, Python/FastAPI on backend, and practical DevOps with VPS, Nginx, Docker, and Cloudflare.
 
 ## Journey
 
 - **2020 → 2025** · High School · Human Science — Psychology, pedagogy, sociology and anthropology. Learning how people think and interact.
-- **2022 → 2026** · Indie builder · Freelance — Landing pages & design systems, Telegram bots, chatbots, automations, AI finetuning & agents.
-- **2025 → now** · UNIMORE · Computer Science — Software engineering & distributed systems, AI & machine learning.
+- **2022 → 2026** · Indie builder · freelance — From landing pages to full-stack apps. Frontend, backend, databases and devops. Bots, automations, AI agents, RAG systems.
+- **2025 → now** · UNIMORE · Computer Science — Software eng & distributed systems, AI & machine learning.
 
 ## Skills
 
-- **Frontend**: React, Next.js, TypeScript, Tailwind CSS, Framer Motion, HTML/CSS, Vite, Vercel
-- **Backend**: Python, FastAPI, Node.js, Express, PostgreSQL, MongoDB, REST APIs, Webhooks
-- **AI & ML**: OpenAI, Google GenAI, LangChain, Hugging Face, Model fine-tuning, RAG, AI agents, Image generation
+- **Frontend**: React, Next.js, TypeScript, Tailwind CSS, Framer Motion, Vite, Vercel
+- **Backend**: Python, FastAPI, PostgreSQL, REST APIs, Webhooks
+- **AI & ML**: OpenAI, Model fine-tuning, RAG, Google GenAI, LangChain, Hugging Face, AI agents, Image generation
 - **Bots & Automation**: Telegram API, Discord.js, Python Discord, Cron jobs, Chatbots, Inline keyboards, Automation pipelines
 - **DevOps & Infra**: Nginx, UFW, Cloudflare, VPS setup, Linux, Docker, SEO
 
+## Hero Roles
+
+- Software Developer
+- FullStack Engineer
+- AI Engineer
+- Bot Developer
+- Python Developer
+- Automation Builder
+- Creative Coder
+
 ## Projects
 
-- **Patty Concept Website** — Concept website for a burger place in Modena. Full design system and codebase from scratch. [Live](https://patty.emqnuele.dev)
-- **Pulsar · Hackathon Winner** — University social web app built at JeMore with team HyperLabs, won 1st place. Connects students through smart onboarding, matching, events, and gamification. [Live](https://pulsar.emqnuele.dev)
-- **ProjectBEA** — A modular, autonomous AI VTuber engine. Features RAG memory, OBS ws, Discord, and an autonomous Minecraft agent. Supports swappable LLMs/TTS and a plugin-based skill system. [GitHub](https://github.com/emqnuele/projectBEA) · [Live](https://projectbea.emqnuele.dev)
-- **Portfolio Website** — Built with Next.js, showcasing projects and skills in a modern design. [GitHub](https://github.com/emqnuele/portfolio) · [Live](https://emanuelefaraci.com/)
-- **Humanlike Telegram Bot** — Highly realistic AI Telegram bot powered by Google GenAI API with natural message splitting, dynamic typing delays, and fully customizable behavior. [GitHub](https://github.com/emqnuele/humanlike-telegram-bot)
-- **Instagram AI Bot** — Instagram DM automation with AI persona. Mimics human behavior with realistic delays, typing simulation, and a custom deepfake persona. [GitHub](https://github.com/emqnuele/insta-bot)
-- **Minesweeper** — A minesweeper game with cheats, built with React and TypeScript. [GitHub](https://github.com/emqnuele/Minesweeper) · [Live](https://minesweeper.emqnuele.dev/)
-- **AllConverter** — Local file converter web app supporting image, audio, video, and document conversions with advanced options. [GitHub](https://github.com/emqnuele/AllConverter) · [Live](https://allconverter.emqnuele.dev/)
-- **Clicker** — A fun clicker game made with React. [Live](https://click.gecowave.top/)
-- **Gecowave Website** — A custom website designed and developed for a music group. [Live](https://gecowave.top/)
-- **Markolino-Chaos** — A Paper plugin that spawns "Markolino", a bot in Minecraft that wants to kill you! [Modrinth](https://modrinth.com/plugin/markolino-chaos)
-- **Simple Web Scraper** — Modular Python web scraper with automatic content extraction, batch scraping, and structured JSON output. [GitHub](https://github.com/emqnuele/webscraper)
-- **Quick ResourcePack Mod** — Fabric mod for Minecraft with keybind to switch texture packs on/off ingame. [GitHub](https://github.com/emqnuele/quick-resource-pack) · [Modrinth](https://modrinth.com/mod/quick-resource-pack)
+- **Patty Concept Website** *(concept / 2026)* — Concept website for a burger place in Modena. Full design system and codebase from scratch. [Live](https://patty.emqnuele.dev)
+- **Pulsar · Hackathon Winner** *(winner / 2026)* — University social web app built at JeMore with team HyperLabs. 1st place winner. Connects students through smart onboarding, matching, events, and gamification-driven retention. [Live](https://pulsar.emqnuele.dev)
+- **ProjectBEA** *(live)* — Modular autonomous AI persona engine with RAG memory, OBS ws, Discord, and Minecraft agent. Supports swappable LLM/TTS plus plugin-based skills. [GitHub](https://github.com/emqnuele/projectBEA) · [Live](https://projectbea.emqnuele.dev)
+- **QuickLanding** *(client / 2026)* — Full-stack production SaaS for a client with multi-agent backend, dashboard, database layer, sandboxed workflows, email automation, and hardened VPS infra. No public links.
+- **Omni** *(2026)* — Full-featured streaming platform built from scratch as a personal learning project (invite system, tracking, favorites, recommendation engine, watch together, full infra setup). No public links.
+- **VPS Helper Bot** *(prod / 2025)* — Telegram bot for VPS and Docker monitoring with crash/threshold alerts and mute controls. No public links.
+- **Humanlike Telegram Bot** *(live / 2025)* — Highly realistic AI Telegram bot powered by Google GenAI API with natural split messages and dynamic typing delays. [GitHub](https://github.com/emqnuele/humanlike-telegram-bot)
+- **Minesweeper** *(prod / 2025)* — Minesweeper game with cheats. [GitHub](https://github.com/emqnuele/Minesweeper) · [Live](https://minesweeper.emqnuele.dev/)
+- **AllConverter** *(prod / 2026)* — Local file converter supporting image/audio/video/document conversions with advanced processing options. [GitHub](https://github.com/emqnuele/AllConverter) · [Live](https://allconverter.emqnuele.dev/)
+- **Clicker** *(beta / 2025)* — Clicker game built with React and TypeScript. [Live](https://click.gecowave.top/)
+- **Gecowave Website** *(beta / 2025)* — Custom website designed and developed for a music group. [Live](https://gecowave.top/)
+- **Instagram AI Bot** *(prod / 2025)* — Instagram DM automation with AI persona and human-like behavior simulation. [GitHub](https://github.com/emqnuele/insta-bot)
+- **Portfolio Website** *(live)* — This website, built with Next.js and modern UI stack. [GitHub](https://github.com/emqnuele/portfolio) · [Live](https://emanuelefaraci.com/)
+- **Simple Web Scraper** *(beta / 2025)* — Modular Python scraper with batch extraction and structured JSON output. [GitHub](https://github.com/emqnuele/webscraper)
+- **Markolino-Chaos** *(beta / 2025)* — Paper plugin that spawns a Minecraft bot enemy. [Modrinth](https://modrinth.com/plugin/markolino-chaos)
+- **Quick ResourcePack Mod** *(live on modrinth)* — Fabric mod to toggle resource packs ingame via keybind. [GitHub](https://github.com/emqnuele/quick-resource-pack) · [Modrinth](https://modrinth.com/mod/quick-resource-pack)
+
+## Stats
+
+- Base: Modena · IT
+- Response time: 2 hours
+- Status: CS Student
+- Languages: English - Italian
 
 ## Contact
 
 - Email: hey@emanuelefaraci.com
 - GitHub: https://github.com/emqnuele
 - Telegram: https://t.me/emqnuele
-
-## Location
-
-Modena, Italy
-
-## Languages
-
-English, Italian
