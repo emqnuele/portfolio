@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { X, ExternalLink, Github, ChevronLeft, ChevronRight } from "lucide-react";
@@ -14,197 +14,335 @@ interface ProjectModalProps {
     onClose: () => void;
 }
 
+const overlayVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.3 } },
+    exit: { opacity: 0, transition: { duration: 0.25 } },
+};
+
+const panelVariants = {
+    hidden: { opacity: 0, scale: 0.96, y: 24 },
+    visible: {
+        opacity: 1, scale: 1, y: 0,
+        transition: { type: "spring" as const, stiffness: 280, damping: 32, mass: 0.8 }
+    },
+    exit: {
+        opacity: 0, scale: 0.96, y: 16,
+        transition: { duration: 0.22, ease: [0.4, 0, 1, 1] as [number, number, number, number] }
+    },
+};
+
+const leftContentVariants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.07, delayChildren: 0.15 } },
+};
+
+const lineVariant = {
+    hidden: { opacity: 0, x: -18 },
+    visible: { opacity: 1, x: 0, transition: { type: "spring" as const, stiffness: 200, damping: 26 } },
+};
+
+const mediaVariants = {
+    enter: { opacity: 0, scale: 1.04 },
+    center: { opacity: 1, scale: 1, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] } },
+    exit: { opacity: 0, scale: 0.97, transition: { duration: 0.25, ease: [0.4, 0, 1, 1] as [number, number, number, number] } },
+};
+
 export default function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
     const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
+    const scrollRef = useRef<HTMLDivElement>(null);
 
-    const media: { type: 'video' | 'image', src: string, poster?: string }[] = [];
+    const media: { type: "video" | "image"; src: string; poster?: string }[] = [];
 
     if (project.videos && project.videos.length > 0) {
-        project.videos.forEach(v => media.push({ type: 'video', src: v, poster: project.image }));
+        project.videos.forEach(v => media.push({ type: "video", src: v, poster: project.image }));
     }
-
     if (project.images && project.images.length > 0) {
-        project.images.forEach(img => media.push({ type: 'image', src: img }));
+        project.images.forEach(img => media.push({ type: "image", src: img }));
     } else if (project.image && media.length === 0) {
-        media.push({ type: 'image', src: project.image });
+        media.push({ type: "image", src: project.image });
     }
 
-    const hasMultipleMedia = media.length > 1;
+    const hasMultiple = media.length > 1;
 
-    const nextMedia = (e?: React.MouseEvent) => {
+    const prev = (e?: React.MouseEvent) => {
         e?.stopPropagation();
-        setCurrentMediaIndex((prev) => (prev + 1) % media.length);
+        setCurrentMediaIndex(i => (i - 1 + media.length) % media.length);
     };
-
-    const prevMedia = (e?: React.MouseEvent) => {
+    const next = (e?: React.MouseEvent) => {
         e?.stopPropagation();
-        setCurrentMediaIndex((prev) => (prev - 1 + media.length) % media.length);
+        setCurrentMediaIndex(i => (i + 1) % media.length);
     };
 
     useEffect(() => {
         if (!isOpen) return;
         document.body.style.overflow = "hidden";
-        const handleKeyDown = (e: KeyboardEvent) => {
+        const onKey = (e: KeyboardEvent) => {
             if (e.key === "Escape") onClose();
-            if (e.key === "ArrowRight") nextMedia();
-            if (e.key === "ArrowLeft") prevMedia();
+            if (e.key === "ArrowRight") next();
+            if (e.key === "ArrowLeft") prev();
         };
-        window.addEventListener("keydown", handleKeyDown);
+        window.addEventListener("keydown", onKey);
         return () => {
-            window.removeEventListener("keydown", handleKeyDown);
+            window.removeEventListener("keydown", onKey);
             document.body.style.overflow = "unset";
         };
-    }, [isOpen, onClose, media.length]);
+    }, [isOpen, onClose, media.length]); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         setCurrentMediaIndex(0);
+        if (scrollRef.current) scrollRef.current.scrollTop = 0;
     }, [project.slug]);
 
     return (
         <AnimatePresence>
             {isOpen && (
                 <motion.div
-                    className="fixed inset-0 z-[200] flex items-center justify-center p-3 sm:p-6"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2 }}
+                    className="fixed inset-0 z-[200] flex items-center justify-center p-3 sm:p-5 lg:p-8"
+                    variants={overlayVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
                 >
+                    {/* Backdrop */}
                     <div
                         onClick={onClose}
-                        className="fixed inset-0 bg-black/60 backdrop-blur-sm"
+                        className="fixed inset-0 bg-black/70 backdrop-blur-md"
                     />
 
+                    {/* Panel */}
                     <motion.div
-                        initial={{ scale: 0.95, opacity: 0, y: 16 }}
-                        animate={{ scale: 1, opacity: 1, y: 0 }}
-                        exit={{ scale: 0.95, opacity: 0, y: 16 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        className="w-full sm:max-w-4xl bg-[#0A0A0B]/95 border border-white/10 rounded-2xl sm:rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh] z-[201] backdrop-blur-md"
-                        onClick={(e) => e.stopPropagation()}
+                        variants={panelVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        onClick={e => e.stopPropagation()}
+                        className="relative z-[201] w-full max-w-6xl flex flex-col lg:flex-row overflow-hidden rounded-2xl lg:rounded-3xl"
+                        style={{
+                            background: "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)",
+                            backdropFilter: "blur(40px) saturate(180%)",
+                            WebkitBackdropFilter: "blur(40px) saturate(180%)",
+                            border: "1px solid rgba(255,255,255,0.08)",
+                            boxShadow: "0 32px 80px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.08)",
+                            maxHeight: "90vh",
+                        }}
                     >
-                        {/* Media Section (Top) */}
-                        <div className="relative w-full h-48 sm:h-auto sm:aspect-video sm:max-h-[42vh] lg:max-h-[48vh] xl:max-h-[54vh] bg-black/20 flex-shrink-0 group">
-                            <AnimatePresence mode="wait">
-                                <motion.div
-                                    key={`${project.slug}-${currentMediaIndex}`}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.3 }}
-                                    className="absolute inset-0 flex items-center justify-center"
-                                >
-                                    {media[currentMediaIndex].type === 'video' ? (
-                                        media[currentMediaIndex].src.endsWith('.m3u8') ? (
-                                            <HLSVideo
-                                                src={media[currentMediaIndex].src}
-                                                poster={media[currentMediaIndex].poster}
-                                                className="w-full h-full object-cover"
-                                            />
-                                        ) : (
-                                            <video
-                                                src={media[currentMediaIndex].src}
-                                                poster={media[currentMediaIndex].poster}
-                                                autoPlay
-                                                muted
-                                                loop
-                                                className="w-full h-full object-cover"
-                                            />
-                                        )
-                                    ) : (
-                                        <div className="relative w-full h-full">
-                                            <Image
-                                                src={media[currentMediaIndex].src}
-                                                alt={project.title}
-                                                fill
-                                                priority
-                                                className="object-cover"
-                                            />
-                                        </div>
-                                    )}
+                        {/* ─── LEFT: Info Panel ─── */}
+                        <div
+                            ref={scrollRef}
+                            className="relative lg:w-[42%] flex-shrink-0 overflow-y-auto flex flex-col"
+                            style={{
+                                background: "linear-gradient(160deg, rgba(255,255,255,0.04) 0%, rgba(0,0,0,0.0) 100%)",
+                                borderRight: "1px solid rgba(255,255,255,0.06)",
+                            }}
+                        >
+                            {/* top noise layer */}
+                            <div
+                                className="absolute inset-0 pointer-events-none opacity-[0.03]"
+                                style={{
+                                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+                                    backgroundSize: "128px 128px",
+                                }}
+                            />
+
+                            <motion.div
+                                variants={leftContentVariants}
+                                initial="hidden"
+                                animate={isOpen ? "visible" : "hidden"}
+                                className="relative flex flex-col gap-7 p-6 sm:p-8 lg:p-10 flex-1"
+                            >
+                                {/* Status + close (mobile) */}
+                                <motion.div variants={lineVariant} className="flex items-center justify-between">
+                                    <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 border border-white/8 rounded-full px-3 py-1">
+                                        {project.status}
+                                    </span>
+                                    <button
+                                        onClick={onClose}
+                                        className="lg:hidden p-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/8 text-zinc-400 hover:text-white transition-all"
+                                    >
+                                        <X size={16} />
+                                    </button>
                                 </motion.div>
-                            </AnimatePresence>
 
-                            {/* Navigation Arrows */}
-                            {hasMultipleMedia && (
-                                <>
-                                    <button
-                                        onClick={prevMedia}
-                                        className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 p-2.5 sm:p-3 rounded-full bg-black/40 text-white/70 hover:text-white hover:bg-white/10 transition-all backdrop-blur-md border border-white/5 opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
-                                    >
-                                        <ChevronLeft size={20} />
-                                    </button>
-                                    <button
-                                        onClick={nextMedia}
-                                        className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 p-2.5 sm:p-3 rounded-full bg-black/40 text-white/70 hover:text-white hover:bg-white/10 transition-all backdrop-blur-md border border-white/5 opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
-                                    >
-                                        <ChevronRight size={20} />
-                                    </button>
+                                {/* Title */}
+                                <motion.div variants={lineVariant} className="space-y-2">
+                                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-[1.1] tracking-tight">
+                                        {project.title}
+                                    </h2>
+                                    <p className="font-mono text-xs text-zinc-500 uppercase tracking-widest leading-relaxed">
+                                        {project.tagline}
+                                    </p>
+                                </motion.div>
 
-                                    {/* Dot pagination (mobile only) */}
-                                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 sm:hidden z-10">
-                                        {media.map((_, i) => (
-                                            <button
-                                                key={i}
-                                                onClick={(e) => { e.stopPropagation(); setCurrentMediaIndex(i); }}
-                                                className={`h-1.5 rounded-full transition-all duration-300 ${i === currentMediaIndex ? 'w-4 bg-white' : 'w-1.5 bg-white/40'}`}
-                                            />
+                                {/* Divider */}
+                                <motion.div
+                                    variants={lineVariant}
+                                    className="h-px bg-gradient-to-r from-white/10 via-white/5 to-transparent"
+                                />
+
+                                {/* Description */}
+                                <motion.div variants={lineVariant}>
+                                    <p className="text-zinc-400 text-sm sm:text-[15px] leading-[1.75] font-normal">
+                                        {project.description || "A project built with care and craft."}
+                                    </p>
+                                </motion.div>
+
+                                {/* Stack */}
+                                <motion.div variants={lineVariant} className="space-y-3">
+                                    <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-600">
+                                        Tech Stack
+                                    </p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {project.stack.map(tech => (
+                                            <span
+                                                key={tech}
+                                                className="px-3 py-1.5 rounded-lg font-mono text-[11px] text-zinc-300"
+                                                style={{
+                                                    background: "rgba(255,255,255,0.04)",
+                                                    border: "1px solid rgba(255,255,255,0.07)",
+                                                }}
+                                            >
+                                                {tech}
+                                            </span>
                                         ))}
                                     </div>
-                                </>
-                            )}
+                                </motion.div>
 
-                            {/* Close Button Overlay */}
-                            <button
-                                onClick={onClose}
-                                className="absolute top-6 right-6 p-2 rounded-full bg-black/40 text-white/70 hover:text-white hover:bg-white/10 transition-colors backdrop-blur-sm border border-white/10"
-                            >
-                                <X size={20} />
-                            </button>
+                                {/* Links */}
+                                {project.links.length > 0 && (
+                                    <motion.div variants={lineVariant} className="flex flex-wrap gap-3 mt-auto pt-2">
+                                        {project.links.map(link => {
+                                            const isLive = link.label.toLowerCase() === "live";
+                                            const isGit = link.label.toLowerCase().includes("git");
+                                            return (
+                                                <Link
+                                                    key={link.label}
+                                                    href={link.href}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className={`group flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
+                                                        isLive
+                                                            ? "bg-white text-black hover:bg-zinc-100"
+                                                            : "border border-white/10 text-white/70 hover:text-white hover:border-white/20 hover:bg-white/5"
+                                                    }`}
+                                                >
+                                                    <span className="capitalize">{link.label}</span>
+                                                    {isGit
+                                                        ? <Github size={14} />
+                                                        : <ExternalLink size={13} className={isLive ? "opacity-60" : "opacity-40 group-hover:opacity-80"} />
+                                                    }
+                                                </Link>
+                                            );
+                                        })}
+                                    </motion.div>
+                                )}
+                            </motion.div>
                         </div>
 
-                        {/* Content Section (Bottom) */}
-                        <div className="flex-1 overflow-y-auto custom-scrollbar p-4 sm:p-8 md:p-10 space-y-4 sm:space-y-8 bg-gradient-to-b from-white/[0.02] to-transparent">
-                            {/* Header: title + links on same row on mobile too */}
-                            <div className="flex items-start justify-between gap-3">
-                                <div className="min-w-0">
-                                    <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight leading-tight">{project.title}</h2>
-                                    <p className="text-zinc-500 font-mono text-xs sm:text-sm uppercase tracking-widest mt-1">{project.tagline}</p>
-                                </div>
+                        {/* ─── RIGHT: Media Panel ─── */}
+                        <div className="relative flex-1 flex flex-col min-h-[55vw] sm:min-h-[320px] lg:min-h-0 bg-black/30">
+                            {/* Close button desktop */}
+                            <button
+                                onClick={onClose}
+                                className="hidden lg:flex absolute top-5 right-5 z-20 items-center justify-center w-9 h-9 rounded-full bg-black/40 hover:bg-white/10 border border-white/8 text-zinc-400 hover:text-white transition-all backdrop-blur-sm"
+                            >
+                                <X size={16} />
+                            </button>
 
-                                <div className="flex gap-2 flex-shrink-0">
-                                    {project.links.map((link) => (
-                                        <Link
-                                            key={link.label}
-                                            href={link.href}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className={`flex items-center gap-1.5 px-3 py-1.5 sm:px-5 sm:py-2.5 rounded-xl transition-all font-medium text-xs sm:text-sm group ${link.label.toLowerCase() === 'live'
-                                                    ? 'bg-white text-black hover:bg-zinc-200'
-                                                    : 'bg-white/5 text-white hover:bg-white/10 border border-white/5'
-                                                }`}
+                            {/* Main media display */}
+                            <div className="relative flex-1 overflow-hidden">
+                                <AnimatePresence mode="wait">
+                                    <motion.div
+                                        key={`${project.slug}-${currentMediaIndex}`}
+                                        variants={mediaVariants}
+                                        initial="enter"
+                                        animate="center"
+                                        exit="exit"
+                                        className="absolute inset-0"
+                                    >
+                                        {media[currentMediaIndex]?.type === "video" ? (
+                                            media[currentMediaIndex].src.endsWith(".m3u8") ? (
+                                                <HLSVideo
+                                                    src={media[currentMediaIndex].src}
+                                                    poster={media[currentMediaIndex].poster}
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            ) : (
+                                                <video
+                                                    src={media[currentMediaIndex].src}
+                                                    poster={media[currentMediaIndex].poster}
+                                                    autoPlay muted loop playsInline
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            )
+                                        ) : (
+                                            <Image
+                                                src={media[currentMediaIndex]?.src ?? project.image}
+                                                alt={project.title}
+                                                fill priority
+                                                className="object-cover"
+                                            />
+                                        )}
+                                    </motion.div>
+                                </AnimatePresence>
+
+                                {/* subtle bottom vignette for thumbnail strip */}
+                                {hasMultiple && (
+                                    <div className="absolute bottom-0 left-0 right-0 h-28 pointer-events-none"
+                                        style={{ background: "linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%)" }}
+                                    />
+                                )}
+
+                                {/* Arrow nav */}
+                                {hasMultiple && (
+                                    <>
+                                        <button
+                                            onClick={prev}
+                                            className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-black/50 hover:bg-black/70 border border-white/10 text-white/70 hover:text-white transition-all backdrop-blur-sm"
                                         >
-                                            <span className="capitalize">{link.label}</span>
-                                            {link.label.toLowerCase().includes('git') ? <Github size={14} /> : <ExternalLink size={14} className="opacity-50 group-hover:opacity-100" />}
-                                        </Link>
-                                    ))}
-                                </div>
+                                            <ChevronLeft size={18} />
+                                        </button>
+                                        <button
+                                            onClick={next}
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-black/50 hover:bg-black/70 border border-white/10 text-white/70 hover:text-white transition-all backdrop-blur-sm"
+                                        >
+                                            <ChevronRight size={18} />
+                                        </button>
+                                    </>
+                                )}
                             </div>
 
-                            <div className="prose prose-invert max-w-none text-zinc-400 font-normal leading-relaxed text-sm sm:text-base md:text-lg">
-                                <p>{project.description}</p>
-                            </div>
-
-                            <div className="space-y-4">
-                                <h3 className="text-[10px] font-mono text-zinc-600 uppercase tracking-[0.2em] font-bold">Tech Stack</h3>
-                                <div className="flex flex-wrap gap-2">
-                                    {project.stack.map((tech) => (
-                                        <span key={tech} className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/5 text-[11px] text-zinc-300 font-mono">
-                                            {tech}
-                                        </span>
+                            {/* Thumbnail strip */}
+                            {hasMultiple && (
+                                <div className="relative flex-shrink-0 px-4 py-3 flex gap-2 overflow-x-auto"
+                                    style={{
+                                        background: "rgba(0,0,0,0.45)",
+                                        borderTop: "1px solid rgba(255,255,255,0.06)",
+                                        scrollbarWidth: "none",
+                                    }}
+                                >
+                                    {media.map((item, i) => (
+                                        <button
+                                            key={i}
+                                            onClick={() => setCurrentMediaIndex(i)}
+                                            className="relative flex-shrink-0 w-14 h-10 sm:w-16 sm:h-11 rounded-lg overflow-hidden transition-all duration-200"
+                                            style={{
+                                                outline: i === currentMediaIndex ? "2px solid rgba(255,255,255,0.7)" : "2px solid transparent",
+                                                outlineOffset: "2px",
+                                                opacity: i === currentMediaIndex ? 1 : 0.45,
+                                            }}
+                                        >
+                                            {item.type === "video" ? (
+                                                <div className="w-full h-full bg-zinc-800 flex items-center justify-center">
+                                                    <span className="font-mono text-[9px] text-zinc-400 uppercase tracking-wider">vid</span>
+                                                </div>
+                                            ) : (
+                                                <Image src={item.src} alt="" fill className="object-cover" />
+                                            )}
+                                        </button>
                                     ))}
                                 </div>
-                            </div>
+                            )}
                         </div>
                     </motion.div>
                 </motion.div>
