@@ -172,7 +172,7 @@ export default function Footer() {
                                             download
                                             className="text-zinc-300 hover:text-white transition-colors text-sm font-medium hover:pl-2 duration-200 inline-flex items-center gap-2 group"
                                         >
-                                            résumé
+                                            curriculum
                                             <Download size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                                         </a>
                                     </li>
