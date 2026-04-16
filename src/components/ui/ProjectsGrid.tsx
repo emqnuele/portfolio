@@ -1,32 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink, Github } from "lucide-react";
 import { getProjectCoverImage, type Project } from "@/data/portfolio";
 import ProjectModal from "./ProjectModal";
 
-const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    show: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.08
-        }
-    }
-};
 
-const itemVariants: Variants = {
-    hidden: { opacity: 0, scale: 0.88, y: 24 },
-    show: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 60, damping: 22 } }
-};
-
-export default function ProjectsGrid({ projects }: { projects: Project[] }) {
+export default function ProjectsGrid({ projects, filterKey = "" }: { projects: Project[]; filterKey?: string }) {
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    // stagger delay only on first mount, not on filter changes
+    const isFirstMount = useRef(true);
+    useEffect(() => { isFirstMount.current = false; }, []);
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -53,20 +42,15 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
 
     return (
         <>
-            <motion.div
-                variants={containerVariants}
-                initial="hidden"
-                animate="show"
-                layout
-                className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8"
-            >
-                <AnimatePresence mode="popLayout">
-                {projects.map((project) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
+                <AnimatePresence mode="sync">
+                {projects.map((project, i) => (
                     <motion.article
-                        key={project.slug}
-                        variants={itemVariants}
-                        exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
-                        layout
+                        key={project.slug + filterKey}
+                        initial={{ opacity: 0, y: 32, scale: 0.97 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -16, scale: 0.97, transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] } }}
+                        transition={{ duration: 0.55, delay: i < 8 ? i * (isFirstMount.current ? 0.07 : 0.04) : 0, ease: [0.22, 1, 0.36, 1] }}
                         onClick={() => openModal(project)}
                         className="group relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm overflow-hidden hover:bg-white/[0.07] transition-colors duration-500 cursor-pointer"
                     >
@@ -128,7 +112,7 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
                     </motion.article>
                 ))}
                 </AnimatePresence>
-            </motion.div>
+            </div>
 
             {/* Empty state */}
             <AnimatePresence>

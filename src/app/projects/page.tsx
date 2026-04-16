@@ -6,11 +6,12 @@ import { projects } from "@/data/portfolio";
 import ProjectsGrid from "@/components/ui/ProjectsGrid";
 import ProjectSearch from "@/components/ui/ProjectSearch";
 
-// sorted by frequency — all tags, horizontal scroll handles any count
+// only tags used in 2+ projects, sorted by frequency
 const allTags = (() => {
     const freq: Record<string, number> = {};
     projects.forEach(p => p.stack.forEach(t => { freq[t] = (freq[t] || 0) + 1; }));
     return Object.entries(freq)
+        .filter(([, count]) => count >= 2)
         .sort((a, b) => b[1] - a[1])
         .map(([tag]) => tag);
 })();
@@ -46,15 +47,10 @@ export default function ProjectsPage() {
         );
     };
 
-    const clearAll = () => {
-        setSearchQuery("");
-        setActiveFilters([]);
-    };
-
     return (
         <main className="relative min-h-screen w-full overflow-hidden">
             <div className="relative pt-24 md:pt-32 pb-28 md:pb-24 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto">
-                <div className="mb-16 flex flex-col md:flex-row md:items-start md:justify-between gap-8 md:gap-12">
+                <div className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6 md:gap-12">
                     {/* Title */}
                     <div className="flex-shrink-0">
                         <motion.h1
@@ -82,12 +78,15 @@ export default function ProjectsPage() {
                         activeFilters={activeFilters}
                         onSearchChange={setSearchQuery}
                         onFilterToggle={toggleFilter}
-                        onClearAll={clearAll}
+                        onClearFilters={() => setActiveFilters([])}
                     />
                 </div>
 
                 <Suspense fallback={null}>
-                    <ProjectsGrid projects={filteredProjects} />
+                    <ProjectsGrid
+                        projects={filteredProjects}
+                        filterKey={searchQuery + activeFilters.join(",")}
+                    />
                 </Suspense>
             </div>
         </main>
