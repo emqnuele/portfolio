@@ -1,11 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { Github, Send, Mail, ArrowUpRight, Twitter, Instagram, BriefcaseBusiness, Linkedin } from "lucide-react";
+import { Github, Send, Mail, ArrowUpRight, BriefcaseBusiness, Linkedin, Download } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-
-// const stackBadges = ['react', 'next.js', 'python', 'fastapi', 'ai agents'];
 
 const contactChannels = [
     {
@@ -47,6 +45,8 @@ const navLinks = [
     { label: 'about', to: '/about' },
     { label: 'projects', to: '/projects' }
 ];
+
+const CV_PATH = '/about/ENG-Curriculum-EmanueleFaraci.pdf';
 
 function LocationTime() {
     const [time, setTime] = useState<string>("");
@@ -117,13 +117,6 @@ export default function Footer() {
                             </p>
                         </div>
 
-                        {/* <div className="flex flex-wrap gap-2">
-                            {stackBadges.map(badge => (
-                                <span key={badge} className="px-3 py-1.5 rounded-full text-xs font-mono text-zinc-300 bg-white/10 border border-white/10 font-medium">
-                                    {badge}
-                                </span>
-                            ))}
-                        </div> */}
                     </div>
 
                     {/* PANELS SECTION (RIGHT) */}
@@ -173,6 +166,16 @@ export default function Footer() {
                                             </Link>
                                         </li>
                                     ))}
+                                    <li>
+                                        <a
+                                            href={CV_PATH}
+                                            download
+                                            className="text-zinc-300 hover:text-white transition-colors text-sm font-medium hover:pl-2 duration-200 inline-flex items-center gap-2 group"
+                                        >
+                                            résumé
+                                            <Download size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                                        </a>
+                                    </li>
                                 </ul>
                             </nav>
 

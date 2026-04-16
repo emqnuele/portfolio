@@ -133,6 +133,12 @@ export default function ContactSection() {
                         {/* Card inner glow */}
                         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
 
+                        {/* announces status changes to screen readers */}
+                        <div aria-live="polite" aria-atomic="true" className="sr-only">
+                            {status === "success" && "Message sent. I'll get back to you within 2 hours."}
+                            {status === "error" && "Something went wrong. Try again or contact me directly."}
+                        </div>
+
                         <AnimatePresence mode="wait">
                             {status === "success" ? (
                                 <motion.div

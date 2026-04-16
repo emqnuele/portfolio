@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
+import { Download } from "lucide-react";
 import BlurReveal from "@/components/ui/BlurReveal";
 import { stats } from "@/data/portfolio";
 
@@ -74,6 +75,16 @@ export default function AboutHeader() {
                         </motion.div>
                     ))}
                 </motion.dl>
+
+                <motion.a
+                    variants={fadeInUp}
+                    href="/about/ENG-Curriculum-EmanueleFaraci.pdf"
+                    download
+                    className="group inline-flex items-center gap-2.5 px-5 py-3 rounded-xl border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/20 transition-all text-sm font-medium text-zinc-300 hover:text-white"
+                >
+                    <Download size={15} className="group-hover:-translate-y-0.5 transition-transform" />
+                    Download résumé
+                </motion.a>
             </motion.div>
 
             {/* Image Column (Desktop) */}
