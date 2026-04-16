@@ -36,7 +36,7 @@ export default function ProjectSearch({
                 className="relative group cursor-text"
                 onClick={() => inputRef.current?.focus()}
             >
-                <div className="absolute inset-0 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 group-focus-within:border-white/20 group-focus-within:bg-white/[0.07] transition-all duration-300" />
+                <div className="absolute inset-0 rounded-2xl bg-zinc-900/60 backdrop-blur-md border border-white/10 group-focus-within:border-white/20 transition-all duration-300" />
                 <div className="relative flex items-center px-4 py-2.5 gap-3">
                     <Search size={14} className="text-zinc-500 flex-shrink-0" />
                     <input
@@ -85,8 +85,8 @@ export default function ProjectSearch({
                             onClick={() => onFilterToggle(tag)}
                             className={`px-2.5 py-1 rounded-full text-xs font-mono border transition-all duration-200 ${
                                 isActive
-                                    ? "bg-white/[0.12] border-white/25 text-white shadow-[0_0_14px_rgba(255,255,255,0.07)]"
-                                    : "bg-white/[0.03] border-white/[0.06] text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.07] hover:border-white/10"
+                                    ? "bg-white/15 border-white/25 text-white shadow-[0_0_14px_rgba(255,255,255,0.07)]"
+                                    : "bg-zinc-900/50 border-white/8 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/60 hover:border-white/15"
                             }`}
                         >
                             {tag}
