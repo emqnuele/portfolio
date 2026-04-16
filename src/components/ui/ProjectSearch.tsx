@@ -29,7 +29,7 @@ export default function ProjectSearch({
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col gap-3 w-full md:max-w-[380px]"
+            className="flex flex-col gap-2.5 w-full md:max-w-[400px]"
         >
             {/* Search bar */}
             <div
@@ -66,49 +66,37 @@ export default function ProjectSearch({
                 </div>
             </div>
 
-            {/* Filter chips */}
-            <div className="flex flex-wrap gap-1.5">
-                {allTags.map((tag, i) => {
-                    const isActive = activeFilters.includes(tag);
-                    return (
-                        <motion.button
-                            key={tag}
-                            initial={{ opacity: 0, y: 8 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{
-                                duration: 0.35,
-                                delay: 0.28 + i * 0.018,
-                                ease: [0.22, 1, 0.36, 1],
-                            }}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={() => onFilterToggle(tag)}
-                            className={`px-2.5 py-1 rounded-full text-xs font-mono border transition-all duration-200 ${
-                                isActive
-                                    ? "bg-white/15 border-white/25 text-white shadow-[0_0_14px_rgba(255,255,255,0.07)]"
-                                    : "bg-zinc-900/50 border-white/8 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/60 hover:border-white/15"
-                            }`}
-                        >
-                            {tag}
-                        </motion.button>
-                    );
-                })}
+            {/* Single-row horizontal scroll — scales to any number of tags */}
+            <div className="relative">
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.4, delay: 0.3 }}
+                    className="flex gap-1.5 overflow-x-auto [&::-webkit-scrollbar]:hidden"
+                    style={{ scrollbarWidth: "none" }}
+                >
+                    {allTags.map((tag) => {
+                        const isActive = activeFilters.includes(tag);
+                        return (
+                            <motion.button
+                                key={tag}
+                                whileHover={{ scale: 1.06 }}
+                                whileTap={{ scale: 0.94 }}
+                                onClick={() => onFilterToggle(tag)}
+                                className={`flex-shrink-0 px-2.5 py-1 rounded-full text-xs font-mono border transition-all duration-200 ${
+                                    isActive
+                                        ? "bg-white/15 border-white/25 text-white shadow-[0_0_12px_rgba(255,255,255,0.06)]"
+                                        : "bg-zinc-900/50 border-white/[0.07] text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/60 hover:border-white/15"
+                                }`}
+                            >
+                                {tag}
+                            </motion.button>
+                        );
+                    })}
+                </motion.div>
+                {/* fade to indicate scrollable content */}
+                <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-black/60 to-transparent pointer-events-none" />
             </div>
-
-            {/* Active filter count hint */}
-            <AnimatePresence>
-                {activeFilters.length > 0 && (
-                    <motion.p
-                        initial={{ opacity: 0, y: -4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -4 }}
-                        transition={{ duration: 0.2 }}
-                        className="text-xs text-zinc-600 font-mono"
-                    >
-                        {activeFilters.length} filter{activeFilters.length > 1 ? "s" : ""} active
-                    </motion.p>
-                )}
-            </AnimatePresence>
         </motion.div>
     );
 }

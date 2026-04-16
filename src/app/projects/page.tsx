@@ -6,12 +6,11 @@ import { projects } from "@/data/portfolio";
 import ProjectsGrid from "@/components/ui/ProjectsGrid";
 import ProjectSearch from "@/components/ui/ProjectSearch";
 
-// only tags that appear in 2+ projects, sorted by frequency
+// sorted by frequency — all tags, horizontal scroll handles any count
 const allTags = (() => {
     const freq: Record<string, number> = {};
     projects.forEach(p => p.stack.forEach(t => { freq[t] = (freq[t] || 0) + 1; }));
     return Object.entries(freq)
-        .filter(([, count]) => count >= 2)
         .sort((a, b) => b[1] - a[1])
         .map(([tag]) => tag);
 })();
