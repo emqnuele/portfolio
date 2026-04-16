@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { motion, type Variants } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink, Github } from "lucide-react";
@@ -14,7 +14,7 @@ const containerVariants: Variants = {
     show: {
         opacity: 1,
         transition: {
-            staggerChildren: 0.1
+            staggerChildren: 0.08
         }
     }
 };
@@ -57,12 +57,16 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
                 variants={containerVariants}
                 initial="hidden"
                 animate="show"
+                layout
                 className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8"
             >
+                <AnimatePresence mode="popLayout">
                 {projects.map((project) => (
                     <motion.article
                         key={project.slug}
                         variants={itemVariants}
+                        exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
+                        layout
                         onClick={() => openModal(project)}
                         className="group relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm overflow-hidden hover:bg-white/[0.07] transition-colors duration-500 cursor-pointer"
                     >
@@ -123,7 +127,24 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
                         </div>
                     </motion.article>
                 ))}
+                </AnimatePresence>
             </motion.div>
+
+            {/* Empty state */}
+            <AnimatePresence>
+                {projects.length === 0 && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 16 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 8 }}
+                        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                        className="flex flex-col items-center justify-center py-24 gap-3 text-center"
+                    >
+                        <p className="text-zinc-400 text-lg font-semibold">No projects found</p>
+                        <p className="text-zinc-600 text-sm font-mono">Try a different search or filter.</p>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             {selectedProject && (
                 <ProjectModal
