@@ -9,7 +9,7 @@ import SkillsGrid from "./about/SkillsGrid";
 
 export default function About() {
     return (
-        <section id="about" className="px-4 sm:px-6 md:px-12 max-w-7xl mx-auto space-y-32 md:space-y-20 relative pb-8 md:pb-24">
+        <section id="about" className="px-4 sm:px-6 md:px-12 max-w-7xl mx-auto space-y-16 md:space-y-20 relative pb-8 md:pb-24">
 
             {/* Aura Background */}
             <div className="absolute inset-x-0 top-0 h-[800px] pointer-events-none opacity-40">
