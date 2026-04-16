@@ -223,14 +223,15 @@ export const projects: Project[] = [
         title: 'Quick ResourcePack Mod',
         tagline: 'Fabric mod for Minecraft.',
         description: 'Keybind to switch texture packs on/off ingame.',
-        image: '/projects/new-quick-resource-pack.png',
+        image: '/projects/quick-resource-packs.png',
         status: 'live on modrinth',
         stack: ['Java', 'Minecraft', 'Fabric'],
         links: [
             { label: 'github', href: 'https://github.com/emqnuele/quick-resource-pack' },
             { label: 'live', href: 'https://modrinth.com/mod/quick-resource-pack' }
         ],
-        accent: '255, 122, 122'
+        accent: '255, 122, 122',
+        images: ['/projects/quick-resource-packs.png', '/projects/new-quick-resource-pack.png']
     }
 ];
 
