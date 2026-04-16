@@ -34,7 +34,7 @@ export default function About() {
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             >
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 text-center sm:text-left items-center sm:items-start">
                     <div>
                         <p className="font-mono text-xs text-zinc-500 tracking-[0.4em] uppercase mb-3">see it in action</p>
                         <h2 className="text-2xl sm:text-3xl font-bold text-white">Now check what I&apos;ve built.</h2>
@@ -42,7 +42,7 @@ export default function About() {
                     </div>
                     <Link
                         href="/projects"
-                        className="group flex-shrink-0 self-start sm:self-auto flex items-center gap-2 text-white font-semibold text-sm hover:text-zinc-300 transition-colors duration-200"
+                        className="group flex-shrink-0 flex items-center gap-2 text-white font-semibold text-sm hover:text-zinc-300 transition-colors duration-200"
                     >
                         View Projects
                         <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform duration-200" />
