@@ -42,20 +42,21 @@ export default function ProjectSearch({
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="relative flex gap-2 w-full md:max-w-[400px]"
+            className="relative flex gap-2.5 w-full md:max-w-[440px]"
         >
             {/* Search bar */}
             <div className="relative group flex-1">
-                <div className="absolute inset-0 rounded-2xl bg-zinc-900/60 backdrop-blur-md border border-white/10 group-focus-within:border-white/20 transition-all duration-300 pointer-events-none" />
+                <div className="absolute inset-0 rounded-2xl bg-zinc-900/75 border border-white/[0.09] group-focus-within:border-white/[0.16] transition-all duration-300 pointer-events-none" />
                 <div className="relative flex items-center gap-3 pr-3">
-                    <Search size={14} className="text-zinc-500 flex-shrink-0 absolute left-4 pointer-events-none z-10" />
+                    <Search size={15} className="text-zinc-400/90 flex-shrink-0 absolute left-4 pointer-events-none z-10" />
                     <AnimatedInput
                         value={searchQuery}
                         onChange={onSearchChange}
+                        onFocus={() => setPanelOpen(false)}
                         placeholder="Search projects..."
                         aria-label="Search projects"
-                        className="flex-1 min-w-0 text-sm font-mono text-white"
-                        padding="pl-8 pr-2 py-2.5"
+                        className="flex-1 min-w-0 text-[15px] font-mono text-white"
+                        padding="pl-9 pr-2 py-3"
                     />
                     <AnimatePresence>
                         {searchQuery.length > 0 && (
@@ -65,7 +66,7 @@ export default function ProjectSearch({
                                 exit={{ opacity: 0, scale: 0.5 }}
                                 transition={{ duration: 0.15 }}
                                 onClick={() => onSearchChange("")}
-                                className="p-1 rounded-full text-zinc-500 hover:text-white transition-colors flex-shrink-0"
+                                className="p-1 rounded-full text-zinc-400 hover:text-white transition-colors flex-shrink-0"
                                 aria-label="Clear search"
                             >
                                 <X size={12} />
@@ -81,13 +82,13 @@ export default function ProjectSearch({
                 whileTap={{ scale: 0.96 }}
                 onClick={() => setPanelOpen(!panelOpen)}
                 aria-label="Toggle filters"
-                className={`relative flex-shrink-0 flex items-center justify-center w-[42px] rounded-2xl backdrop-blur-md border transition-all duration-200 ${
+                className={`relative flex-shrink-0 flex items-center justify-center w-[46px] rounded-2xl border transition-all duration-200 ${
                     panelOpen || activeFilters.length > 0
-                        ? "bg-white/10 border-white/25 text-white"
-                        : "bg-zinc-900/60 border-white/10 text-zinc-500 hover:text-zinc-300 hover:border-white/15"
+                        ? "bg-zinc-800/90 border-white/[0.16] text-white"
+                        : "bg-zinc-900/75 border-white/[0.09] text-zinc-400 hover:text-zinc-200 hover:border-white/[0.14]"
                 }`}
             >
-                <SlidersHorizontal size={14} />
+                <SlidersHorizontal size={15} />
                 <AnimatePresence>
                     {activeFilters.length > 0 && (
                         <motion.span
@@ -111,11 +112,11 @@ export default function ProjectSearch({
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -6, scale: 0.97 }}
                         transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                        className="absolute top-[calc(100%+8px)] left-0 right-0 z-50 rounded-2xl bg-zinc-900/80 backdrop-blur-xl border border-white/10 p-3 shadow-xl shadow-black/40"
+                        className="absolute top-[calc(100%+10px)] left-0 right-0 z-50 rounded-2xl bg-zinc-900/88 backdrop-blur-sm border border-white/[0.09] p-3.5 shadow-xl shadow-black/45"
                     >
                         {/* Panel header */}
                         <div className="flex items-center justify-between mb-2.5 px-0.5">
-                            <span className="text-xs font-mono text-zinc-500">filter by tech</span>
+                            <span className="text-xs font-mono text-zinc-400">filter by tech</span>
                             <AnimatePresence>
                                 {activeFilters.length > 0 && (
                                     <motion.button
@@ -123,7 +124,7 @@ export default function ProjectSearch({
                                         animate={{ opacity: 1 }}
                                         exit={{ opacity: 0 }}
                                         onClick={onClearFilters}
-                                        className="text-xs font-mono text-zinc-500 hover:text-white transition-colors"
+                                        className="text-xs font-mono text-zinc-400 hover:text-white transition-colors"
                                     >
                                         clear
                                     </motion.button>
@@ -143,8 +144,8 @@ export default function ProjectSearch({
                                         onClick={() => onFilterToggle(tag)}
                                         className={`px-2.5 py-1 rounded-full text-xs font-mono border transition-all duration-150 ${
                                             isActive
-                                                ? "bg-white/15 border-white/25 text-white"
-                                                : "bg-white/[0.04] border-white/[0.07] text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.08] hover:border-white/15"
+                                                ? "bg-white/[0.11] border-white/[0.16] text-white"
+                                                : "bg-white/[0.03] border-white/[0.08] text-zinc-300 hover:text-zinc-100 hover:bg-white/[0.06] hover:border-white/[0.13]"
                                         }`}
                                     >
                                         {tag}

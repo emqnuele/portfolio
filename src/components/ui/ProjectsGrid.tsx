@@ -11,6 +11,7 @@ import ProjectModal from "./ProjectModal";
 
 
 export default function ProjectsGrid({ projects, filterKey = "" }: { projects: Project[]; filterKey?: string }) {
+    void filterKey;
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     // stagger delay only on first mount, not on filter changes
@@ -43,14 +44,23 @@ export default function ProjectsGrid({ projects, filterKey = "" }: { projects: P
     return (
         <>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
-                <AnimatePresence mode="sync">
-                {projects.map((project, i) => (
+                <AnimatePresence mode="popLayout" initial={false}>
+                {projects.map((project, i) => {
+                    const firstMount = isFirstMount.current;
+                    return (
                     <motion.article
-                        key={project.slug + filterKey}
-                        initial={{ opacity: 0, y: 32, scale: 0.97 }}
+                        key={project.slug}
+                        layout
+                        initial={firstMount ? { opacity: 0, y: 28, scale: 0.96 } : { opacity: 0, scale: 0.92 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -16, scale: 0.97, transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] } }}
-                        transition={{ duration: 0.55, delay: i < 8 ? i * (isFirstMount.current ? 0.07 : 0.04) : 0, ease: [0.22, 1, 0.36, 1] }}
+                        exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.22, ease: [0.4, 0, 1, 1] } }}
+                        transition={{
+                            layout: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+                            opacity: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
+                            scale: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
+                            y: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+                            delay: firstMount && i < 8 ? i * 0.06 : 0,
+                        }}
                         onClick={() => openModal(project)}
                         className="group relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm overflow-hidden hover:bg-white/[0.07] transition-colors duration-500 cursor-pointer"
                     >
@@ -110,7 +120,8 @@ export default function ProjectsGrid({ projects, filterKey = "" }: { projects: P
                             </div>
                         </div>
                     </motion.article>
-                ))}
+                    );
+                })}
                 </AnimatePresence>
             </div>
 
