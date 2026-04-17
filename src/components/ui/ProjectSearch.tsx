@@ -2,11 +2,23 @@
 
 import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, X, SlidersHorizontal } from "lucide-react";
+import {
+    Search,
+    X,
+    SlidersHorizontal,
+    Globe,
+    Sparkles,
+    Bot,
+    Gamepad2,
+    Wrench,
+    Box,
+    type LucideIcon,
+} from "lucide-react";
 import AnimatedInput from "@/components/ui/AnimatedInput";
 
 interface ProjectSearchProps {
     allCategories: string[];
+    categoryCounts: Record<string, number>;
     searchQuery: string;
     activeCategories: string[];
     onSearchChange: (query: string) => void;
@@ -16,8 +28,21 @@ interface ProjectSearchProps {
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+// icon + accent (rgb triplet) per category
+const CATEGORY_META: Record<string, { icon: LucideIcon; accent: string }> = {
+    "Websites": { icon: Globe, accent: "96, 165, 250" },        // blue-400
+    "AI & Agents": { icon: Sparkles, accent: "192, 132, 252" }, // purple-400
+    "Bots": { icon: Bot, accent: "244, 114, 182" },             // pink-400
+    "Games": { icon: Gamepad2, accent: "45, 212, 191" },        // teal-400
+    "Dev Tools": { icon: Wrench, accent: "251, 191, 36" },      // amber-400
+    "Minecraft": { icon: Box, accent: "74, 222, 128" },         // green-400
+};
+
+const FALLBACK_META = { icon: Box, accent: "161, 161, 170" }; // zinc-400
+
 export default function ProjectSearch({
     allCategories,
+    categoryCounts,
     searchQuery,
     activeCategories,
     onSearchChange,
@@ -138,6 +163,9 @@ export default function ProjectSearch({
                         <div className="grid grid-cols-2 gap-1.5">
                             {allCategories.map((cat, i) => {
                                 const isActive = activeCategories.includes(cat);
+                                const meta = CATEGORY_META[cat] ?? FALLBACK_META;
+                                const Icon = meta.icon;
+                                const count = categoryCounts[cat] ?? 0;
                                 return (
                                     <motion.button
                                         key={cat}
@@ -147,13 +175,47 @@ export default function ProjectSearch({
                                         whileHover={{ y: -1 }}
                                         whileTap={{ scale: 0.97 }}
                                         onClick={() => onCategoryToggle(cat)}
-                                        className={`relative px-3 py-2 rounded-xl text-[13px] font-medium border transition-colors duration-200 text-left ${
+                                        style={{
+                                            ['--cat' as string]: `rgb(${meta.accent})`,
+                                            ['--cat-border' as string]: `rgba(${meta.accent}, 0.28)`,
+                                        }}
+                                        className={`group/chip relative flex items-center gap-2.5 pl-2.5 pr-2 py-2 rounded-xl text-[13px] font-medium border overflow-hidden text-left transition-[background-color,border-color,color,box-shadow] duration-200 ${
                                             isActive
-                                                ? "bg-white text-black border-white shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_6px_18px_-8px_rgba(255,255,255,0.3)]"
-                                                : "bg-white/[0.03] border-white/[0.08] text-zinc-100 hover:bg-white/[0.07] hover:border-white/[0.16]"
+                                                ? "bg-white text-black border-white shadow-[0_0_0_1px_rgba(255,255,255,0.1),0_8px_22px_-10px_rgba(255,255,255,0.35)]"
+                                                : "bg-white/[0.03] border-white/[0.08] text-zinc-100 hover:bg-white/[0.05] hover:border-[color:var(--cat-border)]"
                                         }`}
                                     >
-                                        {cat}
+                                        {/* glow wash on hover */}
+                                        {!isActive && (
+                                            <span
+                                                aria-hidden
+                                                className="pointer-events-none absolute inset-0 opacity-0 group-hover/chip:opacity-100 transition-opacity duration-300"
+                                                style={{
+                                                    background: `radial-gradient(120% 100% at 0% 0%, rgba(${meta.accent}, 0.12) 0%, transparent 55%)`,
+                                                }}
+                                            />
+                                        )}
+
+                                        {/* icon cap */}
+                                        <span
+                                            className={`relative z-10 flex items-center justify-center w-6 h-6 rounded-lg flex-shrink-0 transition-colors duration-200 ${
+                                                isActive
+                                                    ? "bg-black/[0.06] text-black"
+                                                    : "bg-white/[0.04] text-zinc-400 group-hover/chip:text-[color:var(--cat)]"
+                                            }`}
+                                        >
+                                            <Icon size={13} strokeWidth={2.1} />
+                                        </span>
+
+                                        <span className="relative z-10 flex-1 leading-none tracking-tight">{cat}</span>
+
+                                        <span
+                                            className={`relative z-10 text-[10px] font-mono leading-none tabular-nums transition-colors duration-200 ${
+                                                isActive ? "text-black/55" : "text-zinc-500 group-hover/chip:text-zinc-300"
+                                            }`}
+                                        >
+                                            {count}
+                                        </span>
                                     </motion.button>
                                 );
                             })}

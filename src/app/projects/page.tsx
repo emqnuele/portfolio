@@ -6,6 +6,15 @@ import { projects, allCategories } from "@/data/portfolio";
 import ProjectsGrid from "@/components/ui/ProjectsGrid";
 import ProjectSearch from "@/components/ui/ProjectSearch";
 
+const categoryCounts: Record<string, number> = (() => {
+    const counts: Record<string, number> = {};
+    allCategories.forEach(c => { counts[c] = 0; });
+    projects.forEach(p => p.categories.forEach(c => {
+        if (c in counts) counts[c] += 1;
+    }));
+    return counts;
+})();
+
 export default function ProjectsPage() {
     const [searchQuery, setSearchQuery] = useState("");
     const [activeCategories, setActiveCategories] = useState<string[]>([]);
@@ -65,6 +74,7 @@ export default function ProjectsPage() {
                     {/* Search + filters */}
                     <ProjectSearch
                         allCategories={allCategories as unknown as string[]}
+                        categoryCounts={categoryCounts}
                         searchQuery={searchQuery}
                         activeCategories={activeCategories}
                         onSearchChange={setSearchQuery}
