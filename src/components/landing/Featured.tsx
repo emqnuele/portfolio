@@ -68,7 +68,11 @@ export default function Featured() {
                         className="absolute top-[-5px] left-[-5px] z-50 pointer-events-none isolate"
                         variants={badgeVariants}
                     >
-                        <span className="relative inline-flex px-4 py-1.5 rounded-full bg-gradient-to-br from-cyan-300 to-cyan-500 text-black font-bold tracking-wide shadow-[0_4px_12px_rgba(6,182,212,0.4),0_0_26px_rgba(34,211,238,0.35)] flex items-center justify-center border border-cyan-200/50 [backface-visibility:hidden]">
+                        <div
+                            aria-hidden="true"
+                            className="absolute -inset-[6px] -z-10 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(103,232,249,0.76)_0%,rgba(34,211,238,0.46)_48%,rgba(34,211,238,0)_78%)] opacity-95"
+                        />
+                        <span className="relative inline-flex px-4 py-1.5 rounded-full bg-gradient-to-br from-cyan-300 to-cyan-500 text-black font-bold tracking-wide shadow-[0_6px_16px_rgba(6,182,212,0.44),0_0_36px_rgba(34,211,238,0.52),0_0_68px_rgba(34,211,238,0.3)] flex items-center justify-center border border-cyan-200/50 [backface-visibility:hidden] [transform:translateZ(0)]">
                             FEATURED
                         </span>
                     </motion.div>
