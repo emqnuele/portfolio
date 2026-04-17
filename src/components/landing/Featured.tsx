@@ -65,11 +65,10 @@ export default function Featured() {
                 >
                     {/* Featured Badge */}
                     <motion.div
-                        className="absolute top-[-5px] left-[-5px] z-50 pointer-events-none"
+                        className="absolute top-[-5px] left-[-5px] z-50 pointer-events-none isolate"
                         variants={badgeVariants}
                     >
-                        <div className="absolute inset-0 bg-cyan-400 blur-md opacity-50 rounded-full" />
-                        <span className="relative px-4 py-1.5 rounded-full bg-gradient-to-br from-cyan-300 to-cyan-500 text-black font-bold tracking-wide shadow-[0_4px_12px_rgba(6,182,212,0.4)] flex items-center justify-center border border-cyan-200/50">
+                        <span className="relative inline-flex px-4 py-1.5 rounded-full bg-gradient-to-br from-cyan-300 to-cyan-500 text-black font-bold tracking-wide shadow-[0_4px_12px_rgba(6,182,212,0.4),0_0_26px_rgba(34,211,238,0.35)] flex items-center justify-center border border-cyan-200/50 [backface-visibility:hidden]">
                             FEATURED
                         </span>
                     </motion.div>
