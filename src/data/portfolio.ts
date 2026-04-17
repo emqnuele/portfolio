@@ -6,12 +6,22 @@ export interface Project {
     image: string;
     status: string;
     stack: string[];
+    categories: string[];
     links: { label: string; href: string }[];
     accent: string;
     // Extra media for modal
     images?: string[];
     videos?: string[];
 }
+
+export const allCategories = [
+    'Websites',
+    'AI & Agents',
+    'Bots',
+    'Games',
+    'Dev Tools',
+    'Minecraft',
+] as const;
 
 export interface ProjectMediaItem {
     type: 'image' | 'video';
@@ -48,6 +58,7 @@ export const projects: Project[] = [
         image: '/projects/new_patty.png',
         status: 'concept / 2026',
         stack: ['Next.js', 'TypeScript', 'UI Design', 'Frontend'],
+        categories: ['Websites'],
         links: [{ label: 'live', href: 'https://patty.emqnuele.dev' }],
         accent: '30, 78, 215'
     },
@@ -59,6 +70,7 @@ export const projects: Project[] = [
         image: '/projects/pulsar-linkedin2_compressed.png',
         status: 'winner / 2026',
         stack: ['Next.js', 'TypeScript', 'Product Design', 'UX', 'Hackathon'],
+        categories: ['Websites'],
         links: [{ label: 'live', href: 'https://pulsar.emqnuele.dev' }],
         accent: '82, 128, 255',
         images: ['/projects/pulsar-linkedin2_compressed.png', '/projects/pulsar-match.webp', '/projects/pulsar-home.webp']
@@ -71,6 +83,7 @@ export const projects: Project[] = [
         image: '/projects/new_projectbea.png',
         status: 'live',
         stack: ['Python', 'JavaScript', 'AI', 'FastAPI', 'RAG', 'Java', 'React'],
+        categories: ['AI & Agents', 'Minecraft'],
         links: [{ label: 'github', href: 'https://github.com/emqnuele/projectBEA' }, { label: 'live', href: 'https://projectbea.emqnuele.dev' }],
         accent: '220, 174, 255',
         videos: [
@@ -87,9 +100,10 @@ export const projects: Project[] = [
         image: '/projects/quicklanding.png',
         status: 'client / 2026',
         stack: ['Python', 'FastAPI', 'AI Agents', 'Linux', 'Nginx', 'Next.js'],
+        categories: ['AI & Agents', 'Websites'],
         links: [],
         accent: '255, 143, 178'
-    }, 
+    },
     {
         slug: 'omni',
         title: 'Omni',
@@ -98,6 +112,7 @@ export const projects: Project[] = [
         image: '/projects/omni.png',
         status: '2026',
         stack: ['Next.js','HLS Streaming', 'Deno Deploy', 'PostgreSQL', 'Docker', 'Nginx', 'Cloudflare', 'Caching'],
+        categories: ['Websites'],
         links: [],
         accent: '255, 143, 178'
     }, 
@@ -109,6 +124,7 @@ export const projects: Project[] = [
         image: '/projects/danilo.png',
         status: 'prod / 2025',
         stack: ['Python', 'Telegram API', 'Linux', 'Docker'],
+        categories: ['Bots', 'Dev Tools'],
         links: [],
         accent: '255, 122, 214'
     },
@@ -120,6 +136,7 @@ export const projects: Project[] = [
         image: '/projects/finqua.png',
         status: 'live / 2025',
         stack: ['Python', 'Telegram API', 'Google GenAI'],
+        categories: ['Bots', 'AI & Agents'],
         links: [{ label: 'github', href: 'https://github.com/emqnuele/humanlike-telegram-bot' }],
         accent: '255, 143, 178'
     },
@@ -131,6 +148,7 @@ export const projects: Project[] = [
         image: '/projects/new_minesweeper.png',
         status: 'prod / 2025',
         stack: ['React', 'TypeScript', 'Vite'],
+        categories: ['Games'],
         links: [
             { label: 'github', href: 'https://github.com/emqnuele/Minesweeper' },
             { label: 'live', href: 'https://minesweeper.emqnuele.dev/' }
@@ -145,6 +163,7 @@ export const projects: Project[] = [
         image: '/projects/new_converter.png',
         status: 'prod / 2026',
         stack: ['Python', 'FastAPI', 'FFmpeg', 'Pillow', 'Vite', 'Uvicorn'],
+        categories: ['Dev Tools'],
         links: [
             { label: 'github', href: 'https://github.com/emqnuele/AllConverter' },
             { label: 'live', href: 'https://allconverter.emqnuele.dev/' }
@@ -159,6 +178,7 @@ export const projects: Project[] = [
         image: '/projects/new_clicker.png',
         status: 'beta / 2025',
         stack: ['React', 'TypeScript', 'Vite'],
+        categories: ['Games'],
         links: [{ label: 'live', href: 'https://click.gecowave.top/' }],
         accent: '220, 174, 255'
     },
@@ -170,6 +190,7 @@ export const projects: Project[] = [
         image: '/projects/new_gecowave.png',
         status: 'beta / 2025',
         stack: ['Vite', 'TypeScript', 'Tailwind'],
+        categories: ['Websites'],
         links: [{ label: 'live', href: 'https://gecowave.top/' }],
         accent: '220, 174, 255'
     },
@@ -181,6 +202,7 @@ export const projects: Project[] = [
         image: '/projects/insta.png',
         status: 'prod / 2025',
         stack: ['Python', 'instagrapi', 'Google GenAI'],
+        categories: ['Bots', 'AI & Agents'],
         links: [{ label: 'github', href: 'https://github.com/emqnuele/insta-bot' }],
         accent: '255, 122, 214'
     },
@@ -192,6 +214,7 @@ export const projects: Project[] = [
         image: '/projects/new_portfolio.png',
         status: 'live',
         stack: ['Next.js', 'Tailwind', 'Framer Motion'],
+        categories: ['Websites'],
         links: [{ label: 'github', href: 'https://github.com/emqnuele/portfolio' }, { label: 'live', href: 'https://emanuelefaraci.com/' }],
         accent: '220, 174, 255'
     },
@@ -203,6 +226,7 @@ export const projects: Project[] = [
         image: '/projects/scraper.png',
         status: 'beta / 2025',
         stack: ['Python', 'BeautifulSoup', 'Requests'],
+        categories: ['Dev Tools'],
         links: [{ label: 'github', href: 'https://github.com/emqnuele/webscraper' }],
         accent: '125, 255, 199'
     },
@@ -215,6 +239,7 @@ export const projects: Project[] = [
         image: '/projects/markolino.webp',
         status: 'beta / 2025',
         stack: ['Java', 'Minecraft', 'Paper', 'Fabric'],
+        categories: ['Minecraft', 'Games'],
         links: [{ label: 'github', href: 'https://modrinth.com/plugin/markolino-chaos' }],
         accent: '255, 122, 122'
     },
@@ -226,6 +251,7 @@ export const projects: Project[] = [
         image: '/projects/quick-resource-packs.png',
         status: 'live on modrinth',
         stack: ['Java', 'Minecraft', 'Fabric'],
+        categories: ['Minecraft'],
         links: [
             { label: 'github', href: 'https://github.com/emqnuele/quick-resource-pack' },
             { label: 'live', href: 'https://modrinth.com/mod/quick-resource-pack' }

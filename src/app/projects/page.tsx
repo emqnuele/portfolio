@@ -2,7 +2,7 @@
 
 import { Suspense, useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { projects } from "@/data/portfolio";
+import { projects, allCategories } from "@/data/portfolio";
 import ProjectsGrid from "@/components/ui/ProjectsGrid";
 import ProjectSearch from "@/components/ui/ProjectSearch";
 
@@ -18,6 +18,7 @@ const allTags = (() => {
 
 export default function ProjectsPage() {
     const [searchQuery, setSearchQuery] = useState("");
+    const [activeCategories, setActiveCategories] = useState<string[]>([]);
     const [activeFilters, setActiveFilters] = useState<string[]>([]);
 
     const filteredProjects = useMemo(() => {
@@ -28,7 +29,14 @@ export default function ProjectsPage() {
             result = result.filter(p =>
                 p.title.toLowerCase().includes(q) ||
                 p.tagline.toLowerCase().includes(q) ||
-                p.stack.some(t => t.toLowerCase().includes(q))
+                p.stack.some(t => t.toLowerCase().includes(q)) ||
+                p.categories.some(c => c.toLowerCase().includes(q))
+            );
+        }
+
+        if (activeCategories.length > 0) {
+            result = result.filter(p =>
+                activeCategories.some(c => p.categories.includes(c))
             );
         }
 
@@ -39,12 +47,23 @@ export default function ProjectsPage() {
         }
 
         return result;
-    }, [searchQuery, activeFilters]);
+    }, [searchQuery, activeCategories, activeFilters]);
+
+    const toggleCategory = (cat: string) => {
+        setActiveCategories(prev =>
+            prev.includes(cat) ? prev.filter(c => c !== cat) : [...prev, cat]
+        );
+    };
 
     const toggleFilter = (tag: string) => {
         setActiveFilters(prev =>
             prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
         );
+    };
+
+    const clearAll = () => {
+        setActiveCategories([]);
+        setActiveFilters([]);
     };
 
     return (
@@ -74,18 +93,21 @@ export default function ProjectsPage() {
                     {/* Search + filters */}
                     <ProjectSearch
                         allTags={allTags}
+                        allCategories={allCategories as unknown as string[]}
                         searchQuery={searchQuery}
+                        activeCategories={activeCategories}
                         activeFilters={activeFilters}
                         onSearchChange={setSearchQuery}
+                        onCategoryToggle={toggleCategory}
                         onFilterToggle={toggleFilter}
-                        onClearFilters={() => setActiveFilters([])}
+                        onClearFilters={clearAll}
                     />
                 </div>
 
                 <Suspense fallback={null}>
                     <ProjectsGrid
                         projects={filteredProjects}
-                        filterKey={searchQuery + activeFilters.join(",")}
+                        filterKey={searchQuery + activeCategories.join(",") + activeFilters.join(",")}
                     />
                 </Suspense>
             </div>
