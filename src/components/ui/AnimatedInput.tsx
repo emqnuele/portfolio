@@ -8,6 +8,7 @@ import {
     useCallback,
     CSSProperties,
 } from "react";
+import { motion, Transition } from "framer-motion";
 
 interface AnimatedInputProps {
     value: string;
@@ -37,7 +38,7 @@ interface CaretRect {
 }
 
 // common-prefix / common-suffix diff. preserves ids for untouched chars so
-// react doesn't remount them and css enter animations don't replay.
+// react doesn't remount them and enter animations don't replay.
 function reconcile(
     prev: CharUnit[],
     next: string,
@@ -68,8 +69,8 @@ function reconcile(
 }
 
 // we use offsetLeft/offsetTop rather than getBoundingClientRect so that the
-// char's entry transform (translateY) does NOT shift the measurement — layout
-// position only, visual position is handled by transitions on the caret itself.
+// char's entry transform (translateY) does NOT shift the measurement. layout
+// position only, visual position is handled by the motion caret.
 function computeCaretRect(
     overlay: HTMLElement,
     chars: CharUnit[],
@@ -108,7 +109,7 @@ function computeCaretRect(
         };
     }
 
-    // caret sits immediately before a newline → place it at the right-edge of
+    // caret sits immediately before a newline. place it at the right-edge of
     // the previous char, on that line, rather than at the newline's own box.
     if (chars[idx].char === "\n") {
         const prev = spans[idx - 1];
@@ -129,6 +130,14 @@ function computeCaretRect(
     const target = spans[idx];
     return { x: target.offsetLeft, y: target.offsetTop, h: target.offsetHeight || lh };
 }
+
+const CARET_GLIDE: Transition = {
+    type: "tween",
+    duration: 0.18,
+    ease: [0.22, 1, 0.36, 1],
+};
+
+const CARET_INSTANT: Transition = { duration: 0 };
 
 export default function AnimatedInput({
     value,
@@ -208,7 +217,7 @@ export default function AnimatedInput({
     }, []);
 
     // apple-style blink: solid while typing and briefly after, then regular
-    // fade in/out at ~530ms intervals. the css transition on opacity gives the
+    // fade in/out at ~530ms intervals. motion's opacity transition gives the
     // smooth (not hard on/off) feel.
     useEffect(() => {
         if (!focused || !caretIdle) {
@@ -276,7 +285,7 @@ export default function AnimatedInput({
         // snap instantly only when: (a) line change (diagonal slide looks wrong)
         // or (b) rapid shrink = hold-delete (cursor would otherwise trail far
         // behind the real caret, looking broken). forward typing always glides
-        // smoothly — apple-style lag, not a teleport.
+        // smoothly, apple-style lag, not a teleport.
         const yJumped = Math.abs(rect.y - prevCaretYRef.current) > 2;
 
         if (yJumped || (rapid && shrinking)) {
@@ -320,7 +329,7 @@ export default function AnimatedInput({
 
     const focus = () => (multiline ? textareaRef : inputRef).current?.focus();
 
-    const nativeClass = `ai-native relative z-10 block w-full bg-transparent outline-none resize-none font-[inherit] text-[inherit] leading-[inherit] ${padding}`;
+    const nativeClass = `relative z-10 block w-full bg-transparent outline-none resize-none font-[inherit] text-[inherit] leading-[inherit] ${padding}`;
 
     const overlayStyle: CSSProperties = multiline
         ? {
@@ -331,7 +340,8 @@ export default function AnimatedInput({
           }
         : { whiteSpace: "pre", overflow: "hidden" };
 
-    const caretOn = focused && caretRect.h > 0 && blinkOn;
+    const caretVisible = focused && caretRect.h > 0 && blinkOn;
+    const glide = instantMove ? CARET_INSTANT : CARET_GLIDE;
 
     return (
         <div
@@ -347,17 +357,31 @@ export default function AnimatedInput({
                     scrollbarWidth: "none",
                 }}
             >
-                <span
-                    className={`ai-caret${instantMove ? " ai-caret--instant" : ""}`}
-                    style={
-                        {
-                            width: 2,
-                            height: caretRect.h,
-                            opacity: caretOn ? 1 : 0,
-                            "--aic-x": `${caretRect.x}px`,
-                            "--aic-y": `${caretRect.y}px`,
-                        } as CSSProperties
-                    }
+                <motion.span
+                    aria-hidden="true"
+                    style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: 2,
+                        background: "linear-gradient(180deg, rgba(220,240,255,0.92) 0%, rgba(255,255,255,1) 50%, rgba(180,210,255,0.92) 100%)",
+                        boxShadow: "0 0 6px rgba(255,255,255,0.45), 0 0 12px rgba(130,180,255,0.3)",
+                        borderRadius: 1,
+                        pointerEvents: "none",
+                        willChange: "transform, opacity, height",
+                    }}
+                    animate={{
+                        x: caretRect.x,
+                        y: caretRect.y,
+                        height: caretRect.h,
+                        opacity: caretVisible ? 1 : 0,
+                    }}
+                    transition={{
+                        x: glide,
+                        y: glide,
+                        height: { duration: 0 },
+                        opacity: { duration: 0.15, ease: "easeInOut" },
+                    }}
                 />
 
                 {chars.length === 0 && placeholder ? (
@@ -374,7 +398,6 @@ export default function AnimatedInput({
                                 <span
                                     key={c.id}
                                     data-char
-                                    className="ai-ws"
                                     style={{ display: "inline" }}
                                 >
                                     {c.char}
@@ -382,25 +405,35 @@ export default function AnimatedInput({
                             );
                         }
 
-                        const blurPx = (1.8 + c.intensity * 6.5).toFixed(2);
-                        const yOff = (0.035 + c.intensity * 0.13).toFixed(3);
-                        const dur = Math.round(460 + c.intensity * 320);
+                        const blurPx = 1.8 + c.intensity * 6.5;
+                        const yOff = 0.035 + c.intensity * 0.13;
+                        const dur = (460 + c.intensity * 320) / 1000;
 
                         return (
-                            <span
+                            <motion.span
                                 key={c.id}
                                 data-char
-                                className="ai-char"
-                                style={
-                                    {
-                                        "--ai-blur": `${blurPx}px`,
-                                        "--ai-yoff": `${yOff}em`,
-                                        "--ai-dur": `${dur}ms`,
-                                    } as CSSProperties
-                                }
+                                style={{
+                                    display: "inline-block",
+                                    willChange: "transform, filter, opacity",
+                                }}
+                                initial={{
+                                    opacity: 0,
+                                    filter: `blur(${blurPx}px)`,
+                                    y: `${yOff}em`,
+                                }}
+                                animate={{
+                                    opacity: 1,
+                                    filter: "blur(0px)",
+                                    y: "0em",
+                                }}
+                                transition={{
+                                    duration: dur,
+                                    ease: [0.22, 1, 0.36, 1],
+                                }}
                             >
                                 {c.char}
-                            </span>
+                            </motion.span>
                         );
                     })
                 )}
@@ -430,7 +463,7 @@ export default function AnimatedInput({
                     required={required}
                     rows={rows}
                     aria-label={ariaLabel}
-                    className={`${nativeClass} ai-textarea-minimal-scroll`}
+                    className={nativeClass}
                     style={{
                         color: "transparent",
                         caretColor: "transparent",
