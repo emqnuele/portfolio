@@ -23,23 +23,22 @@ export default function ProjectsGrid({ projects, filterKey = "" }: { projects: P
     const openModal = (project: Project) => {
         setSelectedProject(project);
         setIsModalOpen(true);
+        router.replace(`/projects?open=${project.slug}`, { scroll: false });
     };
 
     const closeModal = () => {
         setIsModalOpen(false);
-        // keep selectedProject alive during exit animation, then clear
+        router.replace("/projects", { scroll: false });
         setTimeout(() => setSelectedProject(null), 400);
     };
 
+    // open modal on direct navigation to /projects?open=slug
     useEffect(() => {
         const slug = searchParams.get("open");
         if (!slug) return;
         const project = projects.find((p) => p.slug === slug);
-        if (project) {
-            openModal(project);
-            router.replace("/projects", { scroll: false });
-        }
-    }, [searchParams, projects]); // eslint-disable-line react-hooks/exhaustive-deps
+        if (project) openModal(project);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <>
