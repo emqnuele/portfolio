@@ -36,12 +36,14 @@ interface CaretRect {
     h: number;
 }
 
-let idCounter = 0;
-const genId = () => ++idCounter;
-
 // common-prefix / common-suffix diff. preserves ids for untouched chars so
 // react doesn't remount them and css enter animations don't replay.
-function reconcile(prev: CharUnit[], next: string, intensity: number): CharUnit[] {
+function reconcile(
+    prev: CharUnit[],
+    next: string,
+    intensity: number,
+    genId: () => number
+): CharUnit[] {
     const prevLen = prev.length;
     const nextLen = next.length;
 
@@ -147,9 +149,17 @@ export default function AnimatedInput({
     const overlayRef = useRef<HTMLDivElement>(null);
     const lastKeyTimeRef = useRef<number>(0);
     const typingPulseRef = useRef<number | null>(null);
+    const rapidTimerRef = useRef<number | null>(null);
+    const lastMeasureRef = useRef<number>(0);
+    const prevLenRef = useRef<number>(0);
+    // per-instance id counter. survives hmr since the ref stays with the
+    // component fiber; a module-level counter resets on module reload and
+    // collides with ids already held in state.
+    const idCounterRef = useRef(0);
+    const genId = useCallback(() => ++idCounterRef.current, []);
 
     const [chars, setChars] = useState<CharUnit[]>(() =>
-        Array.from(value).map((c) => ({ id: genId(), char: c, intensity: 0 }))
+        Array.from(value).map((c) => ({ id: ++idCounterRef.current, char: c, intensity: 0 }))
     );
     const [focused, setFocused] = useState(false);
     const [caretIndex, setCaretIndex] = useState(0);
@@ -163,9 +173,9 @@ export default function AnimatedInput({
         setChars((prev) => {
             const prevStr = prev.map((c) => c.char).join("");
             if (prevStr === value) return prev;
-            return reconcile(prev, value, 0);
+            return reconcile(prev, value, 0, genId);
         });
-    }, [value]);
+    }, [value, genId]);
 
     const measureIntensity = useCallback(() => {
         const now = typeof performance !== "undefined" ? performance.now() : Date.now();
@@ -191,6 +201,7 @@ export default function AnimatedInput({
     useEffect(() => {
         return () => {
             if (typingPulseRef.current) window.clearTimeout(typingPulseRef.current);
+            if (rapidTimerRef.current) window.clearTimeout(rapidTimerRef.current);
         };
     }, []);
 
@@ -213,7 +224,7 @@ export default function AnimatedInput({
 
     const handleChange = (next: string, caret: number) => {
         const intensity = measureIntensity();
-        setChars((p) => reconcile(p, next, intensity));
+        setChars((p) => reconcile(p, next, intensity, genId));
         setCaretIndex(caret);
         pingTyping();
         onChange(next);
@@ -253,22 +264,34 @@ export default function AnimatedInput({
         if (!overlay) return;
         const rect = computeCaretRect(overlay, chars, caretIndex);
 
-        // if caret jumped to a different line, skip the x-transition for one
-        // frame so it teleports vertically without diagonal sliding.
+        const now = typeof performance !== "undefined" ? performance.now() : Date.now();
+        const dt = now - lastMeasureRef.current;
+        lastMeasureRef.current = now;
+        const rapid = dt > 0 && dt < 75;
+        const shrinking = chars.length < prevLenRef.current;
+        prevLenRef.current = chars.length;
+
+        // snap instantly only when: (a) line change (diagonal slide looks wrong)
+        // or (b) rapid shrink = hold-delete (cursor would otherwise trail far
+        // behind the real caret, looking broken). forward typing always glides
+        // smoothly — apple-style lag, not a teleport.
         const yJumped = Math.abs(rect.y - prevCaretYRef.current) > 2;
-        if (yJumped) {
+
+        if (yJumped || (rapid && shrinking)) {
             setInstantMove(true);
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => setInstantMove(false));
-            });
+            if (rapidTimerRef.current) window.clearTimeout(rapidTimerRef.current);
+            rapidTimerRef.current = window.setTimeout(() => {
+                setInstantMove(false);
+            }, 130);
         }
+
         prevCaretYRef.current = rect.y;
         setCaretRect(rect);
     }, [chars, caretIndex, syncScroll]);
 
     const focus = () => (multiline ? textareaRef : inputRef).current?.focus();
 
-    const nativeClass = `relative z-10 block w-full bg-transparent outline-none resize-none font-[inherit] text-[inherit] leading-[inherit] ${padding}`;
+    const nativeClass = `ai-native relative z-10 block w-full bg-transparent outline-none resize-none font-[inherit] text-[inherit] leading-[inherit] ${padding}`;
 
     const overlayStyle: CSSProperties = multiline
         ? {
@@ -315,21 +338,24 @@ export default function AnimatedInput({
                         const isWs = c.char === " " || c.char === "\n" || c.char === "\t";
 
                         if (isWs) {
+                            // inherit white-space from parent so pre-wrap can
+                            // hang the space at line-end instead of pushing it
+                            // to the start of the next line.
                             return (
                                 <span
                                     key={c.id}
                                     data-char
                                     className="ai-ws"
-                                    style={{ display: "inline", whiteSpace: "pre" }}
+                                    style={{ display: "inline" }}
                                 >
                                     {c.char}
                                 </span>
                             );
                         }
 
-                        const blurPx = (2.5 + c.intensity * 9).toFixed(1);
-                        const yOff = (0.06 + c.intensity * 0.18).toFixed(3);
-                        const dur = Math.round(220 + c.intensity * 160);
+                        const blurPx = (1.8 + c.intensity * 6.5).toFixed(2);
+                        const yOff = (0.035 + c.intensity * 0.13).toFixed(3);
+                        const dur = Math.round(460 + c.intensity * 320);
 
                         return (
                             <span

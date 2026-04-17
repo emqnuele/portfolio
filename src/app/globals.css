@@ -72,15 +72,18 @@ textarea::-webkit-scrollbar {
 }
 
 @keyframes ai-char-in {
-  from {
+  0% {
     opacity: 0;
-    filter: blur(var(--ai-blur, 6px));
-    transform: translate3d(0, var(--ai-yoff, 0.12em), 0);
+    filter: blur(var(--ai-blur, 5px));
+    transform: translate3d(0, var(--ai-yoff, 0.1em), 0);
   }
-  60% {
+  /* blur + opacity resolve early on a steep curve — the char is legible
+     well before the transform completes its gentle settle. */
+  42% {
     opacity: 1;
+    filter: blur(0);
   }
-  to {
+  100% {
     opacity: 1;
     filter: blur(0);
     transform: translate3d(0, 0, 0);
@@ -89,12 +92,12 @@ textarea::-webkit-scrollbar {
 
 .ai-char {
   display: inline-block;
-  animation: ai-char-in var(--ai-dur, 280ms) cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: ai-char-in var(--ai-dur, 380ms) cubic-bezier(0.22, 0.61, 0.36, 1) both;
   will-change: transform, filter, opacity;
 }
 
 .ai-ws {
-  animation: ai-ws-in 180ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: ai-ws-in 260ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
 @keyframes ai-ws-in {
@@ -110,9 +113,9 @@ textarea::-webkit-scrollbar {
   pointer-events: none;
   transform: translate3d(var(--aic-x, 0px), var(--aic-y, 0px), 0);
   transition:
-    --aic-x 125ms cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 180ms cubic-bezier(0.4, 0, 0.2, 1),
-    height 180ms cubic-bezier(0.22, 1, 0.36, 1);
+    --aic-x 170ms cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 220ms cubic-bezier(0.4, 0, 0.2, 1),
+    height 200ms cubic-bezier(0.32, 0.72, 0, 1);
   background: linear-gradient(
     180deg,
     rgba(220, 240, 255, 0.92) 0%,
@@ -148,5 +151,20 @@ textarea::-webkit-scrollbar {
 ::-moz-selection {
   background: rgba(160, 185, 255, 0.28);
   color: #ffffff;
+  text-shadow: none;
+}
+
+/* keep native input text invisible when selected — otherwise the global
+   ::selection color override reveals it through the animated overlay. */
+.ai-native::selection {
+  background: rgba(160, 185, 255, 0.28);
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+}
+
+.ai-native::-moz-selection {
+  background: rgba(160, 185, 255, 0.28);
+  color: transparent;
   text-shadow: none;
 }
