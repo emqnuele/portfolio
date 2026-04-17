@@ -6,20 +6,9 @@ import { projects, allCategories } from "@/data/portfolio";
 import ProjectsGrid from "@/components/ui/ProjectsGrid";
 import ProjectSearch from "@/components/ui/ProjectSearch";
 
-// only tags used in 2+ projects, sorted by frequency
-const allTags = (() => {
-    const freq: Record<string, number> = {};
-    projects.forEach(p => p.stack.forEach(t => { freq[t] = (freq[t] || 0) + 1; }));
-    return Object.entries(freq)
-        .filter(([, count]) => count >= 2)
-        .sort((a, b) => b[1] - a[1])
-        .map(([tag]) => tag);
-})();
-
 export default function ProjectsPage() {
     const [searchQuery, setSearchQuery] = useState("");
     const [activeCategories, setActiveCategories] = useState<string[]>([]);
-    const [activeFilters, setActiveFilters] = useState<string[]>([]);
 
     const filteredProjects = useMemo(() => {
         let result = projects;
@@ -40,30 +29,13 @@ export default function ProjectsPage() {
             );
         }
 
-        if (activeFilters.length > 0) {
-            result = result.filter(p =>
-                activeFilters.some(f => p.stack.includes(f))
-            );
-        }
-
         return result;
-    }, [searchQuery, activeCategories, activeFilters]);
+    }, [searchQuery, activeCategories]);
 
     const toggleCategory = (cat: string) => {
         setActiveCategories(prev =>
             prev.includes(cat) ? prev.filter(c => c !== cat) : [...prev, cat]
         );
-    };
-
-    const toggleFilter = (tag: string) => {
-        setActiveFilters(prev =>
-            prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
-        );
-    };
-
-    const clearAll = () => {
-        setActiveCategories([]);
-        setActiveFilters([]);
     };
 
     return (
@@ -92,22 +64,19 @@ export default function ProjectsPage() {
 
                     {/* Search + filters */}
                     <ProjectSearch
-                        allTags={allTags}
                         allCategories={allCategories as unknown as string[]}
                         searchQuery={searchQuery}
                         activeCategories={activeCategories}
-                        activeFilters={activeFilters}
                         onSearchChange={setSearchQuery}
                         onCategoryToggle={toggleCategory}
-                        onFilterToggle={toggleFilter}
-                        onClearFilters={clearAll}
+                        onClearFilters={() => setActiveCategories([])}
                     />
                 </div>
 
                 <Suspense fallback={null}>
                     <ProjectsGrid
                         projects={filteredProjects}
-                        filterKey={searchQuery + activeCategories.join(",") + activeFilters.join(",")}
+                        filterKey={searchQuery + activeCategories.join(",")}
                     />
                 </Suspense>
             </div>

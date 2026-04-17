@@ -6,34 +6,26 @@ import { Search, X, SlidersHorizontal } from "lucide-react";
 import AnimatedInput from "@/components/ui/AnimatedInput";
 
 interface ProjectSearchProps {
-    allTags: string[];
     allCategories: string[];
     searchQuery: string;
     activeCategories: string[];
-    activeFilters: string[];
     onSearchChange: (query: string) => void;
     onCategoryToggle: (cat: string) => void;
-    onFilterToggle: (tag: string) => void;
     onClearFilters: () => void;
 }
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 export default function ProjectSearch({
-    allTags,
     allCategories,
     searchQuery,
     activeCategories,
-    activeFilters,
     onSearchChange,
     onCategoryToggle,
-    onFilterToggle,
     onClearFilters,
 }: ProjectSearchProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const [panelOpen, setPanelOpen] = useState(false);
-
-    const totalActive = activeCategories.length + activeFilters.length;
 
     // close panel on outside click
     useEffect(() => {
@@ -93,14 +85,14 @@ export default function ProjectSearch({
                 onClick={() => setPanelOpen(!panelOpen)}
                 aria-label="Toggle filters"
                 className={`relative flex-shrink-0 flex items-center justify-center w-[46px] rounded-2xl border transition-all duration-200 ${
-                    panelOpen || totalActive > 0
+                    panelOpen || activeCategories.length > 0
                         ? "bg-zinc-800/90 border-white/[0.16] text-white"
                         : "bg-zinc-900/75 border-white/[0.09] text-zinc-400 hover:text-zinc-200 hover:border-white/[0.14]"
                 }`}
             >
                 <SlidersHorizontal size={15} />
                 <AnimatePresence>
-                    {totalActive > 0 && (
+                    {activeCategories.length > 0 && (
                         <motion.span
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
@@ -108,7 +100,7 @@ export default function ProjectSearch({
                             transition={{ type: "spring", stiffness: 300, damping: 20 }}
                             className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-white text-black text-[9px] font-bold flex items-center justify-center leading-none"
                         >
-                            {totalActive}
+                            {activeCategories.length}
                         </motion.span>
                     )}
                 </AnimatePresence>
@@ -128,7 +120,7 @@ export default function ProjectSearch({
                         <div className="flex items-center justify-between mb-3 px-0.5">
                             <span className="text-[11px] font-mono text-zinc-400 tracking-wide">what are you looking for?</span>
                             <AnimatePresence>
-                                {totalActive > 0 && (
+                                {activeCategories.length > 0 && (
                                     <motion.button
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
@@ -142,7 +134,7 @@ export default function ProjectSearch({
                             </AnimatePresence>
                         </div>
 
-                        {/* Category chips — primary, bigger, approachable */}
+                        {/* Category chips */}
                         <div className="grid grid-cols-2 gap-1.5">
                             {allCategories.map((cat, i) => {
                                 const isActive = activeCategories.includes(cat);
@@ -162,39 +154,6 @@ export default function ProjectSearch({
                                         }`}
                                     >
                                         {cat}
-                                    </motion.button>
-                                );
-                            })}
-                        </div>
-
-                        {/* Divider with label */}
-                        <div className="relative flex items-center my-3.5">
-                            <div className="flex-1 h-px bg-white/[0.06]" />
-                            <span className="px-2.5 text-[10px] font-mono text-zinc-500 tracking-[0.15em] uppercase">by tech</span>
-                            <div className="flex-1 h-px bg-white/[0.06]" />
-                        </div>
-
-                        {/* Tech chips — secondary, thin pills */}
-                        <div className="flex flex-wrap gap-1.5">
-                            {allTags.map((tag, i) => {
-                                const isActive = activeFilters.includes(tag);
-                                const delay = 0.04 + allCategories.length * 0.025 + i * 0.015;
-                                return (
-                                    <motion.button
-                                        key={tag}
-                                        initial={{ opacity: 0, y: 4 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.22, delay, ease: EASE }}
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        onClick={() => onFilterToggle(tag)}
-                                        className={`px-2.5 py-1 rounded-full text-[11px] font-mono border transition-all duration-150 ${
-                                            isActive
-                                                ? "bg-white/[0.11] border-white/[0.16] text-white"
-                                                : "bg-white/[0.02] border-white/[0.06] text-zinc-400 hover:text-zinc-100 hover:bg-white/[0.06] hover:border-white/[0.12]"
-                                        }`}
-                                    >
-                                        {tag}
                                     </motion.button>
                                 );
                             })}
