@@ -372,14 +372,14 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                                                     rel="noopener noreferrer"
                                                     className={`group flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
                                                         isLive
-                                                            ? "bg-white text-black hover:bg-zinc-100"
+                                                            ? "border border-transparent bg-white text-black hover:bg-zinc-100"
                                                             : "border border-white/10 text-white/70 hover:text-white hover:border-white/20 hover:bg-white/5"
                                                     }`}
                                                 >
                                                     <span className="capitalize">{link.label}</span>
                                                     {isGit
                                                         ? <Github size={14} />
-                                                        : <ExternalLink size={13} className={isLive ? "opacity-60" : "opacity-40 group-hover:opacity-80"} />
+                                                        : <ExternalLink size={14} className={isLive ? "opacity-60" : "opacity-40 group-hover:opacity-80"} />
                                                     }
                                                 </Link>
                                             );
@@ -540,14 +540,14 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                                                         rel="noopener noreferrer"
                                                         className={`group flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
                                                             isLive
-                                                                ? "bg-white text-black hover:bg-zinc-100"
+                                                                ? "border border-transparent bg-white text-black hover:bg-zinc-100"
                                                                 : "border border-white/10 text-white/70 hover:text-white hover:border-white/20 hover:bg-white/5"
                                                         }`}
                                                     >
                                                         <span className="capitalize">{link.label}</span>
                                                         {isGit
                                                             ? <Github size={14} />
-                                                            : <ExternalLink size={13} className={isLive ? "opacity-60" : "opacity-40 group-hover:opacity-80"} />
+                                                            : <ExternalLink size={14} className={isLive ? "opacity-60" : "opacity-40 group-hover:opacity-80"} />
                                                         }
                                                     </Link>
                                                 );
