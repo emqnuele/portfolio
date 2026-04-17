@@ -168,3 +168,32 @@ textarea::-webkit-scrollbar {
   color: transparent;
   text-shadow: none;
 }
+
+.ai-textarea-minimal-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.26) transparent;
+}
+
+.ai-textarea-minimal-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.ai-textarea-minimal-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ai-textarea-minimal-scroll::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 9999px;
+  transition: background-color 180ms ease;
+}
+
+.ai-textarea-minimal-scroll:hover::-webkit-scrollbar-thumb,
+.ai-textarea-minimal-scroll:focus::-webkit-scrollbar-thumb,
+.ai-textarea-minimal-scroll:focus-visible::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.26);
+}
+
+.ai-textarea-minimal-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.36);
+}

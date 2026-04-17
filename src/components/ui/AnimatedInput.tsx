@@ -144,6 +144,8 @@ export default function AnimatedInput({
     onBlur,
     "aria-label": ariaLabel,
 }: AnimatedInputProps) {
+    const MAX_TEXTAREA_ROWS = 10;
+
     const inputRef = useRef<HTMLInputElement>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const overlayRef = useRef<HTMLDivElement>(null);
@@ -289,6 +291,33 @@ export default function AnimatedInput({
         setCaretRect(rect);
     }, [chars, caretIndex, syncScroll]);
 
+    useLayoutEffect(() => {
+        if (!multiline) return;
+
+        const textarea = textareaRef.current;
+        if (!textarea) return;
+
+        textarea.style.height = "auto";
+
+        const styles = window.getComputedStyle(textarea);
+        const lineHeight = parseFloat(styles.lineHeight) || 20;
+        const paddingTop = parseFloat(styles.paddingTop) || 0;
+        const paddingBottom = parseFloat(styles.paddingBottom) || 0;
+        const minHeight = rows * lineHeight + paddingTop + paddingBottom;
+        const maxHeight =
+            MAX_TEXTAREA_ROWS * lineHeight + paddingTop + paddingBottom;
+        const targetHeight = Math.min(
+            Math.max(textarea.scrollHeight, minHeight),
+            maxHeight
+        );
+
+        textarea.style.height = `${targetHeight}px`;
+        textarea.style.overflowY =
+            textarea.scrollHeight > maxHeight ? "auto" : "hidden";
+
+        syncScroll();
+    }, [value, multiline, rows, syncScroll]);
+
     const focus = () => (multiline ? textareaRef : inputRef).current?.focus();
 
     const nativeClass = `ai-native relative z-10 block w-full bg-transparent outline-none resize-none font-[inherit] text-[inherit] leading-[inherit] ${padding}`;
@@ -401,7 +430,7 @@ export default function AnimatedInput({
                     required={required}
                     rows={rows}
                     aria-label={ariaLabel}
-                    className={nativeClass}
+                    className={`${nativeClass} ai-textarea-minimal-scroll`}
                     style={{
                         color: "transparent",
                         caretColor: "transparent",
