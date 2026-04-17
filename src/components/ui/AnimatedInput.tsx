@@ -178,7 +178,6 @@ export default function AnimatedInput({
     const [caretIdle, setCaretIdle] = useState(true);
     const [blinkOn, setBlinkOn] = useState(true);
     const [instantMove, setInstantMove] = useState(false);
-    const [snapXOnly, setSnapXOnly] = useState(false);
     const prevCaretYRef = useRef<number>(0);
 
     useEffect(() => {
@@ -285,10 +284,6 @@ export default function AnimatedInput({
 
         const yJumped = Math.abs(rect.y - prevCaretYRef.current) > 2;
 
-        if (yJumped) {
-            setSnapXOnly(true);
-            requestAnimationFrame(() => setSnapXOnly(false));
-        }
         if (rapid && shrinking) {
             setInstantMove(true);
             if (rapidTimerRef.current) window.clearTimeout(rapidTimerRef.current);
