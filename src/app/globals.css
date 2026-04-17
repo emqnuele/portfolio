@@ -171,11 +171,17 @@ textarea::-webkit-scrollbar {
 
 .ai-textarea-minimal-scroll {
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.26) transparent;
+  scrollbar-color: rgba(214, 223, 255, 0.55) transparent;
 }
 
 .ai-textarea-minimal-scroll::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
+}
+
+.ai-textarea-minimal-scroll::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .ai-textarea-minimal-scroll::-webkit-scrollbar-track {
@@ -183,17 +189,24 @@ textarea::-webkit-scrollbar {
 }
 
 .ai-textarea-minimal-scroll::-webkit-scrollbar-thumb {
-  background: transparent;
   border-radius: 9999px;
-  transition: background-color 180ms ease;
-}
-
-.ai-textarea-minimal-scroll:hover::-webkit-scrollbar-thumb,
-.ai-textarea-minimal-scroll:focus::-webkit-scrollbar-thumb,
-.ai-textarea-minimal-scroll:focus-visible::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.26);
+  background: linear-gradient(
+    180deg,
+    rgba(214, 223, 255, 0.62) 0%,
+    rgba(168, 182, 235, 0.58) 100%
+  );
+  border: 1px solid transparent;
+  background-clip: padding-box;
 }
 
 .ai-textarea-minimal-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.36);
+  background: linear-gradient(
+    180deg,
+    rgba(214, 223, 255, 0.78) 0%,
+    rgba(168, 182, 235, 0.72) 100%
+  );
+}
+
+.ai-textarea-minimal-scroll::-webkit-scrollbar-corner {
+  background: transparent;
 }

@@ -335,7 +335,7 @@ export default function AnimatedInput({
 
     return (
         <div
-            className={`relative cursor-text overflow-hidden ${className ?? ""}`}
+            className={`group/ai relative cursor-text overflow-hidden ${className ?? ""}`}
             onClick={focus}
         >
             <div
