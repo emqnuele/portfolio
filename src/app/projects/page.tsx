@@ -50,7 +50,7 @@ export default function ProjectsPage() {
     return (
         <main className="relative min-h-screen w-full overflow-hidden">
             <div className="relative pt-24 md:pt-32 pb-28 md:pb-24 px-4 sm:px-6 md:px-12 max-w-7xl mx-auto">
-                <div className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6 md:gap-12">
+                <div className="mb-8 md:mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6 md:gap-12">
                     {/* Title */}
                     <div className="flex-shrink-0">
                         <motion.h1
