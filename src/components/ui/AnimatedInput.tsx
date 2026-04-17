@@ -178,6 +178,7 @@ export default function AnimatedInput({
     const [caretIdle, setCaretIdle] = useState(true);
     const [blinkOn, setBlinkOn] = useState(true);
     const [instantMove, setInstantMove] = useState(false);
+    const [snapXOnly, setSnapXOnly] = useState(false);
     const prevCaretYRef = useRef<number>(0);
 
     useEffect(() => {
@@ -282,18 +283,18 @@ export default function AnimatedInput({
         const shrinking = chars.length < prevLenRef.current;
         prevLenRef.current = chars.length;
 
-        // snap instantly only when: (a) line change (diagonal slide looks wrong)
-        // or (b) rapid shrink = hold-delete (cursor would otherwise trail far
-        // behind the real caret, looking broken). forward typing always glides
-        // smoothly, apple-style lag, not a teleport.
         const yJumped = Math.abs(rect.y - prevCaretYRef.current) > 2;
 
-        if (yJumped || (rapid && shrinking)) {
+        if (yJumped) {
+            // snap x only to avoid diagonal slide; y animates smoothly between lines
+            setSnapXOnly(true);
+            requestAnimationFrame(() => setSnapXOnly(false));
+        }
+        if (rapid && shrinking) {
+            // hold-delete: snap both axes so cursor tracks fast deletion
             setInstantMove(true);
             if (rapidTimerRef.current) window.clearTimeout(rapidTimerRef.current);
-            rapidTimerRef.current = window.setTimeout(() => {
-                setInstantMove(false);
-            }, 130);
+            rapidTimerRef.current = window.setTimeout(() => setInstantMove(false), 130);
         }
 
         prevCaretYRef.current = rect.y;
@@ -341,7 +342,6 @@ export default function AnimatedInput({
         : { whiteSpace: "pre", overflow: "hidden" };
 
     const caretVisible = focused && caretRect.h > 0 && blinkOn;
-    const glide = instantMove ? CARET_INSTANT : CARET_GLIDE;
 
     return (
         <div
@@ -378,8 +378,8 @@ export default function AnimatedInput({
                         opacity: caretVisible ? 1 : 0,
                     }}
                     transition={{
-                        x: glide,
-                        y: glide,
+                        x: (instantMove || snapXOnly) ? CARET_INSTANT : CARET_GLIDE,
+                        y: instantMove ? CARET_INSTANT : CARET_GLIDE,
                         height: { duration: 0 },
                         opacity: { duration: 0.15, ease: "easeInOut" },
                     }}
