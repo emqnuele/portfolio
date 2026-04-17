@@ -51,13 +51,14 @@ export default function ProjectsGrid({ projects, filterKey = "" }: { projects: P
                     <motion.article
                         key={project.slug}
                         layout
-                        initial={firstMount ? { opacity: 0, y: 28, scale: 0.96 } : { opacity: 0, scale: 0.92 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.22, ease: [0.4, 0, 1, 1] } }}
+                        initial={firstMount ? { opacity: 0, y: 28, scale: 0.96, filter: "blur(6px)" } : { opacity: 0, scale: 0.92, filter: "blur(8px)" }}
+                        animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+                        exit={{ opacity: 0, scale: 0.9, filter: "blur(6px)", transition: { duration: 0.22, ease: [0.4, 0, 1, 1] } }}
                         transition={{
                             layout: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
                             opacity: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
                             scale: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
+                            filter: { duration: 0.38, ease: [0.22, 1, 0.36, 1] },
                             y: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
                             delay: firstMount && i < 8 ? i * 0.06 : 0,
                         }}
