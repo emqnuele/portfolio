@@ -210,15 +210,27 @@ export const projects: Project[] = [
         accent: '255, 122, 214'
     },
     {
-        slug: 'portfolio',
-        title: 'Portfolio Website',
-        tagline: 'This very website.',
-        description: 'Built with Next.js, showcasing projects and my skills in a modern design.',
-        image: '/projects/new_portfolio.png',
+        slug: 'markolino-plugin',
+        title: 'Markolino-Chaos',
+        tagline: 'A Paper plugin that spawns a bot in minecraft!',
+        description: 'A fun plugin for Paper that spawns "Markolino" a bot that wants to kill you!',
+        image: '/projects/markolino.webp',
+        status: 'beta / 2025',
+        stack: ['Java', 'Minecraft', 'Paper', 'Fabric'],
+        categories: ['Minecraft', 'Games'],
+        links: [{ label: 'github', href: 'https://modrinth.com/plugin/markolino-chaos' }],
+        accent: '255, 122, 122'
+    },
+    {
+        slug: 'snake',
+        title: 'Snake Game',
+        tagline: 'A classic snake game.',
+        description: 'A fun snake game made with React!',
+        image: '/projects/snake/snake.png',
         status: 'live',
-        stack: ['Next.js', 'Tailwind', 'Framer Motion'],
-        categories: ['Websites'],
-        links: [{ label: 'github', href: 'https://github.com/emqnuele/portfolio' }, { label: 'live', href: 'https://emanuelefaraci.com/' }],
+        stack: ['React', 'TypeScript', 'Vite'],
+        categories: ['Games', 'Websites'],
+        links: [{ label: 'live', href: 'https://snake.emqnuele.dev/' }],
         accent: '220, 174, 255'
     },
     {
@@ -232,19 +244,6 @@ export const projects: Project[] = [
         categories: ['Dev Tools'],
         links: [{ label: 'github', href: 'https://github.com/emqnuele/webscraper' }],
         accent: '125, 255, 199'
-    },
-
-    {
-        slug: 'markolino-plugin',
-        title: 'Markolino-Chaos',
-        tagline: 'A Paper plugin that spawns a bot in minecraft!',
-        description: 'A fun plugin for Paper that spawns "Markolino" a bot that wants to kill you!',
-        image: '/projects/markolino.webp',
-        status: 'beta / 2025',
-        stack: ['Java', 'Minecraft', 'Paper', 'Fabric'],
-        categories: ['Minecraft', 'Games'],
-        links: [{ label: 'github', href: 'https://modrinth.com/plugin/markolino-chaos' }],
-        accent: '255, 122, 122'
     },
     {
         slug: 'quick-resource-pack',
@@ -261,7 +260,20 @@ export const projects: Project[] = [
         ],
         accent: '255, 122, 122',
         images: ['/projects/quick-resource-packs.png', '/projects/new-quick-resource-pack.png']
+    },
+    {
+        slug: 'portfolio',
+        title: 'Portfolio Website',
+        tagline: 'This very website.',
+        description: 'Built with Next.js, showcasing projects and my skills in a modern design.',
+        image: '/projects/new_portfolio.png',
+        status: 'live',
+        stack: ['Next.js', 'Tailwind', 'Framer Motion'],
+        categories: ['Websites'],
+        links: [{ label: 'github', href: 'https://github.com/emqnuele/portfolio' }, { label: 'live', href: 'https://emanuelefaraci.com/' }],
+        accent: '220, 174, 255'
     }
+
 ];
 
 export const journey = [
