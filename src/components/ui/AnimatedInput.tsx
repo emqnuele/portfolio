@@ -286,12 +286,10 @@ export default function AnimatedInput({
         const yJumped = Math.abs(rect.y - prevCaretYRef.current) > 2;
 
         if (yJumped) {
-            // snap x only to avoid diagonal slide; y animates smoothly between lines
             setSnapXOnly(true);
             requestAnimationFrame(() => setSnapXOnly(false));
         }
         if (rapid && shrinking) {
-            // hold-delete: snap both axes so cursor tracks fast deletion
             setInstantMove(true);
             if (rapidTimerRef.current) window.clearTimeout(rapidTimerRef.current);
             rapidTimerRef.current = window.setTimeout(() => setInstantMove(false), 130);
@@ -330,7 +328,7 @@ export default function AnimatedInput({
 
     const focus = () => (multiline ? textareaRef : inputRef).current?.focus();
 
-    const nativeClass = `relative z-10 block w-full bg-transparent outline-none resize-none font-[inherit] text-[inherit] leading-[inherit] ${padding}`;
+    const nativeClass = `ai-native relative z-10 block w-full bg-transparent outline-none resize-none font-[inherit] text-[inherit] leading-[inherit] ${padding}`;
 
     const overlayStyle: CSSProperties = multiline
         ? {
@@ -393,13 +391,11 @@ export default function AnimatedInput({
                         const isWs = c.char === " " || c.char === "\n" || c.char === "\t";
 
                         if (isWs) {
-                            // inherit white-space from parent so pre-wrap can
-                            // hang the space at line-end instead of pushing it
-                            // to the start of the next line.
                             return (
                                 <span
                                     key={c.id}
                                     data-char
+                                    className="ai-ws"
                                     style={{ display: "inline" }}
                                 >
                                     {c.char}
@@ -407,36 +403,25 @@ export default function AnimatedInput({
                             );
                         }
 
-                        const blurPx = 1.8 + c.intensity * 6.5;
-                        const yOff = 0.035 + c.intensity * 0.13;
-                        const dur = (460 + c.intensity * 320) / 1000;
+                        const blurPx = (1.8 + c.intensity * 6.5).toFixed(2);
+                        const yOff = (0.035 + c.intensity * 0.13).toFixed(3);
+                        const dur = Math.round(460 + c.intensity * 320);
 
                         return (
-                            <motion.span
+                            <span
                                 key={c.id}
                                 data-char
-                                style={{
-                                    display: "inline-block",
-                                    willChange: "transform, filter, opacity",
-                                }}
-                                initial={{
-                                    opacity: 0,
-                                    filter: `blur(${blurPx}px)`,
-                                    y: `${yOff}em`,
-                                }}
-                                animate={{
-                                    opacity: 1,
-                                    filter: "blur(0px)",
-                                    y: "0em",
-                                }}
-                                transition={{
-                                    opacity: { duration: dur * 0.42, ease: [0.22, 0.61, 0.36, 1] },
-                                    filter:  { duration: dur * 0.42, ease: [0.22, 0.61, 0.36, 1] },
-                                    y:       { duration: dur,        ease: [0.22, 0.61, 0.36, 1] },
-                                }}
+                                className="ai-char"
+                                style={
+                                    {
+                                        "--ai-blur": `${blurPx}px`,
+                                        "--ai-yoff": `${yOff}em`,
+                                        "--ai-dur": `${dur}ms`,
+                                    } as CSSProperties
+                                }
                             >
                                 {c.char}
-                            </motion.span>
+                            </span>
                         );
                     })
                 )}
@@ -466,7 +451,7 @@ export default function AnimatedInput({
                     required={required}
                     rows={rows}
                     aria-label={ariaLabel}
-                    className={nativeClass}
+                    className={`${nativeClass} ai-textarea-minimal-scroll`}
                     style={{
                         color: "transparent",
                         caretColor: "transparent",
