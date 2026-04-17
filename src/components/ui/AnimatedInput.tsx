@@ -342,6 +342,7 @@ export default function AnimatedInput({
         : { whiteSpace: "pre", overflow: "hidden" };
 
     const caretVisible = focused && caretRect.h > 0 && blinkOn;
+    const glide = instantMove ? CARET_INSTANT : CARET_GLIDE;
 
     return (
         <div
@@ -378,8 +379,8 @@ export default function AnimatedInput({
                         opacity: caretVisible ? 1 : 0,
                     }}
                     transition={{
-                        x: (instantMove || snapXOnly) ? CARET_INSTANT : CARET_GLIDE,
-                        y: instantMove ? CARET_INSTANT : CARET_GLIDE,
+                        x: glide,
+                        y: glide,
                         height: { duration: 0 },
                         opacity: { duration: 0.15, ease: "easeInOut" },
                     }}
@@ -429,8 +430,9 @@ export default function AnimatedInput({
                                     y: "0em",
                                 }}
                                 transition={{
-                                    duration: dur,
-                                    ease: [0.22, 1, 0.36, 1],
+                                    opacity: { duration: dur * 0.42, ease: [0.22, 0.61, 0.36, 1] },
+                                    filter:  { duration: dur * 0.42, ease: [0.22, 0.61, 0.36, 1] },
+                                    y:       { duration: dur,        ease: [0.22, 0.61, 0.36, 1] },
                                 }}
                             >
                                 {c.char}
