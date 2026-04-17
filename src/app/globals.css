@@ -39,6 +39,10 @@ body {
   width: 6px;
 }
 
+textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
@@ -50,4 +54,99 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #737373;
+}
+
+/* --- AnimatedInput --- */
+
+/* registered so css can transition the x coordinate independently of y,
+   which lets the caret glide horizontally but jump vertically (no diagonal). */
+@property --aic-x {
+  syntax: "<length>";
+  initial-value: 0px;
+  inherits: false;
+}
+@property --aic-y {
+  syntax: "<length>";
+  initial-value: 0px;
+  inherits: false;
+}
+
+@keyframes ai-char-in {
+  from {
+    opacity: 0;
+    filter: blur(var(--ai-blur, 6px));
+    transform: translate3d(0, var(--ai-yoff, 0.12em), 0);
+  }
+  60% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.ai-char {
+  display: inline-block;
+  animation: ai-char-in var(--ai-dur, 280ms) cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, filter, opacity;
+}
+
+.ai-ws {
+  animation: ai-ws-in 180ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes ai-ws-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.ai-caret {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 2px;
+  pointer-events: none;
+  transform: translate3d(var(--aic-x, 0px), var(--aic-y, 0px), 0);
+  transition:
+    --aic-x 125ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 180ms cubic-bezier(0.4, 0, 0.2, 1),
+    height 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  background: linear-gradient(
+    180deg,
+    rgba(220, 240, 255, 0.92) 0%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(180, 210, 255, 0.92) 100%
+  );
+  box-shadow:
+    0 0 6px rgba(255, 255, 255, 0.45),
+    0 0 12px rgba(130, 180, 255, 0.3);
+  will-change: transform, opacity;
+}
+
+.ai-caret--instant {
+  transition:
+    opacity 180ms cubic-bezier(0.4, 0, 0.2, 1),
+    height 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-char, .ai-ws { animation: none !important; }
+  .ai-caret { transition: opacity 120ms linear !important; }
+}
+
+/* site-wide selection — picks up the caret's blue-white hue and complements
+   the bottom-page violet glow. kept semi-transparent so highlighted text
+   stays fully legible on top. */
+::selection {
+  background: rgba(160, 185, 255, 0.28);
+  color: #ffffff;
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background: rgba(160, 185, 255, 0.28);
+  color: #ffffff;
+  text-shadow: none;
 }

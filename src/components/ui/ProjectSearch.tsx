@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, X, SlidersHorizontal } from "lucide-react";
+import AnimatedInput from "@/components/ui/AnimatedInput";
 
 interface ProjectSearchProps {
     allTags: string[];
@@ -21,7 +22,6 @@ export default function ProjectSearch({
     onFilterToggle,
     onClearFilters,
 }: ProjectSearchProps) {
-    const inputRef = useRef<HTMLInputElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const [panelOpen, setPanelOpen] = useState(false);
 
@@ -45,21 +45,17 @@ export default function ProjectSearch({
             className="relative flex gap-2 w-full md:max-w-[400px]"
         >
             {/* Search bar */}
-            <div
-                className="relative group flex-1 cursor-text"
-                onClick={() => inputRef.current?.focus()}
-            >
-                <div className="absolute inset-0 rounded-2xl bg-zinc-900/60 backdrop-blur-md border border-white/10 group-focus-within:border-white/20 transition-all duration-300" />
-                <div className="relative flex items-center px-4 py-2.5 gap-3">
-                    <Search size={14} className="text-zinc-500 flex-shrink-0" />
-                    <input
-                        ref={inputRef}
-                        type="text"
+            <div className="relative group flex-1">
+                <div className="absolute inset-0 rounded-2xl bg-zinc-900/60 backdrop-blur-md border border-white/10 group-focus-within:border-white/20 transition-all duration-300 pointer-events-none" />
+                <div className="relative flex items-center gap-3 pr-3">
+                    <Search size={14} className="text-zinc-500 flex-shrink-0 absolute left-4 pointer-events-none z-10" />
+                    <AnimatedInput
                         value={searchQuery}
-                        onChange={(e) => onSearchChange(e.target.value)}
+                        onChange={onSearchChange}
                         placeholder="Search projects..."
-                        className="bg-transparent text-sm text-white placeholder:text-zinc-600 outline-none flex-1 font-mono min-w-0"
                         aria-label="Search projects"
+                        className="flex-1 min-w-0 text-sm font-mono text-white"
+                        padding="pl-8 pr-2 py-2.5"
                     />
                     <AnimatePresence>
                         {searchQuery.length > 0 && (
@@ -68,7 +64,7 @@ export default function ProjectSearch({
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.5 }}
                                 transition={{ duration: 0.15 }}
-                                onClick={(e) => { e.stopPropagation(); onSearchChange(""); }}
+                                onClick={() => onSearchChange("")}
                                 className="p-1 rounded-full text-zinc-500 hover:text-white transition-colors flex-shrink-0"
                                 aria-label="Clear search"
                             >

@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { Send, ArrowRight, CheckCircle, AlertCircle, Github, Linkedin, Mail } from "lucide-react";
+import AnimatedInput from "@/components/ui/AnimatedInput";
 
 const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -61,7 +62,7 @@ export default function ContactSection() {
     };
 
     const inputBase =
-        "w-full bg-white/[0.04] border rounded-xl px-4 py-3.5 text-sm text-white placeholder:text-zinc-600 outline-none transition-all duration-300 font-mono resize-none";
+        "w-full bg-white/[0.04] border rounded-xl text-sm text-white outline-none transition-all duration-300 font-mono resize-none";
 
     const inputFocused = (field: string) =>
         focusedField === field
@@ -193,14 +194,15 @@ export default function ContactSection() {
                                             <label className="text-[11px] font-mono text-zinc-500 uppercase tracking-widest">
                                                 Name
                                             </label>
-                                            <input
+                                            <AnimatedInput
                                                 type="text"
                                                 placeholder="Your name"
                                                 value={name}
-                                                onChange={(e) => setName(e.target.value)}
+                                                onChange={setName}
                                                 onFocus={() => setFocusedField("name")}
                                                 onBlur={() => setFocusedField(null)}
                                                 required
+                                                aria-label="Your name"
                                                 className={`${inputBase} ${inputFocused("name")}`}
                                             />
                                         </div>
@@ -208,14 +210,15 @@ export default function ContactSection() {
                                             <label className="text-[11px] font-mono text-zinc-500 uppercase tracking-widest">
                                                 Email
                                             </label>
-                                            <input
+                                            <AnimatedInput
                                                 type="email"
                                                 placeholder="you@example.com"
                                                 value={email}
-                                                onChange={(e) => setEmail(e.target.value)}
+                                                onChange={setEmail}
                                                 onFocus={() => setFocusedField("email")}
                                                 onBlur={() => setFocusedField(null)}
                                                 required
+                                                aria-label="Email address"
                                                 className={`${inputBase} ${inputFocused("email")}`}
                                             />
                                         </div>
@@ -226,14 +229,16 @@ export default function ContactSection() {
                                         <label className="text-[11px] font-mono text-zinc-500 uppercase tracking-widest">
                                             Message
                                         </label>
-                                        <textarea
+                                        <AnimatedInput
+                                            multiline
+                                            rows={4}
                                             placeholder="Tell me about your project, idea, or just say hi."
                                             value={message}
-                                            onChange={(e) => setMessage(e.target.value)}
+                                            onChange={setMessage}
                                             onFocus={() => setFocusedField("message")}
                                             onBlur={() => setFocusedField(null)}
                                             required
-                                            rows={4}
+                                            aria-label="Message"
                                             className={`${inputBase} ${inputFocused("message")}`}
                                         />
                                     </div>
