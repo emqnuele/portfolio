@@ -12,6 +12,7 @@ import {
     Gamepad2,
     Wrench,
     Box,
+    Tag,
     type LucideIcon,
 } from "lucide-react";
 import AnimatedInput from "@/components/ui/AnimatedInput";
@@ -70,7 +71,7 @@ export default function ProjectSearch({
         >
             {/* Search bar */}
             <div className="relative group flex-1">
-                <div className="absolute inset-0 rounded-2xl bg-zinc-900/75 border border-white/[0.09] group-focus-within:border-white/[0.16] transition-all duration-300 pointer-events-none" />
+                <div className="absolute inset-0 rounded-2xl bg-zinc-900/75 border border-white/[0.09] pointer-events-none" />
                 <div className="relative flex items-center gap-3 pr-3">
                     <Search size={15} className="text-zinc-400/90 flex-shrink-0 absolute left-4 pointer-events-none z-10" />
                     <AnimatedInput
@@ -102,14 +103,13 @@ export default function ProjectSearch({
 
             {/* Filter toggle button */}
             <motion.button
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.96 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={() => setPanelOpen(!panelOpen)}
                 aria-label="Toggle filters"
-                className={`relative flex-shrink-0 flex items-center justify-center w-[46px] rounded-2xl border transition-all duration-200 ${
+                className={`relative flex-shrink-0 flex items-center justify-center w-[46px] rounded-2xl border transition-colors duration-200 ${
                     panelOpen || activeCategories.length > 0
-                        ? "bg-zinc-800/90 border-white/[0.16] text-white"
-                        : "bg-zinc-900/75 border-white/[0.09] text-zinc-400 hover:text-zinc-200 hover:border-white/[0.14]"
+                        ? "bg-zinc-800/90 border-white/[0.12] text-white"
+                        : "bg-zinc-900/75 border-white/[0.09] text-zinc-400 hover:text-zinc-200"
                 }`}
             >
                 <SlidersHorizontal size={15} />
@@ -160,7 +160,7 @@ export default function ProjectSearch({
                         <div className="grid grid-cols-2 gap-1.5">
                             {allCategories.map((cat, i) => {
                                 const isActive = activeCategories.includes(cat);
-                                const Icon = CATEGORY_ICONS[cat] ?? Box;
+                                const Icon = CATEGORY_ICONS[cat] ?? Tag;
                                 const count = categoryCounts[cat] ?? 0;
                                 return (
                                     <motion.button
@@ -168,51 +168,27 @@ export default function ProjectSearch({
                                         initial={{ opacity: 0, y: 4 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.25, delay: 0.04 + i * 0.025, ease: EASE }}
-                                        whileHover={{ y: -1 }}
-                                        whileTap={{ scale: 0.97 }}
+                                        whileTap={{ scale: 0.98 }}
                                         onClick={() => onCategoryToggle(cat)}
-                                        className={`group/chip relative flex items-center gap-2.5 pl-2.5 pr-2 py-2 rounded-xl text-[13px] font-medium border overflow-hidden text-left backdrop-blur-md transition-[background-color,border-color,color,box-shadow] duration-200 ${
+                                        className={`group/chip relative flex items-center gap-2.5 pl-2.5 pr-3 py-2 rounded-xl text-[13px] font-medium border text-left transition-colors duration-200 ${
                                             isActive
-                                                ? "bg-white text-black border-white shadow-[0_0_0_1px_rgba(255,255,255,0.1),0_8px_22px_-10px_rgba(255,255,255,0.35)]"
-                                                : "bg-white/[0.04] border-white/[0.09] text-zinc-100 hover:bg-white/[0.08] hover:border-white/20"
+                                                ? "bg-white text-black border-white"
+                                                : "bg-white/[0.04] border-white/[0.08] text-zinc-100 hover:bg-white/[0.06]"
                                         }`}
                                     >
-                                        {/* glass sheen on hover */}
-                                        {!isActive && (
-                                            <span
-                                                aria-hidden
-                                                className="pointer-events-none absolute inset-0 opacity-0 group-hover/chip:opacity-100 transition-opacity duration-300"
-                                                style={{
-                                                    background:
-                                                        "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 40%, transparent 100%)",
-                                                }}
-                                            />
-                                        )}
-
-                                        {/* top highlight line — glass edge */}
-                                        {!isActive && (
-                                            <span
-                                                aria-hidden
-                                                className="pointer-events-none absolute inset-x-3 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-60"
-                                            />
-                                        )}
-
-                                        {/* icon cap */}
                                         <span
-                                            className={`relative z-10 flex items-center justify-center w-6 h-6 rounded-lg flex-shrink-0 transition-colors duration-200 ${
-                                                isActive
-                                                    ? "bg-black/[0.06] text-black"
-                                                    : "bg-white/[0.05] text-zinc-300 group-hover/chip:text-white group-hover/chip:bg-white/[0.1]"
+                                            className={`flex items-center justify-center w-5 h-5 flex-shrink-0 transition-colors duration-200 ${
+                                                isActive ? "text-black" : "text-zinc-400 group-hover/chip:text-zinc-200"
                                             }`}
                                         >
-                                            <Icon size={13} strokeWidth={2.1} />
+                                            <Icon size={14} strokeWidth={1.75} />
                                         </span>
 
-                                        <span className="relative z-10 flex-1 leading-none tracking-tight">{cat}</span>
+                                        <span className="flex-1 leading-none tracking-tight">{cat}</span>
 
                                         <span
-                                            className={`relative z-10 text-[10px] font-mono leading-none tabular-nums transition-colors duration-200 ${
-                                                isActive ? "text-black/55" : "text-zinc-500 group-hover/chip:text-zinc-200"
+                                            className={`text-[10px] font-mono leading-none tabular-nums ${
+                                                isActive ? "text-black/50" : "text-zinc-500"
                                             }`}
                                         >
                                             {count}
