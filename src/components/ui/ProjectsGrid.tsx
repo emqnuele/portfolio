@@ -44,7 +44,7 @@ export default function ProjectsGrid({ projects, filterKey = "" }: { projects: P
     return (
         <>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
-                <AnimatePresence mode="popLayout" initial={false}>
+                <AnimatePresence mode="popLayout">
                 {projects.map((project, i) => {
                     const firstMount = isFirstMount.current;
                     return (
